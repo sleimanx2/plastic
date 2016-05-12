@@ -3,7 +3,12 @@ namespace Sleimanx2\Plastic\Mappings;
 
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
 
-class ElasticMappingRepository
+/**
+ * Mapping log repository
+ *
+ * @package Sleimanx2\Plastic\Mappings
+ */
+class Mappings
 {
     /**
      * The database connection resolver instance.
@@ -13,7 +18,7 @@ class ElasticMappingRepository
     protected $resolver;
 
     /**
-     * The name of the migration table.
+     * The name of the mappings table.
      *
      * @var string
      */
@@ -52,7 +57,7 @@ class ElasticMappingRepository
     }
 
     /**
-     * get the last mapping batch
+     * Get the last mapping batch
      *
      * @return $this
      */
@@ -64,7 +69,7 @@ class ElasticMappingRepository
     }
 
     /**
-     * log that a mapping was run
+     * Log that a mapping was run
      *
      * @param $file
      * @param $batch
@@ -77,13 +82,21 @@ class ElasticMappingRepository
     }
 
     /**
-     * remove mapping from the log
+     * Remove mapping from the log
      *
      * @param Object $mapping
      */
     public function delete($mapping)
     {
         $this->table()->where('mapping', $mapping->mapping)->delete();
+    }
+
+    /**
+     * Remove all mapping logs from the repository
+     */
+    public function reset()
+    {
+        $this->table()->truncate();
     }
 
     /*
@@ -123,10 +136,11 @@ class ElasticMappingRepository
     }
 
     /**
+     * Check it the repository table exits
      *
      * @return mixed
      */
-    public function repositoryExists()
+    public function exits()
     {
         return $this->schema()->hasTable($this->table);
     }

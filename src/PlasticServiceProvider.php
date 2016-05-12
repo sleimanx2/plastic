@@ -4,7 +4,7 @@ namespace Sleimanx2\Plastic;
 
 use Illuminate\Support\ServiceProvider;
 
-class ElasticServiceProvider extends ServiceProvider
+class PlasticServiceProvider extends ServiceProvider
 {
 
     /**

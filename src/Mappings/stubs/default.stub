@@ -1,0 +1,21 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Sleimanx2\Plastic\Mappings\Mapping;
+
+class DummyClass extends Mapping
+{
+    protected $model = DummyModel::class;
+
+    /**
+     * Run the mapping.
+     *
+     * @return void
+     */
+    public function map()
+    {
+        Map::create($this->model,function(Blueprint $map){
+            //
+        });
+    }
+}

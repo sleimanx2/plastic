@@ -2,10 +2,22 @@
 namespace Sleimanx2\Plastic;
 
 use Illuminate\Support\ServiceProvider;
-use Sleimanx2\Plastic\Mappings\ElasticMappingRepository;
+use Sleimanx2\Plastic\Console\Mapping\Install;
+use Sleimanx2\Plastic\Console\Mapping\Make;
+use Sleimanx2\Plastic\Console\Mapping\Reset;
+use Sleimanx2\Plastic\Console\Mapping\Run;
+use Sleimanx2\Plastic\Mappings\Creator;
+use Sleimanx2\Plastic\Mappings\Mapper;
+use Sleimanx2\Plastic\Mappings\Mappings;
 
 class MappingServiceProvider extends ServiceProvider
 {
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
     /**
      * Register the service provider.
@@ -15,19 +27,106 @@ class MappingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerRepository();
+
+        $this->registerMapper();
+
+        $this->registerCreator();
+
+        $this->registerCommands();
     }
 
-
+    /**
+     * Register the mapping repository service
+     */
     protected function registerRepository()
     {
         $this->app->singleton('mapping.repository', function ($app) {
 
             $table = $app['config']['plastic.mappings'];
 
-            return new ElasticMappingRepository($app['db'], $table);
+            return new Mappings($app['db'], $table);
         });
     }
 
+    /**
+     * Register the mapping creator service
+     */
+    protected function registerCreator()
+    {
+
+        $this->app->singleton('mapping.creator', function ($app) {
+            return new Creator($app['files']);
+        });
+    }
+
+    /**
+     * Register the mapper service
+     */
+    protected function registerMapper()
+    {
+        $this->app->singleton('mapping.mapper', function ($app) {
+            return new Mapper($app['mapping.repository'], $app['files']);
+        });
+    }
+
+    /**
+     * Register all needed commands
+     */
+    protected function registerCommands()
+    {
+        $commands = ['Install', 'Reset', 'Make', 'Run'];
+
+        foreach ($commands as $command) {
+            $this->{'register' . $command . 'Command'}();
+        }
+
+        $this->commands([
+            'command.mapping.install',
+            'command.mapping.reset',
+            'command.mapping.make',
+            'command.mapping.run'
+        ]);
+    }
+
+    /**
+     * Register the Install command
+     */
+    protected function registerInstallCommand()
+    {
+        $this->app->singleton('command.mapping.install', function ($app) {
+            return new Install($app['mapping.repository']);
+        });
+    }
+
+    /**
+     * Register the Install command
+     */
+    protected function registerRunCommand()
+    {
+        $this->app->singleton('command.mapping.run', function ($app) {
+            return new Run($app['mapping.mapper']);
+        });
+    }
+
+    /**
+     * Register the reset command
+     */
+    protected function registerResetCommand()
+    {
+        $this->app->singleton('command.mapping.reset', function ($app) {
+            return new Reset($app['mapping.repository']);
+        });
+    }
+
+    /**
+     * Register the make command
+     */
+    protected function registerMakeCommand()
+    {
+        $this->app->singleton('command.mapping.make', function ($app) {
+            return new Make($app['mapping.creator'], $app['composer']);
+        });
+    }
 
 
 }
