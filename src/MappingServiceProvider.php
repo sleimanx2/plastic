@@ -67,7 +67,7 @@ class MappingServiceProvider extends ServiceProvider
     protected function registerMapper()
     {
         $this->app->singleton('mapping.mapper', function ($app) {
-            return new Mapper($app['mapping.repository'], $app['files=']);
+            return new Mapper($app['mapping.repository'], $app['files']);
         });
     }
 
