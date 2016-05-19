@@ -22,7 +22,7 @@ return [
     | 4xx and 5xx errors are not considered retry’able events, since the node returns an operational response
     |
     */
-    'retires' => 3,
+    'retries' => 3,
 
     /*
     |--------------------------------------------------------------------------
