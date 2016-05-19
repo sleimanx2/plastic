@@ -14,7 +14,7 @@ class DummyClass extends Mapping
      */
     public function map()
     {
-        Map::create($this->model,function(Blueprint $map){
+        Map::create($this->type,function(Blueprint $map){
             //
         });
     }

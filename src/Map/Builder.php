@@ -6,8 +6,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Sleimanx2\Plastic\Connection;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
+use Sleimanx2\Plastic\Searchable;
 
-class Map
+class Builder
 {
     /**
      * Plastic connection instance
@@ -42,18 +43,14 @@ class Map
 
 
     /**
-     * @param Model $model
+     * Create a map on your elasticsearch index
+     *
+     * @param string $type
      * @param Closure $callback
      */
-    public function create(Model $model, Closure $callback)
+    public function create($type, Closure $callback)
     {
-        $traits = class_uses($model);
-
-        if (!isset($traits['Searchable'])) {
-            throw new InvalidArgumentException(get_class($model) . ' does not use the searchable trait');
-        }
-
-        $blueprint = $this->createBlueprint($model->getType());
+        $blueprint = $this->createBlueprint($type);
 
         $blueprint->create();
 

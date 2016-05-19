@@ -3,6 +3,7 @@
 namespace Sleimanx2\Plastic;
 
 use Elasticsearch\ClientBuilder;
+use Sleimanx2\Plastic\Map\Builder as MapBuilder;
 
 class Connection
 {
@@ -34,7 +35,15 @@ class Connection
     }
 
 
-
+    /**
+     * Get map builder instance for this connection
+     *
+     * @return MapBuilder
+     */
+    public function getMapBuilder()
+    {
+        return new MapBuilder($this);
+    }
 
     /**
      * Create an elastic search instance
