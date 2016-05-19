@@ -3,7 +3,6 @@
 namespace Sleimanx2\Plastic\Map;
 
 use Closure;
-use Illuminate\Database\Eloquent\Model;
 use Sleimanx2\Plastic\Connection;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
 use Sleimanx2\Plastic\Searchable;
@@ -39,8 +38,8 @@ class Builder
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
+        $this->grammar = $connection->getMapGrammar();
     }
-
 
     /**
      * Create a map on your elasticsearch index
@@ -50,6 +49,10 @@ class Builder
      */
     public function create($type, Closure $callback)
     {
+        if (!is_string($type)) {
+            throw new InvalidArgumentException('type should be a string');
+        }
+
         $blueprint = $this->createBlueprint($type);
 
         $blueprint->create();
