@@ -1,11 +1,13 @@
 <?php
 namespace Sleimanx2\Plastic;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Sleimanx2\Plastic\Console\Mapping\Install;
 use Sleimanx2\Plastic\Console\Mapping\Make;
 use Sleimanx2\Plastic\Console\Mapping\Reset;
 use Sleimanx2\Plastic\Console\Mapping\Run;
+use Sleimanx2\Plastic\Facades\Map;
 use Sleimanx2\Plastic\Mappings\Creator;
 use Sleimanx2\Plastic\Mappings\Mapper;
 use Sleimanx2\Plastic\Mappings\Mappings;
@@ -21,8 +23,6 @@ class MappingServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
@@ -33,6 +33,8 @@ class MappingServiceProvider extends ServiceProvider
         $this->registerCreator();
 
         $this->registerCommands();
+
+        $this->registerAlias();
     }
 
     /**
@@ -65,7 +67,7 @@ class MappingServiceProvider extends ServiceProvider
     protected function registerMapper()
     {
         $this->app->singleton('mapping.mapper', function ($app) {
-            return new Mapper($app['mapping.repository'], $app['files']);
+            return new Mapper($app['mapping.repository'], $app['files=']);
         });
     }
 
@@ -126,6 +128,12 @@ class MappingServiceProvider extends ServiceProvider
         $this->app->singleton('command.mapping.make', function ($app) {
             return new Make($app['mapping.creator'], $app['composer']);
         });
+    }
+
+
+    protected function registerAlias()
+    {
+        AliasLoader::getInstance()->alias("Map", Map::class);
     }
 
 

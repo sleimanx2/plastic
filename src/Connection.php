@@ -15,7 +15,10 @@ class Connection
     /**
      * @var array
      */
-    private $config = ['hosts' => ['localhost:9200'], 'retries' => 2];
+    private $config = [
+        'hosts'   => ['localhost:9200'],
+        'retries' => 2
+    ];
 
 
     /**
@@ -29,6 +32,9 @@ class Connection
 
         $this->elastic = $this->initClient();
     }
+
+
+
 
     /**
      * Create an elastic search instance
