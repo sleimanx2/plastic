@@ -1,7 +1,5 @@
 <?php
-
 namespace Sleimanx2\Plastic\Map;
-
 
 use Illuminate\Support\Fluent;
 
@@ -97,7 +95,13 @@ class Grammar
      */
     public function compileBinary(Fluent $fluent)
     {
-        return $this->compileNumeric($fluent);
+        $map = [
+            'type'       => $fluent->type,
+            'doc_values' => $fluent->doc_values,
+            'store'      => $fluent->store
+        ];
+
+        return $this->formatMap($map);
     }
 
 
@@ -110,6 +114,30 @@ class Grammar
     public function compileFloat(Fluent $fluent)
     {
         return $this->compileNumeric($fluent);
+    }
+
+    /**
+     * Compile a date map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileDate(Fluent $fluent)
+    {
+        $map = [
+            'type'             => $fluent->type,
+            'boost'            => $fluent->boost,
+            'doc_values'       => $fluent->doc_values,
+            'format'           => $fluent->format,
+            'ignore_malformed' => $fluent->ignore_malformed,
+            'include_in_all'   => $fluent->include_in_all,
+            'index'            => $fluent->index,
+            'null_value'       => $fluent->null_value,
+            'precision_step'   => $fluent->precision_step,
+            'store'            => $fluent->store,
+        ];
+
+        return $this->formatMap($map);
     }
 
     /**
@@ -199,13 +227,13 @@ class Grammar
     {
         $map = [
             'type'               => $fluent->type,
-            "tree"               => $fluent->tree,
-            "precision"          => $fluent->precision,
-            "tree_levels"        => $fluent->tree_levels,
-            "strategy"           => $fluent->strategy,
-            "distance_error_pct" => $fluent->distance_error_pct,
-            "orientation"        => $fluent->orientation,
-            "points_only"        => $fluent->points_only,
+            'tree'               => $fluent->tree,
+            'precision'          => $fluent->precision,
+            'tree_levels'        => $fluent->tree_levels,
+            'strategy'           => $fluent->strategy,
+            'distance_error_pct' => $fluent->distance_error_pct,
+            'orientation'        => $fluent->orientation,
+            'points_only'        => $fluent->points_only,
         ];
 
         return $this->formatMap($map);
