@@ -75,17 +75,17 @@ class Builder
     /**
      * Create a new command set with a Closure.
      *
-     * @param  string $table
+     * @param  string $type
      * @param  Closure|null $callback
      * @return mixed|Blueprint
      */
-    protected function createBlueprint($table, Closure $callback = null)
+    protected function createBlueprint($type, Closure $callback = null)
     {
         if (isset($this->resolver)) {
             return call_user_func($this->resolver, $table, $callback);
         }
 
-        return new Blueprint($table, $callback);
+        return new Blueprint($type, $callback);
     }
 
     /**

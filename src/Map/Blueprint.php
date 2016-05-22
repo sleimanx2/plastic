@@ -53,13 +53,19 @@ class Blueprint
      */
     public function build(Connection $connection, Grammar $grammar)
     {
-        $body = [];
+        $statement = [
+            'type' => $this->type,
+            'body' => [
+                $this->type => [
+                    '_source'    => [
+                        'enabled' => true
+                    ],
+                    'properties' => $this->toQueryDSL($grammar),
+                ]
+            ]
+        ];
 
-        foreach ($this->toQueryDSL($connection, $grammar) as $statement) {
-            $body[] = $statement;
-        }
-
-        return $connection->mapStatement($body);
+        return $connection->mapStatement($statement);
     }
 
     /**
@@ -239,6 +245,18 @@ class Blueprint
     }
 
     /**
+     * Add a nested map
+     *
+     * @param $field
+     * @param Closure $callback
+     * @return Fluent
+     */
+    public function nested($field, Closure $callback)
+    {
+        return $this->addField('nested', $field, ['callback' => $callback]);
+    }
+
+    /**
      * Add a new field to the blueprint
      *
      * @param string $type
@@ -295,11 +313,10 @@ class Blueprint
     /**
      * Get the raw DSL statements for the blueprint.
      *
-     * @param Connection $connection
      * @param  Grammar $grammar
      * @return array
      */
-    public function toQueryDSL(Connection $connection, Grammar $grammar)
+    public function toQueryDSL(Grammar $grammar)
     {
         $statements = [];
 
@@ -310,7 +327,7 @@ class Blueprint
             $method = 'compile' . ucfirst($command->name);
 
             if (method_exists($grammar, $method)) {
-                if (!is_null($dsl = $grammar->$method($this, $command, $connection))) {
+                if (!is_null($dsl = $grammar->$method($this, $command))) {
                     $statements = array_merge($statements, (array)$dsl);
                 }
             }

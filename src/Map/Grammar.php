@@ -16,18 +16,7 @@ class Grammar
     {
         $fields = $blueprint->getFields();
 
-        $statement = [];
-
-        foreach ($fields as $field) {
-
-            $method = 'compile' . ucfirst($field->type);
-
-            if (method_exists($this, $method)) {
-                if (!empty($map = $this->$method($field))) {
-                    $statement[$command->type][] = $map;
-                }
-            }
-        }
+        $statement = $this->compileFields($fields);
 
         return $statement;
     }
@@ -44,7 +33,7 @@ class Grammar
     }
 
     /**
-     * Add a long numeric field to the map
+     * Compile a long map
      *
      * @param Fluent $fluent
      * @return array
@@ -55,7 +44,7 @@ class Grammar
     }
 
     /**
-     * Add a short numeric field to the map
+     * Compile a short map
      *
      * @param Fluent $fluent
      * @return array
@@ -66,7 +55,7 @@ class Grammar
     }
 
     /**
-     * Add a byte numeric field to the map
+     * Compile a byte map
      *
      * @param Fluent $fluent
      * @return array
@@ -77,7 +66,7 @@ class Grammar
     }
 
     /**
-     * Add a double field to the map
+     * Compile a double map
      *
      * @param Fluent $fluent
      * @return array
@@ -88,7 +77,7 @@ class Grammar
     }
 
     /**
-     * Add a binary field to the map
+     * Compile a binary map
      *
      * @param Fluent $fluent
      * @return array
@@ -101,12 +90,12 @@ class Grammar
             'store'      => $fluent->store
         ];
 
-        return $this->formatMap($map);
+        return $this->formatMap($fluent, $map);
     }
 
 
     /**
-     * Add a float field to the map
+     * Compile float map
      *
      * @param Fluent $fluent
      * @return array
@@ -160,7 +149,7 @@ class Grammar
     }
 
     /**
-     * compile a geo point map
+     * Compile a geo point map
      *
      * @param Fluent $fluent
      * @return array
@@ -180,7 +169,7 @@ class Grammar
     }
 
     /**
-     *  compile a geo shape map
+     * Compile a geo shape map
      *
      * @param Fluent $fluent
      * @return array
@@ -202,7 +191,7 @@ class Grammar
     }
 
     /**
-     *  compile an ip map
+     * Compile an ip map
      *
      * @param Fluent $fluent
      * @return array
@@ -262,7 +251,7 @@ class Grammar
             'precision_step' => $fluent->precision_step,
             'store'          => $fluent->store
         ];
-        
+
         return $this->formatMap($map);
     }
 
@@ -321,6 +310,28 @@ class Grammar
         return $this->formatMap($map);
     }
 
+    /**
+     * Compile a nested map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileNested(Fluent $fluent)
+    {
+        $blueprint = new Blueprint($fluent->type);
+
+        /* @var \Closure $callback */
+        $callback = $fluent->callback;
+
+        if (is_callable($callback)) {
+            $callback($blueprint);
+        }
+
+        return [
+            'type'       => 'nested',
+            'properties' => $this->compileFields($blueprint->getFields())
+        ];
+    }
 
     /**
      * Format the map array for submission
@@ -331,6 +342,29 @@ class Grammar
     protected function formatMap(array $map)
     {
         return array_filter($map);
+    }
+
+    /**
+     * Compile an array of fluent fields
+     *
+     * @param $fields
+     * @return array
+     */
+    public function compileFields($fields)
+    {
+        $statement = [];
+
+        foreach ($fields as $field) {
+
+            $method = 'compile' . ucfirst($field->type);
+
+            if (method_exists($this, $method)) {
+                if (!empty($map = $this->$method($field))) {
+                    $statement[$field->name] = $map;
+                }
+            }
+        }
+        return $statement;
     }
 
 
