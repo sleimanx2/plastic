@@ -84,6 +84,17 @@ class Blueprint
     }
 
     /**
+     * Add a date field to the map
+     *
+     * @param string $field
+     * @return Fluent
+     */
+    public function date($field)
+    {
+        return $this->addField('date', $field);
+    }
+
+    /**
      * Add a long numeric field to the map
      *
      * @param string $field
@@ -146,7 +157,7 @@ class Blueprint
      */
     public function binary($field)
     {
-        return $this->addField('double', $field);
+        return $this->addField('binary', $field);
     }
 
     /**
