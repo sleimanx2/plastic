@@ -140,6 +140,12 @@ class Grammar
         return $this->formatMap($map);
     }
 
+    /**
+     * Compile a boolean map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
     public function compileBoolean(Fluent $fluent)
     {
         $map = [
@@ -154,25 +160,110 @@ class Grammar
     }
 
     /**
-     * Add a geo point field to the map
+     * compile a geo point map
      *
      * @param Fluent $fluent
      * @return array
      */
     public function compilePoint(Fluent $fluent)
     {
-        return $this->compileGeo($fluent);
+        $map = [
+            "geohash"           => $fluent->geohash,
+            "geohash_precision" => $fluent->geohash_precision,
+            "geohash_prefix"    => $fluent->geohash_prefix,
+            "ignore_malformed"  => $fluent->ignore_malformed,
+            "lat_lon"           => $fluent->lat_lon,
+            "precision_step"    => $fluent->precision_step,
+        ];
+
+        return $this->formatMap($map);
     }
 
     /**
-     * Add a geo shape field to the map
+     *  compile a geo shape map
      *
      * @param Fluent $fluent
      * @return array
      */
     public function compileShape(Fluent $fluent)
     {
-        return $this->compileGeo($fluent);
+        $map = [
+            'type'               => $fluent->type,
+            'tree'               => $fluent->tree,
+            'precision'          => $fluent->precision,
+            'tree_levels'        => $fluent->tree_levels,
+            'strategy'           => $fluent->strategy,
+            'distance_error_pct' => $fluent->distance_error_pct,
+            'orientation'        => $fluent->orientation,
+            'points_only'        => $fluent->points_only,
+        ];
+
+        return $this->formatMap($map);
+    }
+
+    /**
+     *  compile an ip map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileIp(Fluent $fluent)
+    {
+        $map = [
+            'type'           => $fluent->type,
+            'boost'          => $fluent->boost,
+            'doc_values'     => $fluent->doc_values,
+            'include_in_all' => $fluent->include_in_all,
+            'index'          => $fluent->index,
+            'null_value'     => $fluent->null_value,
+            'precision_step' => $fluent->precision_step,
+            'store'          => $fluent->store
+        ];
+
+        return $this->formatMap($map);
+    }
+
+    /**
+     * Compile a completion map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileCompletion(Fluent $fluent)
+    {
+        $map = [
+            'type'                => $fluent->type,
+            'analyzer'            => $fluent->analyzer,
+            'search_analyzer'     => $fluent->search_analyzer,
+            'payloads'            => $fluent->payloads,
+            'preserve_separators' => $fluent->preserve_separators,
+            'max_input_length'    => $fluent->max_input_length,
+        ];
+
+        return $this->formatMap($map);
+    }
+
+
+    /**
+     * Compile a completion map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileToken_count(Fluent $fluent)
+    {
+        $map = [
+            'type'           => $fluent->type,
+            'boost'          => $fluent->boost,
+            'doc_values'     => $fluent->doc_values,
+            'include_in_all' => $fluent->include_in_all,
+            'index'          => $fluent->index,
+            'null_value'     => $fluent->null_value,
+            'precision_step' => $fluent->precision_step,
+            'store'          => $fluent->store
+        ];
+        
+        return $this->formatMap($map);
     }
 
     /**
@@ -184,7 +275,7 @@ class Grammar
     public function compileString(Fluent $fluent)
     {
         $map = [
-            'type'                   => 'string',
+            'type'                   => $fluent->type,
             'analyzer'               => $fluent->analyzer,
             'boost'                  => $fluent->boost,
             'doc_values'             => $fluent->doc_values,
@@ -230,27 +321,6 @@ class Grammar
         return $this->formatMap($map);
     }
 
-    /**
-     * Compile a geo map
-     *
-     * @param Fluent $fluent
-     * @return array
-     */
-    public function compileGeo(Fluent $fluent)
-    {
-        $map = [
-            'type'               => $fluent->type,
-            'tree'               => $fluent->tree,
-            'precision'          => $fluent->precision,
-            'tree_levels'        => $fluent->tree_levels,
-            'strategy'           => $fluent->strategy,
-            'distance_error_pct' => $fluent->distance_error_pct,
-            'orientation'        => $fluent->orientation,
-            'points_only'        => $fluent->points_only,
-        ];
-
-        return $this->formatMap($map);
-    }
 
     /**
      * Format the map array for submission

@@ -239,17 +239,6 @@ class Blueprint
     }
 
     /**
-     * Add a murmur3 field to the map
-     *
-     * @param string $field
-     * @return Fluent
-     */
-    public function murmur3($field)
-    {
-        return $this->addField('murmur3', $field);
-    }
-
-    /**
      * Add a new field to the blueprint
      *
      * @param string $type
