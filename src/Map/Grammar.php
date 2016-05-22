@@ -113,6 +113,28 @@ class Grammar
     }
 
     /**
+     * Add a geo point field to the map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compilePoint(Fluent $fluent)
+    {
+        return $this->compileGeo($fluent);
+    }
+
+    /**
+     * Add a geo shape field to the map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileShape(Fluent $fluent)
+    {
+        return $this->compileGeo($fluent);
+    }
+
+    /**
      * Compile a string map
      *
      * @param Fluent $fluent
@@ -121,6 +143,7 @@ class Grammar
     public function compileString(Fluent $fluent)
     {
         $map = [
+            'type'                   => 'string',
             'analyzer'               => $fluent->analyzer,
             'boost'                  => $fluent->boost,
             'doc_values'             => $fluent->doc_values,
@@ -166,6 +189,27 @@ class Grammar
         return $this->formatMap($map);
     }
 
+    /**
+     * Compile a geo map
+     *
+     * @param Fluent $fluent
+     * @return array
+     */
+    public function compileGeo(Fluent $fluent)
+    {
+        $map = [
+            'type'               => $fluent->type,
+            "tree"               => $fluent->tree,
+            "precision"          => $fluent->precision,
+            "tree_levels"        => $fluent->tree_levels,
+            "strategy"           => $fluent->strategy,
+            "distance_error_pct" => $fluent->distance_error_pct,
+            "orientation"        => $fluent->orientation,
+            "points_only"        => $fluent->points_only,
+        ];
+
+        return $this->formatMap($map);
+    }
 
     /**
      * Format the map array for submission
