@@ -172,6 +172,17 @@ class Blueprint
     }
 
     /**
+     * Add a boolean field to the map
+     *
+     * @param string $field
+     * @return Fluent
+     */
+    public function boolean($field)
+    {
+        return $this->addField('boolean', $field);
+    }
+
+    /**
      * Add a geo point field to the map
      *
      * @param string $field

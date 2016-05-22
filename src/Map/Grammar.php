@@ -140,6 +140,19 @@ class Grammar
         return $this->formatMap($map);
     }
 
+    public function compileBoolean(Fluent $fluent)
+    {
+        $map = [
+            "boost"      => $fluent->boost,
+            "doc_values" => $fluent->doc_values,
+            "index"      => $fluent->index,
+            "null_value" => $fluent->null_value,
+            "store"      => $fluent->store
+        ];
+
+        return $this->formatMap($map);
+    }
+
     /**
      * Add a geo point field to the map
      *
