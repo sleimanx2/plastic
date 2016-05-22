@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 class PlasticServiceProvider extends ServiceProvider
 {
-    
+
     /**
      * Perform post-registration booting of services.
      *
@@ -13,9 +13,15 @@ class PlasticServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Publish the configuration path
         $this->publishes([
             __DIR__ . '/resources/config.php' => config_path('plastic.php'),
         ]);
+
+        // Create the mapping folder
+        $this->publishes([
+            __DIR__ . '/resources/database' => database_path()
+        ], 'database');
     }
 
     /**
