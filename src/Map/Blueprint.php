@@ -49,15 +49,17 @@ class Blueprint
      *
      * @param Connection $connection
      * @param Grammar $grammar
+     * @return array
      */
     public function build(Connection $connection, Grammar $grammar)
     {
+        $body = [];
 
-        $this->toQueryDSL($connection, $grammar);
+        foreach ($this->toQueryDSL($connection, $grammar) as $statement) {
+            $body[] = $statement;
+        }
 
-//        foreach ($this->toSql($connection, $grammar) as $statement) {
-//            $connection->statement($statement);
-//        }
+        return $connection->mapStatement($body);
     }
 
     /**
@@ -235,11 +237,21 @@ class Blueprint
      */
     public function addField($type, $name, array $attributes = [])
     {
-        $attributes = array_merge(compact($type, $name), $attributes);
+        $attributes = array_merge(compact('type', 'name'), $attributes);
 
         $this->fields[] = $field = new Fluent($attributes);
 
         return $field;
+    }
+
+    /**
+     * Get the registered fields
+     *
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
@@ -287,8 +299,8 @@ class Blueprint
             $method = 'compile' . ucfirst($command->name);
 
             if (method_exists($grammar, $method)) {
-                if (!is_null($sql = $grammar->$method($this, $command, $connection))) {
-                    $statements = array_merge($statements, (array)$sql);
+                if (!is_null($dsl = $grammar->$method($this, $command, $connection))) {
+                    $statements = array_merge($statements, (array)$dsl);
                 }
             }
         }
