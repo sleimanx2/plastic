@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
+use Sleimanx2\Plastic\Map\Blueprint;
 use Sleimanx2\Plastic\Mappings\Mapping;
 
 class DummyClass extends Mapping
