@@ -69,8 +69,6 @@ class Connection
      */
     public function mapStatement($mappings)
     {
-        dd(array_merge(['index' => $this->index], $mappings));
-
         return $this->elastic->indices()->putMapping(array_merge(['index' => $this->index], $mappings));
     }
 
