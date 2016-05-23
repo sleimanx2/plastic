@@ -32,6 +32,16 @@ return [
     | By default elastic index used with all eloquent model
     |
     */
-    'index' => 'plastic'
+    'index' => 'plastic',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mapping repository table
+    |--------------------------------------------------------------------------
+    |
+    | The sql table to store the mappings logs
+    |
+    */
+    'mappings' => 'mappings'
 
 ];
