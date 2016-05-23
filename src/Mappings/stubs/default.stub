@@ -5,6 +5,11 @@ use Sleimanx2\Plastic\Mappings\Mapping;
 
 class DummyClass extends Mapping
 {
+    /**
+     * Full name of the model that should be mapped
+     *
+     * @var string
+     */
     protected $model = DummyModel::class;
 
     /**
