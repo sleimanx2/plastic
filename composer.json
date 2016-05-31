@@ -11,7 +11,7 @@
     "illuminate/contracts": "5.2.*",
     "illuminate/support": "5.2.*",
     "elasticsearch/elasticsearch": "~2.0",
-    "ongr/elasticsearch-dsl":"~2.1"
+    "ongr/elasticsearch-dsl":"~2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.*"

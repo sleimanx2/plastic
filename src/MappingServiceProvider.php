@@ -130,11 +130,12 @@ class MappingServiceProvider extends ServiceProvider
         });
     }
 
-
+    /**
+     *  Register the Map alias
+     */
     protected function registerAlias()
     {
         AliasLoader::getInstance()->alias("Map", Map::class);
     }
-
 
 }

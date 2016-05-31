@@ -42,4 +42,16 @@ class PlasticManager
 
         return $this->connection;
     }
+
+    /**
+     * Dynamically pass methods to the default connection.
+     *
+     * @param  string $method
+     * @param  array $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return call_user_func_array([$this->connection(), $method], $parameters);
+    }
 }

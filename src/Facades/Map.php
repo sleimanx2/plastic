@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Facade;
 class Map extends Facade
 {
     /**
-     * Get a schema builder instance for the default connection.
+     * Get a map builder instance for the default connection.
      *
-     * @return \Illuminate\Database\Schema\Builder
+     * @return \Sleimanx2\Plastic\Map\Builder
      */
     protected static function getFacadeAccessor()
     {

@@ -3,6 +3,9 @@
 namespace Sleimanx2\Plastic;
 
 
+use Sleimanx2\Plastic\DSL\Builder;
+use Sleimanx2\Plastic\Facades\Plastic;
+
 trait Searchable
 {
 
@@ -45,6 +48,15 @@ trait Searchable
         });
     }
 
+    /**
+     * Start an elastic dsl query builder
+     *
+     * @return Builder
+     */
+    public function search()
+    {
+        return $this->dsl = Plastic::type($this->getType());
+    }
     /**
      * Get the model elastic type
      *

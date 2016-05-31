@@ -3,6 +3,8 @@
 namespace Sleimanx2\Plastic;
 
 use Elasticsearch\ClientBuilder;
+use Sleimanx2\Plastic\DSL\Builder as DSLBuilder;
+use ONGR\ElasticsearchDSL\Search as DSLGrammar;
 use Sleimanx2\Plastic\Map\Builder as MapBuilder;
 use Sleimanx2\Plastic\Map\Grammar as MapGrammar;
 
@@ -62,6 +64,16 @@ class Connection
     }
 
     /**
+     * Get DSL grammar instance for this connection
+     *
+     * @return DSLGrammar
+     */
+    public function getDSLGrammar()
+    {
+        return new DSLGrammar();
+    }
+
+    /**
      * Execute a map statement on index;
      *
      * @param $mappings
@@ -70,6 +82,29 @@ class Connection
     public function mapStatement($mappings)
     {
         return $this->elastic->indices()->putMapping(array_merge(['index' => $this->index], $mappings));
+    }
+
+    /**
+     * Begin a fluent query against a database table.
+     *
+     * @param  string $type
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function type($type)
+    {
+        return $this->dsl()->from($type);
+    }
+
+    /**
+     * Get a new dsl builder instance.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function dsl()
+    {
+        return new DSLBuilder(
+            $this, $this->getDSLGrammar()
+        );
     }
 
     /**

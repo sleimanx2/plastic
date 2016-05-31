@@ -1,0 +1,288 @@
+<?php
+
+namespace Sleimanx2\Plastic\DSL;
+
+use ONGR\ElasticsearchDSL\Aggregation\AbstractAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\AvgAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\CardinalityAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\DateRangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\GeoBoundsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\GeoDistanceAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\GeoHashGridAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\HistogramAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\MaxAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\MinAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\PercentileRanksAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\PercentilesAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\StatsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\SumAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\ValueCountAggregation;
+use ONGR\ElasticsearchDSL\Search as Query;
+
+class AggregationBuilder
+{
+    /**
+     * An instance of DSL query
+     *
+     * @var Query
+     */
+    public $query;
+
+    /**
+     * Builder constructor.
+     *
+     * @param Query $query
+     */
+    public function __construct(Query $query = null)
+    {
+        $this->query = $query;
+    }
+
+
+    /**
+     * Add an average aggregate
+     *
+     * @param $alias
+     * @param string|null $field
+     * @param string|null $script
+     */
+    public function average($alias, $field = null, $script = null)
+    {
+        $aggregation = new AvgAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an cardinality aggregate
+     *
+     * @param $alias
+     * @param string|null $field
+     * @param string|null $script
+     */
+    public function cardinality($alias, $field = null, $script = null)
+    {
+        $aggregation = new CardinalityAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add a date range aggregate
+     *
+     * @param $alias
+     * @param $field
+     * @param $format
+     * @param array $ranges
+     */
+    public function dateRange($alias, $field = null, $format, array $ranges)
+    {
+        $aggregation = new DateRangeAggregation($alias, $field, $format, $ranges);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add a geo bounds aggregate
+     *
+     * @param string $alias
+     * @param null|string $field
+     * @param bool $wrap_longitude
+     */
+    public function geoBounds($alias, $field = null, $wrap_longitude = true)
+    {
+        $aggregation = new GeoBoundsAggregation($alias, $field, $wrap_longitude);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add a geo bounds aggregate
+     *
+     * @param string $alias
+     * @param null|string $field
+     * @param string $origin
+     * @param array $ranges
+     */
+    public function geoDistance($alias, $field = null, $origin, array $ranges)
+    {
+        $aggregation = new GeoDistanceAggregation($alias, $field, $origin, $ranges);
+
+        $this->append($aggregation);
+    }
+    
+    /**
+     * Add a geo hash grid aggregation
+     *
+     * @param string $alias
+     * @param null|string $field
+     * @param float $precision
+     * @param null $size
+     * @param null $shardSize
+     */
+    public function geoHashGrid($alias, $field = null, $precision, $size = null, $shardSize = null)
+    {
+        $aggregation = new GeoHashGridAggregation($alias, $field, $precision, $size, $shardSize);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an max aggregate
+     *
+     * @param $alias
+     * @param string|null $field
+     * @param string|null $script
+     */
+    public function max($alias, $field = null, $script = null)
+    {
+        $aggregation = new MaxAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an min aggregate
+     *
+     * @param $alias
+     * @param string|null $field
+     * @param string|null $script
+     */
+    public function min($alias, $field = null, $script = null)
+    {
+        $aggregation = new MinAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an percentile aggregate
+     *
+     * @param $alias
+     * @param string $field
+     * @param array $values
+     * @param null $script
+     */
+    public function percentile($alias, $field = null, $values = [], $script = null)
+    {
+        $aggregation = new PercentilesAggregation($alias, null, $values, null);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an percentileRanks aggregate
+     *
+     * @param $alias
+     * @param string $field
+     * @param array $values
+     * @param null $script
+     */
+    public function percentileRanks($alias, $field = null, array $values, $script = null)
+    {
+        $aggregation = new PercentileRanksAggregation($alias, null, $values, null);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an stats aggregate
+     *
+     * @param $alias
+     * @param string $field
+     * @param string|null $script
+     */
+    public function stats($alias, $field = null, $script = null)
+    {
+        $aggregation = new StatsAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add an sum aggregate
+     *
+     * @param $alias
+     * @param string $field
+     * @param string|null $script
+     */
+    public function sum($alias, $field = null, $script = null)
+    {
+        $aggregation = new SumAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Add a value count aggregate
+     *
+     * @param $alias
+     * @param string $field
+     * @param string|null $script
+     */
+    public function valueCount($alias, $field = null, $script = null)
+    {
+        $aggregation = new ValueCountAggregation($alias);
+
+        $this->setFieldAndScript($field, $script, $aggregation);
+
+        $this->append($aggregation);
+    }
+
+    /**
+     * Append an aggregation to the aggregation query builder
+     *
+     * @param AbstractAggregation $aggregation
+     */
+    public function append(AbstractAggregation $aggregation)
+    {
+        $this->query->addAggregation($aggregation);
+    }
+
+    /**
+     * Set the field and script argument of an aggregation
+     *
+     * @param $field
+     * @param $script
+     * @param $aggregation
+     */
+    private function setFieldAndScript($field, $script, $aggregation)
+    {
+        if ($field) {
+            $aggregation->setField($field);
+        }
+
+        if ($script) {
+            $aggregation->setScript($script);
+        }
+
+        return $aggregation;
+    }
+
+
+    /*
+     * @todo implement the extended stats
+     * @todo implement the tophits aggregation (only available for nested arg)
+     * @todo should you implement children aggregation ?
+     * @todo implemtn Filter Aggregation
+     * @todo implement the global aggregation
+     *
+     */
+
+}
