@@ -20,6 +20,7 @@ use ONGR\ElasticsearchDSL\Query\TermQuery;
 use ONGR\ElasticsearchDSL\Query\TermsQuery;
 use ONGR\ElasticsearchDSL\Query\WildcardQuery;
 use ONGR\ElasticsearchDSL\Search as Query;
+use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
 use Sleimanx2\Plastic\Connection;
 
 class Builder
@@ -444,17 +445,32 @@ class Builder
     }
 
 
+    /**
+     * Add aggregation
+     *
+     * @param \Closure $closure
+     * @return $this
+     */
     public function aggregate(\Closure $closure)
     {
-        $builder = new AggregationBuilder(new $this->query);
+        $builder = new AggregationBuilder($this->query);
 
         $closure($builder);
 
-        $aggregations = $builder->query->getAggregations();
+        return $this;
+    }
 
-        foreach ($aggregations as $aggregation) {
-            $this->query->addAggregation($aggregation);
-        }
+    /**
+     * Add suggestions
+     *
+     * @param \Closure $closure
+     * @return $this
+     */
+    public function suggest(\Closure $closure)
+    {
+        $builder = new SuggestionBuilder($this->query);
+
+        $closure($builder);
 
         return $this;
     }

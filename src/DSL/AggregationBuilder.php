@@ -358,7 +358,6 @@ class AggregationBuilder
      * @todo should you implement children aggregation ?
      * @todo implement Filter Aggregation
      * @todo implement the global aggregation
-     *
      */
 
 }
