@@ -38,7 +38,7 @@ class Builder
      *
      * @var string
      */
-    public $from;
+    public $type;
 
     /**
      * An instance of plastic Connection
@@ -79,9 +79,9 @@ class Builder
      * @param string $type
      * @return $this
      */
-    public function from($type)
+    public function type($type)
     {
-        $this->from = $type;
+        $this->type = $type;
 
         return $this;
     }
@@ -92,7 +92,7 @@ class Builder
      * @param int $offset
      * @return $this
      */
-    public function offset($offset)
+    public function from($offset)
     {
         $this->query->setFrom($offset);
 
@@ -105,7 +105,7 @@ class Builder
      * @param int $limit
      * @return $this
      */
-    public function limit($limit)
+    public function size($limit)
     {
         $this->query->setSize($limit);
 
@@ -120,7 +120,7 @@ class Builder
      * @param array $parameters
      * @return $this
      */
-    public function orderBy($fields, $order = null, array $parameters = [])
+    public function sort($fields, $order = null, array $parameters = [])
     {
         $fields = is_array($fields) ? $fields : [$fields];
 

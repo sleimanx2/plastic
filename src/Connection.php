@@ -95,7 +95,7 @@ class Connection
     {
         $params = [
             'index' => $this->index,
-            'type'  => $query->from,
+            'type'  => $query->type,
             'body'  => $query->toDSL()
         ];
 
@@ -103,14 +103,14 @@ class Connection
     }
 
     /**
-     * Begin a fluent query against a database table.
+     * Begin a fluent query builder against an elastic type.
      *
      * @param  string $type
      * @return \Illuminate\Database\Query\Builder
      */
-    public function from($type)
+    public function type($type)
     {
-        return $this->dsl()->from($type);
+        return $this->dsl()->type($type);
     }
 
     /**
