@@ -351,13 +351,4 @@ class AggregationBuilder
         $this->query->addAggregation($aggregation);
     }
 
-    /*
-     * @todo implement nested aggregations
-     * @todo implement the extended stats
-     * @todo implement the tophits aggregation (only available for nested arg)
-     * @todo should you implement children aggregation ?
-     * @todo implement Filter Aggregation
-     * @todo implement the global aggregation
-     */
-
 }

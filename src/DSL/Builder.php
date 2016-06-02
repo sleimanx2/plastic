@@ -20,29 +20,25 @@ use ONGR\ElasticsearchDSL\Query\TermQuery;
 use ONGR\ElasticsearchDSL\Query\TermsQuery;
 use ONGR\ElasticsearchDSL\Query\WildcardQuery;
 use ONGR\ElasticsearchDSL\Search as Query;
+use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
 use Sleimanx2\Plastic\Connection;
 
 class Builder
 {
-
-    /**
-     * bool query states
-     */
-    const MUST = 'must';
-
-    const MUST_NOT = 'must_not';
-
-    const SHOULD = 'should';
-
-    const FILTER = 'filter';
-
     /**
      * An instance of DSL query
      *
      * @var Query
      */
     public $query;
+
+    /**
+     * The elastic type to query against
+     *
+     * @var string
+     */
+    public $from;
 
     /**
      * An instance of plastic Connection
@@ -63,14 +59,7 @@ class Builder
      *
      * @var string
      */
-    protected $boolState = self::MUST;
-
-    /**
-     * The type which the query is targeting.
-     *
-     * @var string
-     */
-    public $from;
+    protected $boolState = 'must';
 
     /**
      * Builder constructor.
@@ -85,9 +74,9 @@ class Builder
     }
 
     /**
-     * Set the type to query from
+     * Set the elastic type to query against
      *
-     * @param $type
+     * @param string $type
      * @return $this
      */
     public function from($type)
@@ -98,11 +87,84 @@ class Builder
     }
 
     /**
+     * Set the query from/offset value
+     *
+     * @param int $offset
+     * @return $this
+     */
+    public function offset($offset)
+    {
+        $this->query->setFrom($offset);
+
+        return $this;
+    }
+
+    /**
+     * Set the query limit/size value
+     *
+     * @param int $limit
+     * @return $this
+     */
+    public function limit($limit)
+    {
+        $this->query->setSize($limit);
+
+        return $this;
+    }
+
+    /**
+     * Set the query sort values values
+     *
+     * @param string|array $fields
+     * @param null $order
+     * @param array $parameters
+     * @return $this
+     */
+    public function orderBy($fields, $order = null, array $parameters = [])
+    {
+        $fields = is_array($fields) ? $fields : [$fields];
+
+        foreach ($fields as $field) {
+            $sort = new FieldSort($field, $order, $parameters);
+
+            $this->query->addSort($sort);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the query min score value
+     *
+     * @param $score
+     * @return $this
+     */
+    public function minScore($score)
+    {
+        $this->query->setMinScore($score);
+
+        return $this;
+    }
+
+    /**
+     * Set the query scroll value
+     *
+     * @param string $duration
+     * @return $this
+     */
+    public function scroll($duration)
+    {
+        $this->query->setScroll($duration);
+
+        return $this;
+    }
+
+    /**
      * Switch to a should statement
      */
     public function should()
     {
-        $this->boolState = self::SHOULD;
+        $this->boolState = 'should';
 
         return $this;
     }
@@ -112,7 +174,7 @@ class Builder
      */
     public function must()
     {
-        $this->boolState = self::MUST;
+        $this->boolState = 'must';
 
         return $this;
     }
@@ -122,7 +184,7 @@ class Builder
      */
     public function mustNot()
     {
-        $this->boolState = self::MUST_NOT;
+        $this->boolState = 'must_not';
 
         return $this;
     }
@@ -365,44 +427,6 @@ class Builder
         return $this;
     }
 
-    /*
-     *
-     * @todo add Boosting query
-     *
-     * @todo add ConstantScore query
-     *
-     * @todo add DisMaxQuery
-     *
-     * @todo add FunctionScoreQuery
-     *
-     * @todo should you implement has_parent has_child
-     *
-     * @todo should you implement the indices query
-     *
-     * @todo think of more like this implementation
-     *
-     * @todo dig into events
-     *
-     * @todo create an aggregation builder $query->aggregate(AggregateBuilder $builder){  }
-     *
-     * @todo add suggest query
-     *
-     * @todo add fields method to select the field to be selected
-     *
-     * @todo add limit
-     *
-     * @todo add order
-     *
-     * @todo add pagination
-     *
-     * @todo add event sync create / update / delete ($searchable = ['id','title','body','tags'])
-     *
-     * @todo add model mapping
-     *
-     * @todo tests
-     *
-     */
-
     /**
      * Add a fuzzy query
      *
@@ -473,6 +497,12 @@ class Builder
         $closure($builder);
 
         return $this;
+    }
+
+
+    public function get()
+    {
+        return $this->connection->queryStatement($this);
     }
 
     /**
