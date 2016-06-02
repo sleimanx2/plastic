@@ -5,6 +5,12 @@ namespace Sleimanx2\Plastic\DSL;
 use ONGR\ElasticsearchDSL\Query\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\ConstantScoreQuery;
 use ONGR\ElasticsearchDSL\Query\FuzzyQuery;
+use ONGR\ElasticsearchDSL\Query\GeoBoundingBoxQuery;
+use ONGR\ElasticsearchDSL\Query\GeoDistanceQuery;
+use ONGR\ElasticsearchDSL\Query\GeoDistanceRangeQuery;
+use ONGR\ElasticsearchDSL\Query\GeohashCellQuery;
+use ONGR\ElasticsearchDSL\Query\GeoPolygonQuery;
+use ONGR\ElasticsearchDSL\Query\GeoShapeQuery;
 use ONGR\ElasticsearchDSL\Query\IdsQuery;
 use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchDSL\Query\MatchQuery;
@@ -321,6 +327,112 @@ class Builder
     public function multyMatch(array $fields, $term, array $attributes = [])
     {
         $query = new MultiMatchQuery($fields, $term, $attributes);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add a geo bounding box query
+     *
+     * @param string $field
+     * @param array $values
+     * @param array $parameters
+     *
+     * @return $this
+     */
+    public function geoBoundingBox($field, $values, array $parameters = [])
+    {
+        $query = new GeoBoundingBoxQuery($field, $values, $parameters);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add a geo distance query
+     *
+     * @param string $field
+     * @param string $distance
+     * @param mixed $location
+     * @param array $parameters
+     * @return $this
+     */
+    public function geoDistance($field, $distance, $location, array $parameters = [])
+    {
+        $query = new GeoDistanceQuery($field, $distance, $location, $parameters);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add a geo distance range query
+     *
+     * @param string $field
+     * @param array  $range
+     * @param mixed  $location
+     * @param array  $parameters
+     *
+     * @return $this
+     */
+    public function geoDistanceRange($field, $range, $location, array $parameters = [])
+    {
+        $query = new GeoDistanceRangeQuery($field, $range, $location, $parameters);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+
+    /**
+     * Add a geo hash query
+     *
+     * @param string $field
+     * @param mixed $location
+     * @param array $parameters
+     * @return $this
+     */
+    public function geoHash($field, $location, array $parameters = [])
+    {
+        $query = new GeohashCellQuery($field, $location, $parameters);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add a geo polygon query
+     *
+     * @param string $field
+     * @param array $points
+     * @param array $parameters
+     * @return $this
+     */
+    public function geoPolygon($field, array $points = [], array $parameters = [])
+    {
+        $query = new GeoPolygonQuery($field, $points, $parameters);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add a geo shape query
+     *
+     * @param array $parameters
+     *
+     * @return $this
+     */
+    public function geoShape(array $parameters = [])
+    {
+        $query = new GeoShapeQuery($parameters);
 
         $this->append($query);
 
