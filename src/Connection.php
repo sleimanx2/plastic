@@ -84,13 +84,31 @@ class Connection
         return $this->elastic->indices()->putMapping(array_merge(['index' => $this->index], $mappings));
     }
 
+
+    /**
+     * Execute a map statement on index;
+     *
+     * @param $query
+     * @return array
+     */
+    public function queryStatement(DSLBuilder $query)
+    {
+        $params = [
+            'index' => $this->index,
+            'type'  => $query->from,
+            'body'  => $query->toDSL()
+        ];
+
+        return $this->elastic->search($params);
+    }
+
     /**
      * Begin a fluent query against a database table.
      *
      * @param  string $type
      * @return \Illuminate\Database\Query\Builder
      */
-    public function type($type)
+    public function from($type)
     {
         return $this->dsl()->from($type);
     }
