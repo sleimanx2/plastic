@@ -68,11 +68,10 @@ class Make extends BaseCommand
     {
         $path = $this->getMappingPath();
 
-        $file = pathinfo($this->creator->create($model, $path),PATHINFO_FILENAME);
+        $file = pathinfo($this->creator->create($model, $path), PATHINFO_FILENAME);
 
-        $this->comment($file.' was created successfully');
+        $this->comment($file . ' was created successfully');
     }
-
 
 
 }

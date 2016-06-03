@@ -2,6 +2,8 @@
 
 namespace Sleimanx2\Plastic\DSL;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use ONGR\ElasticsearchDSL\Query\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\ConstantScoreQuery;
 use ONGR\ElasticsearchDSL\Query\FuzzyQuery;
@@ -29,6 +31,10 @@ use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
 use Sleimanx2\Plastic\Connection;
+use Sleimanx2\Plastic\Exception\InvalidArgumentException;
+use Sleimanx2\Plastic\Fillers\EloquentFiller;
+use Sleimanx2\Plastic\PlasticResults;
+use Sleimanx2\Plastic\Searchable;
 
 class Builder
 {
@@ -45,6 +51,13 @@ class Builder
      * @var string
      */
     public $type;
+
+    /**
+     * The eloquent model to use when querying elastic search
+     *
+     * @var Model
+     */
+    protected $model;
 
     /**
      * An instance of plastic Connection
@@ -88,6 +101,29 @@ class Builder
     public function type($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Set the eloquent model to use when querying elastic search
+     *
+     * @param Model $model
+     * @return $this
+     * @throws InvalidArgumentException
+     */
+    public function model(Model $model)
+    {
+        // Check if the model is searchable before setting the query builder model
+        $traits = class_uses($model);
+
+        if (!isset($traits[Searchable::class])) {
+            throw new InvalidArgumentException(get_class($model) . ' does not use the searchable trait');
+        }
+
+        $this->type = $model->getType();
+
+        $this->model = $model;
 
         return $this;
     }
@@ -373,9 +409,9 @@ class Builder
      * Add a geo distance range query
      *
      * @param string $field
-     * @param array  $range
-     * @param mixed  $location
-     * @param array  $parameters
+     * @param array $range
+     * @param mixed $location
+     * @param array $parameters
      *
      * @return $this
      */
@@ -612,9 +648,52 @@ class Builder
     }
 
 
-    public function get()
+    /**
+     * Execute the search query against elastic and return the raw result
+     *
+     * @return array
+     */
+    public function getRaw()
     {
         return $this->connection->queryStatement($this);
+    }
+
+
+    /**
+     * Execute the search query against elastic and return the raw result if model not set
+     *
+     * @return PlasticResults
+     */
+    public function get()
+    {
+        $result = $this->getRaw();
+
+        $result = new PlasticResults($result);
+
+        if ($this->model) {
+            (new EloquentFiller())->fill($this->model, $result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Paginate result hits
+     *
+     * @param int $limit
+     * @return LengthAwarePaginator
+     */
+    public function paginate($limit = 25)
+    {
+        $page = \Input::get('page') ? (int)\Input::get('page') : 1;
+
+        $from = $limit * ($page - 1);
+        $size = $limit;
+
+        $result = $this->from($from)->size($size)->get();
+
+        return new LengthAwarePaginator($result->hits()->all(), $result->totalHits(), $limit, $page,
+            ['path' => LengthAwarePaginator::resolveCurrentPath()]);
     }
 
     /**

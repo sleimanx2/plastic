@@ -3,6 +3,7 @@
 namespace Sleimanx2\Plastic;
 
 use Elasticsearch\ClientBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Sleimanx2\Plastic\DSL\Builder as DSLBuilder;
 use ONGR\ElasticsearchDSL\Search as DSLGrammar;
 use Sleimanx2\Plastic\Map\Builder as MapBuilder;
@@ -111,6 +112,17 @@ class Connection
     public function type($type)
     {
         return $this->dsl()->type($type);
+    }
+
+    /**
+     * Begin a fluent query builder using a model.
+     *
+     * @param  Model $type
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function model(Model $model)
+    {
+        return $this->dsl()->model($model);
     }
 
     /**

@@ -9,6 +9,35 @@ use Sleimanx2\Plastic\Facades\Plastic;
 trait Searchable
 {
 
+    /**
+     * Is indexed in elastic search
+     *
+     * @var bool
+     */
+    protected $isDocument = false;
+
+    /**
+     * Document Score
+     *
+     * Hit score after querying Elasticsearch.
+     *
+     * @var null|int
+     */
+    protected $documentScore = null;
+
+    /**
+     * Document Version
+     *
+     * Elasticsearch document version.
+     *
+     * @var null|int
+     */
+    protected $documentVersion = null;
+
+
+    /**
+     * Searchable boot model
+     */
     public static function bootSearchable()
     {
         static::creating(function ($model) {
@@ -55,7 +84,7 @@ trait Searchable
      */
     public function search()
     {
-        return $this->dsl = Plastic::type($this->getType());
+        return $this->dsl = Plastic::model($this);
     }
     /**
      * Get the model elastic type
