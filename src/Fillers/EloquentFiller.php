@@ -3,6 +3,9 @@
 namespace Sleimanx2\Plastic\Fillers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Collection;
+use ReflectionMethod;
 use Sleimanx2\Plastic\PlasticResults as Result;
 
 class EloquentFiller implements FillerInterface
@@ -22,50 +25,31 @@ class EloquentFiller implements FillerInterface
     }
 
     /**
-     * Fill a model with form an elastic hit
+     * New From Hit Builder
      *
-     * @param $hit
+     * Variation on newFromBuilder. Instead, takes
+     *
      * @param $model
-     * @return mixed
+     * @param array $hit
+     * @return static
      */
-    public function fillModel($model, $hit)
+    public function fillModel(Model $model, $hit = [])
     {
-        $instance = $model->newInstance([], true);
+        $key_name = $model->getKeyName();
+
         $attributes = $hit['_source'];
+
+        if (isset($hit['_id'])) {
+            $attributes[$key_name] = is_numeric($hit['_id']) ? intval($hit['_id']) : $hit['_id'];
+        }
+
         // Add fields to attributes
         if (isset($hit['fields'])) {
             foreach ($hit['fields'] as $key => $value) {
                 $attributes[$key] = $value;
             }
         }
-        $instance->setRawAttributes((array)$attributes, true);
-        // Looping through the attributes to map related fields to their model
-        foreach ($attributes as $attribute => $value) {
-
-            // If value is an array it could be a relation candidate.
-            if (is_array($value)) {
-
-                // If the attribute key is a function this means its a relation
-                if (method_exists($instance, $attribute)) {
-
-                    $model = $instance->$attribute()->getModel();
-                    // Allowing mass assignment ...
-                    $model->unguard();
-                    // If multy value loop and fill else fill
-                    if (array_keys($value) === range(0, count($value) - 1) or empty($value)) {
-                        $instance->$attribute = collect();
-                        foreach ($value as $item) {
-                            $newItem = new $model();
-                            $newItem->fill($item);
-                            $instance->$attribute->push($newItem);
-                        }
-                    } else {
-                        $instance->$attribute = $model->fill($value);
-                    }
-                }
-            }
-        }
-
+        $instance = $this->newFromBuilderRecursive($model, $attributes);
         // In addition to setting the attributes
         // from the index, we will set the score as well.
         $instance->documentScore = $hit['_score'];
@@ -78,6 +62,121 @@ class EloquentFiller implements FillerInterface
         }
 
         return $instance;
+    }
 
+    /**
+     * Fill a model with form an elastic hit
+     *
+     * @param Model $model
+     * @param array $attributes
+     * @param Relation $parentRelation
+     * @return mixed
+     */
+    public function newFromBuilderRecursive(Model $model, array $attributes = [], Relation $parentRelation = null)
+    {
+        $instance = $model->newInstance([], $exists = true);
+        $instance->setRawAttributes((array)$attributes, $sync = true);
+
+        // Load relations recursive
+        $this->loadRelationsAttributesRecursive($instance);
+
+        // Load pivot
+        $this->loadPivotAttribute($instance, $parentRelation);
+
+        return $instance;
+    }
+
+    /**
+     * Get the relations attributes from a model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model $model
+     */
+    protected function loadRelationsAttributesRecursive(Model $model)
+    {
+        $attributes = $model->getAttributes();
+
+        foreach ($attributes as $key => $value) {
+
+            if (method_exists($model, $key)) {
+
+                $reflection_method = new ReflectionMethod($model, $key);
+
+                if ($reflection_method->class != "Illuminate\Database\Eloquent\Model") {
+
+                    $relation = $model->$key();
+
+                    if ($relation instanceof Relation) {
+
+                        // Check if the relation field is single model or collections
+                        if (!$this->isMultiLevelArray($value)) {
+                            $value = [$value];
+                        }
+
+                        $models = $this->hydrateRecursive($relation->getModel(), $value, $relation);
+                        // Unset attribute before match relation
+                        unset($model[$key]);
+
+                        $relation->match([$model], $models, $key);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Create a collection of models from plain arrays recursive.
+     *
+     * @param  Model $model
+     * @param  Relation $parentRelation
+     * @param  array $items
+     * @return Collection
+     */
+    protected function hydrateRecursive(Model $model, array $items, Relation $parentRelation = null)
+    {
+        $instance = $model;
+
+        $items = array_map(function ($item) use ($instance, $parentRelation) {
+            return $this->newFromBuilderRecursive($instance, $item, $parentRelation);
+        }, $items);
+
+        return $instance->newCollection($items);
+    }
+
+
+    /**
+     * Get the pivot attribute from a model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param  \Illuminate\Database\Eloquent\Relations\Relation $parentRelation
+     */
+    public function loadPivotAttribute(Model $model, Relation $parentRelation = null)
+    {
+        $attributes = $model->getAttributes();
+        foreach ($attributes as $key => $value) {
+            if ($key === 'pivot') {
+                unset($model[$key]);
+                $pivot = $parentRelation->newExistingPivot($value);
+                $model->setRelation($key, $pivot);
+            }
+        }
+    }
+
+    /**
+     * Check if an array is multi-level array like [[id], [id], [id]].
+     *
+     * For detect if a relation field is single model or collections.
+     *
+     * @param  array $array
+     * @return boolean
+     */
+    private function isMultiLevelArray(array $array)
+    {
+        foreach ($array as $key => $value) {
+            if (!is_array($value)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

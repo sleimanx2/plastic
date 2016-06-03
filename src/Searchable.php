@@ -86,6 +86,18 @@ trait Searchable
     {
         return $this->dsl = Plastic::model($this);
     }
+
+    public function addToIndex()
+    {
+        if (!$this->exists) {
+            throw new \Exception('Model not persisted yet');
+        }
+
+
+
+
+    }
+
     /**
      * Get the model elastic type
      *
