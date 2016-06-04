@@ -2,9 +2,11 @@
 
 namespace Sleimanx2\Plastic;
 
-
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Sleimanx2\Plastic\DSL\Builder;
 use Sleimanx2\Plastic\Facades\Plastic;
+use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
 trait Searchable
 {
@@ -41,39 +43,15 @@ trait Searchable
     public static function bootSearchable()
     {
         static::creating(function ($model) {
-
-            // fill the fields that should be mapped
-
-            // index the model
-
+            $model->documet()->save();
         });
 
         static::updating(function ($model) {
-
-            // fill the fields that should be mapped
-
-            // index the model
-
-            // collect related models that should be updated
-
-            // fill each related models with its new data
-
-            // bulk update related models
-
+            $model->document()->update();
         });
 
         static::deleting(function ($model) {
-
-            // fill the fields that should be mapped
-
-            // index the model
-
-            // collect related models that should be updated
-
-            // fill each related models with its new data
-
-            // bulk update related models
-
+            $model->document()->delete();
         });
     }
 
@@ -84,18 +62,18 @@ trait Searchable
      */
     public function search()
     {
-        return $this->dsl = Plastic::model($this);
+        return Plastic::model($this);
     }
 
-    public function addToIndex()
+
+    /**
+     * Start an elastic persistence handler
+     *
+     * @return EloquentPersistence
+     */
+    public function document()
     {
-        if (!$this->exists) {
-            throw new \Exception('Model not persisted yet');
-        }
-
-
-
-
+        return Plastic::persistence($this);
     }
 
     /**
@@ -112,4 +90,65 @@ trait Searchable
 
         return $this->getTable();
     }
+
+    /**
+     * Build the document data with the appropriate method
+     *
+     * @return array
+     */
+    public function getDocumentData()
+    {
+        // If the model contain a buildDocument function
+        // use it to build the document
+        if (method_exists($this, 'buildDocument')) {
+            $document = $this->buildDocument();
+
+            return $document;
+        }
+        // If a searchable array is provided build
+        // the document from the given array
+        elseif (is_array($this->searchable)) {
+            $document = $this->buildDocumentFromArray($this->searchable);
+
+            return $document;
+        } else {
+            $document = $this->toArray();
+
+            return $document;
+        }
+    }
+
+    /**
+     * Build the document from a searchable array
+     *
+     * @param array $searchable
+     * @return array
+     */
+    protected function buildDocumentFromArray(array $searchable)
+    {
+        $document = [];
+
+        foreach ($searchable as $value) {
+
+            $result = $this->$value;
+
+            if ($result instanceof Collection) {
+
+                $result = $result->toArray();
+
+            } elseif ($result instanceof Carbon) {
+
+                $result = $result->format('c');
+
+            } else {
+
+                $result = $this->$value;
+            }
+
+            $document[$value] = $result;
+        }
+
+        return $document;
+    }
+
 }

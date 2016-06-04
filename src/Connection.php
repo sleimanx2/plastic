@@ -8,14 +8,22 @@ use Sleimanx2\Plastic\DSL\Builder as DSLBuilder;
 use ONGR\ElasticsearchDSL\Search as DSLGrammar;
 use Sleimanx2\Plastic\Map\Builder as MapBuilder;
 use Sleimanx2\Plastic\Map\Grammar as MapGrammar;
+use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
 class Connection
 {
 
     /**
+     * Elastic Search default index
+     *
+     * @var string
+     */
+    public $index;
+
+    /**
      * Elasticsearch client instance
      *
-     * @var
+     * @var \Elasticsearch\Client
      */
     protected $elastic;
 
@@ -77,14 +85,23 @@ class Connection
     /**
      * Execute a map statement on index;
      *
-     * @param $mappings
+     * @param array $mappings
      * @return array
      */
-    public function mapStatement($mappings)
+    public function mapStatement(array $mappings)
     {
         return $this->elastic->indices()->putMapping(array_merge(['index' => $this->index], $mappings));
     }
 
+    /**
+     * Get the default elastic index
+     *
+     * @return mixed
+     */
+    public function getDefaultIndex()
+    {
+        return $this->index;
+    }
 
     /**
      * Execute a map statement on index;
@@ -102,6 +119,51 @@ class Connection
 
         return $this->elastic->search($params);
     }
+
+    /**
+     * Execute a insert statement on index;
+     *
+     * @param $params
+     * @return array
+     */
+    public function indexStatement(array $params)
+    {
+        return $this->elastic->index(array_merge(['index' => $this->index], $params));
+    }
+
+    /**
+     * Execute a update statement on index;
+     *
+     * @param $params
+     * @return array
+     */
+    public function updateStatement(array $params)
+    {
+        return $this->elastic->update(array_merge(['index' => $this->index], $params));
+    }
+
+    /**
+     * Execute a update statement on index;
+     *
+     * @param $params
+     * @return array
+     */
+    public function deleteStatement(array $params)
+    {
+        return $this->elastic->delete(array_merge(['index' => $this->index], $params));
+    }
+
+    /**
+     * Execute a bulk statement on index;
+     *
+     * @param $params
+     * @return array
+     */
+    public function bulkStatement(array $params)
+    {
+        return $this->elastic->bulk($params);
+    }
+
 
     /**
      * Begin a fluent query builder against an elastic type.
@@ -135,6 +197,17 @@ class Connection
         return new DSLBuilder(
             $this, $this->getDSLGrammar()
         );
+    }
+
+    /**
+     * Create a new elastic persistence handler
+     *
+     * @param Model $model
+     * @return EloquentPersistence
+     */
+    public function persistence(Model $model)
+    {
+        return new EloquentPersistence($this,$model);
     }
 
     /**
