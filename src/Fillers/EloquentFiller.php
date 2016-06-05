@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use ReflectionMethod;
-use Sleimanx2\Plastic\PlasticResults as Result;
+use Sleimanx2\Plastic\PlasticResult as Result;
 
 class EloquentFiller implements FillerInterface
 {
@@ -14,14 +14,16 @@ class EloquentFiller implements FillerInterface
      * Fill the results hists into Model
      *
      * @param Model $model
-     * @param Result $results
+     * @param Result $result
      * @return mixed|void
      */
-    public function fill(Model $model, Result $results)
+    public function fill(Model $model, Result $result)
     {
-        $results->hits = $results->hits()->map(function ($hit) use ($model) {
+        $hits = $result->hits()->map(function ($hit) use ($model) {
             return $this->fillModel($model, $hit);
         });
+
+        $result->setHits($hits);
     }
 
     /**

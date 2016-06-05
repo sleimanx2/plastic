@@ -5,6 +5,7 @@ namespace Sleimanx2\Plastic;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Sleimanx2\Plastic\DSL\Builder;
+use Sleimanx2\Plastic\DSL\SuggestionBuilder;
 use Sleimanx2\Plastic\Facades\Plastic;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
@@ -56,18 +57,28 @@ trait Searchable
     }
 
     /**
-     * Start an elastic dsl query builder
+     * Start an elastic dsl search query builder
      *
      * @return Builder
      */
     public function search()
     {
-        return Plastic::model($this);
+        return Plastic::search()->model($this);
+    }
+
+    /**
+     * Start an elastic dsl suggest query builder
+     *
+     * @return SuggestionBuilder
+     */
+    public function suggest()
+    {
+        return Plastic::suggest();
     }
 
 
     /**
-     * Start an elastic persistence handler
+     * Start an elastic persistence query builder
      *
      * @return EloquentPersistence
      */

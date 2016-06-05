@@ -4,8 +4,9 @@ namespace Sleimanx2\Plastic;
 
 use Elasticsearch\ClientBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Sleimanx2\Plastic\DSL\Builder as DSLBuilder;
-use ONGR\ElasticsearchDSL\Search as DSLGrammar;
+use Sleimanx2\Plastic\DSL\SearchBuilder;
+use ONGR\ElasticsearchDSL\Search as DSLQuery;
+use Sleimanx2\Plastic\DSL\SuggestionBuilder;
 use Sleimanx2\Plastic\Map\Builder as MapBuilder;
 use Sleimanx2\Plastic\Map\Grammar as MapGrammar;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
@@ -25,18 +26,7 @@ class Connection
      *
      * @var \Elasticsearch\Client
      */
-    protected $elastic;
-
-    /**
-     * Default elastic config
-     *
-     * @var array
-     */
-    private $config = [
-        'hosts'   => ['localhost:9200'],
-        'retries' => 2,
-        'index'   => 'default_index'
-    ];
+    public $elastic;
 
     /**
      * Connection constructor.
@@ -45,11 +35,9 @@ class Connection
      */
     public function __construct(array $config = [])
     {
-        $this->config = empty($config) ? $this->config : $config;
+        $this->elastic = $this->buildClient($config['connection']);
 
-        $this->elastic = $this->buildClient($this->config);
-
-        $this->index = $this->config['index'];
+        $this->index = $config['index'];
     }
 
     /**
@@ -77,9 +65,29 @@ class Connection
      *
      * @return DSLGrammar
      */
-    public function getDSLGrammar()
+    public function getDSLQuery()
     {
-        return new DSLGrammar();
+        return new DSLQuery();
+    }
+
+    /**
+     * Get the elastic search client instance
+     *
+     * @return \Elasticsearch\Client
+     */
+    public function getClient()
+    {
+        return $this->elastic;
+    }
+
+    /**
+     * Get the default elastic index
+     *
+     * @return string
+     */
+    public function getDefaultIndex()
+    {
+        return $this->index;
     }
 
     /**
@@ -94,30 +102,36 @@ class Connection
     }
 
     /**
-     * Get the default elastic index
+     * Execute a map statement on index;
      *
-     * @return mixed
+     * @param SearchBuilder $builder
+     * @return array
      */
-    public function getDefaultIndex()
+    public function searchStatement(SearchBuilder $builder)
     {
-        return $this->index;
+        $params = [
+            'index' => $this->index,
+            'type'  => $builder->type,
+            'body'  => $builder->toDSL()
+        ];
+
+        return $this->elastic->search($params);
     }
 
     /**
      * Execute a map statement on index;
      *
-     * @param $query
+     * @param SuggestionBuilder $builder
      * @return array
      */
-    public function queryStatement(DSLBuilder $query)
+    public function suggestStatement(SuggestionBuilder $builder)
     {
         $params = [
             'index' => $this->index,
-            'type'  => $query->type,
-            'body'  => $query->toDSL()
+            'body'  => $builder->toDSL()
         ];
 
-        return $this->elastic->search($params);
+        return $this->elastic->suggest($params);
     }
 
     /**
@@ -164,27 +178,37 @@ class Connection
         return $this->elastic->bulk($params);
     }
 
-
     /**
-     * Begin a fluent query builder against an elastic type.
+     * Begin a fluent search query builder.
      *
-     * @param  string $type
-     * @return \Illuminate\Database\Query\Builder
+     * @return SearchBuilder
      */
-    public function type($type)
+    public function search()
     {
-        return $this->dsl()->type($type);
+        return $this->searchBuilder();
     }
 
     /**
-     * Begin a fluent query builder using a model.
+     * Begin a fluent suggest query builder.
      *
-     * @param  Model $type
+     * @return SuggestionBuilder
+     */
+    public function suggest()
+    {
+        return $this->suggestionBuilder();
+    }
+
+
+    /**
+     * Get a new dsl builder instance.
+     *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function model(Model $model)
+    public function searchBuilder()
     {
-        return $this->dsl()->model($model);
+        return new SearchBuilder(
+            $this, $this->getDSLQuery()
+        );
     }
 
     /**
@@ -192,10 +216,10 @@ class Connection
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function dsl()
+    public function suggestionBuilder()
     {
-        return new DSLBuilder(
-            $this, $this->getDSLGrammar()
+        return new SuggestionBuilder(
+            $this, $this->getDSLQuery()
         );
     }
 
@@ -207,7 +231,7 @@ class Connection
      */
     public function persistence(Model $model)
     {
-        return new EloquentPersistence($this,$model);
+        return new EloquentPersistence($this, $model);
     }
 
     /**
@@ -218,9 +242,15 @@ class Connection
      */
     private function buildClient(array $config)
     {
-        return ClientBuilder::create()
+        $client = ClientBuilder::create()
             ->setHosts($config['hosts'])
-            ->setRetries($config['retries'])
-            ->build();
+            ->setRetries($config['retries']);
+
+        if ($config['logging']['enabled'] == true) {
+            $logger = ClientBuilder::defaultLogger($config['logging']['path'], $config['logging']['level']);
+            $client->setLogger($logger);
+        }
+
+        return $client->build();
     }
 }

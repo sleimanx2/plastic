@@ -5,6 +5,7 @@ namespace Sleimanx2\Plastic\DSL;
 use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
 use ONGR\ElasticsearchDSL\Suggest\TermSuggest;
+use Sleimanx2\Plastic\Connection;
 
 class SuggestionBuilder
 {
@@ -16,13 +17,22 @@ class SuggestionBuilder
     public $query;
 
     /**
+     * An instance of plastic Connection
+     *
+     * @var Connection
+     */
+    private $connection;
+
+    /**
      * Builder constructor.
      *
      * @param Query $query
      */
-    public function __construct(Query $query = null)
+    public function __construct(Connection $connection, Query $query = null)
     {
         $this->query = $query;
+
+        $this->connection = $connection;
     }
 
     /**
@@ -31,12 +41,15 @@ class SuggestionBuilder
      * @param $name
      * @param $text
      * @param array $parameters
+     * @return $this
      */
     public function completion($name, $text, $parameters = [])
     {
         $suggestion = new CompletionSuggest($name, $text, $parameters);
 
         $this->append($suggestion);
+
+        return $this;
     }
 
     /**
@@ -45,12 +58,35 @@ class SuggestionBuilder
      * @param string $name
      * @param string $text
      * @param array $parameters
+     * @return $this
      */
     public function term($name, $text, array $parameters = [])
     {
-        $suggestion = new TermSuggest($name, $text, $parameters = []);
+        $suggestion = new TermSuggest($name, $text, $parameters);
 
         $this->append($suggestion);
+
+        return $this;
+    }
+
+    /**
+     * Return the DSL query
+     *
+     * @return array
+     */
+    public function toDSL()
+    {
+        return $this->query->toArray()['suggest'];
+    }
+
+    /**
+     * Execute the suggest query against elastic and return the raw result if model not set
+     *
+     * @return PlasticResults
+     */
+    public function get()
+    {
+        return $this->connection->suggestStatement($this);
     }
 
     /**

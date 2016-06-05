@@ -4,7 +4,7 @@ namespace Sleimanx2\Plastic;
 
 use Illuminate\Support\Collection;
 
-class PlasticResults
+class PlasticResult
 {
 
     /**
@@ -31,7 +31,7 @@ class PlasticResults
      *
      * @var
      */
-    public $hits;
+    protected $hits;
 
     /**
      * Total number of hits
@@ -137,6 +137,16 @@ class PlasticResults
     public function hits()
     {
         return $this->hits;
+    }
+
+    /**
+     * Set the hits value
+     *
+     * @param $values
+     */
+    public function setHits($values)
+    {
+        $this->hits = $values;
     }
 
     /**

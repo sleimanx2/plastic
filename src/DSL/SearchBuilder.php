@@ -33,10 +33,11 @@ use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
 use Sleimanx2\Plastic\Connection;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
 use Sleimanx2\Plastic\Fillers\EloquentFiller;
-use Sleimanx2\Plastic\PlasticResults;
+use Sleimanx2\Plastic\PlasticPaginator;
+use Sleimanx2\Plastic\PlasticResult;
 use Sleimanx2\Plastic\Searchable;
 
-class Builder
+class SearchBuilder
 {
     /**
      * An instance of DSL query
@@ -636,6 +637,7 @@ class Builder
      * Add suggestions
      *
      * @param \Closure $closure
+     *
      * @return $this
      */
     public function suggest(\Closure $closure)
@@ -655,20 +657,20 @@ class Builder
      */
     public function getRaw()
     {
-        return $this->connection->queryStatement($this);
+        return $this->connection->searchStatement($this);
     }
 
 
     /**
-     * Execute the search query against elastic and return the raw result if model not set
+     * Execute the search query against elastic and return the raw result if the model is not set
      *
-     * @return PlasticResults
+     * @return PlasticResult
      */
     public function get()
     {
         $result = $this->getRaw();
 
-        $result = new PlasticResults($result);
+        $result = new PlasticResult($result);
 
         if ($this->model) {
             (new EloquentFiller())->fill($this->model, $result);
@@ -681,7 +683,7 @@ class Builder
      * Paginate result hits
      *
      * @param int $limit
-     * @return LengthAwarePaginator
+     * @return PlasticPaginator
      */
     public function paginate($limit = 25)
     {
@@ -692,8 +694,7 @@ class Builder
 
         $result = $this->from($from)->size($size)->get();
 
-        return new LengthAwarePaginator($result->hits()->all(), $result->totalHits(), $limit, $page,
-            ['path' => LengthAwarePaginator::resolveCurrentPath()]);
+        return new PlasticPaginator($result,$size,$page);
     }
 
     /**
