@@ -51,6 +51,7 @@ class EloquentFiller implements FillerInterface
                 $attributes[$key] = $value;
             }
         }
+
         $instance = $this->newFromBuilderRecursive($model, $attributes);
         // In addition to setting the attributes
         // from the index, we will set the score as well.
@@ -110,15 +111,20 @@ class EloquentFiller implements FillerInterface
                     if ($relation instanceof Relation) {
 
                         // Check if the relation field is single model or collections
-                        if (!$this->isMultiLevelArray($value)) {
+                        if (!$multiLevelRelation = $this->isMultiLevelArray($value)) {
                             $value = [$value];
                         }
 
                         $models = $this->hydrateRecursive($relation->getModel(), $value, $relation);
+
                         // Unset attribute before match relation
                         unset($model[$key]);
 
-                        $relation->match([$model], $models, $key);
+                        if (!$multiLevelRelation) {
+                            $models = $models->first();
+                        }
+
+                        $model->setRelation($key, $models);
                     }
                 }
             }
