@@ -4,7 +4,7 @@ namespace Sleimanx2\Plastic;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Sleimanx2\Plastic\DSL\Builder;
+use Sleimanx2\Plastic\DSL\SearchBuilder;
 use Sleimanx2\Plastic\DSL\SuggestionBuilder;
 use Sleimanx2\Plastic\Facades\Plastic;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
@@ -59,7 +59,7 @@ trait Searchable
     /**
      * Start an elastic dsl search query builder
      *
-     * @return Builder
+     * @return SearchBuilder
      */
     public function search()
     {
