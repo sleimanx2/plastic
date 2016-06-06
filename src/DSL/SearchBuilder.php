@@ -277,7 +277,7 @@ class SearchBuilder
      * @param array $attributes
      * @return $this
      */
-    public function term($field, $term, array $attributes)
+    public function term($field, $term, array $attributes = [])
     {
         $query = new TermQuery($field, $term, $attributes);
 
