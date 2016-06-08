@@ -2,6 +2,7 @@
 
 namespace Sleimanx2\Plastic;
 
+use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Sleimanx2\Plastic\DSL\SearchBuilder;
@@ -24,7 +25,7 @@ class Connection
     /**
      * Elasticsearch client instance
      *
-     * @var \Elasticsearch\Client
+     * @var Client
      */
     public $elastic;
 
@@ -73,11 +74,21 @@ class Connection
     /**
      * Get the elastic search client instance
      *
-     * @return \Elasticsearch\Client
+     * @return Client
      */
     public function getClient()
     {
         return $this->elastic;
+    }
+
+    /**
+     * Set a custom elastic client
+     *
+     * @param Client $client
+     */
+    public function setClient(Client $client)
+    {
+        $this->elastic = $client;
     }
 
     /**
@@ -104,34 +115,23 @@ class Connection
     /**
      * Execute a map statement on index;
      *
-     * @param SearchBuilder $builder
+     * @param array $search
      * @return array
      */
-    public function searchStatement(SearchBuilder $builder)
+    public function searchStatement(array $search)
     {
-        $params = [
-            'index' => $this->index,
-            'type'  => $builder->type,
-            'body'  => $builder->toDSL()
-        ];
-
-        return $this->elastic->search($params);
+        return $this->elastic->search(array_merge(['index' => $this->index], $search));
     }
 
     /**
      * Execute a map statement on index;
      *
-     * @param SuggestionBuilder $builder
+     * @param array $suggestions
      * @return array
      */
-    public function suggestStatement(SuggestionBuilder $builder)
+    public function suggestStatement(array $suggestions)
     {
-        $params = [
-            'index' => $this->index,
-            'body'  => $builder->toDSL()
-        ];
-
-        return $this->elastic->suggest($params);
+        return $this->elastic->suggest(array_merge(['index' => $this->index], $suggestions));
     }
 
     /**
@@ -185,7 +185,7 @@ class Connection
      */
     public function search()
     {
-        return $this->searchBuilder();
+        return new SearchBuilder($this, $this->getDSLQuery());
     }
 
     /**
@@ -195,32 +195,7 @@ class Connection
      */
     public function suggest()
     {
-        return $this->suggestionBuilder();
-    }
-
-
-    /**
-     * Get a new dsl builder instance.
-     *
-     * @return \Illuminate\Database\Query\Builder
-     */
-    public function searchBuilder()
-    {
-        return new SearchBuilder(
-            $this, $this->getDSLQuery()
-        );
-    }
-
-    /**
-     * Get a new dsl builder instance.
-     *
-     * @return \Illuminate\Database\Query\Builder
-     */
-    public function suggestionBuilder()
-    {
-        return new SuggestionBuilder(
-            $this, $this->getDSLQuery()
-        );
+        return new SuggestionBuilder($this, $this->getDSLQuery());
     }
 
     /**
@@ -229,7 +204,7 @@ class Connection
      * @param Model $model
      * @return EloquentPersistence
      */
-    public function persistence(Model $model)
+    public function persist(Model $model)
     {
         return new EloquentPersistence($this, $model);
     }
@@ -238,15 +213,18 @@ class Connection
      * Create an elastic search instance
      *
      * @param array $config
-     * @return \Elasticsearch\Client
+     * @return Client
      */
     private function buildClient(array $config)
     {
         $client = ClientBuilder::create()
-            ->setHosts($config['hosts'])
-            ->setRetries($config['retries']);
+            ->setHosts($config['hosts']);
 
-        if ($config['logging']['enabled'] == true) {
+        if (isset($config['retries'])) {
+            $client->setRetries($config['retries']);
+        }
+
+        if (isset($config['logging']) and $config['logging']['enabled'] == true) {
             $logger = ClientBuilder::defaultLogger($config['logging']['path'], $config['logging']['level']);
             $client->setLogger($logger);
         }

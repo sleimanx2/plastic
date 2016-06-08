@@ -84,7 +84,7 @@ trait Searchable
      */
     public function document()
     {
-        return Plastic::persistence($this);
+        return Plastic::persist($this);
     }
 
     /**

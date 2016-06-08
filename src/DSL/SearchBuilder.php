@@ -657,7 +657,12 @@ class SearchBuilder
      */
     public function getRaw()
     {
-        return $this->connection->searchStatement($this);
+        $params = [
+            'type' => $this->type,
+            'body' => $this->toDSL(),
+        ];
+
+        return $this->connection->searchStatement($params);
     }
 
 
@@ -694,7 +699,7 @@ class SearchBuilder
 
         $result = $this->from($from)->size($size)->get();
 
-        return new PlasticPaginator($result,$size,$page);
+        return new PlasticPaginator($result, $size, $page);
     }
 
     /**

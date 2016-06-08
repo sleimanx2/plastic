@@ -64,7 +64,7 @@ class Mapper
         // First we will just make sure that there are any migrations to run. If there
         // aren't, we will just make a note of it to the developer.
         if (count($mappings) == 0) {
-            $this->note('<info>Nothing to migrate</info>');
+            $this->note('<info>Nothing to map</info>');
 
             return;
         }
@@ -178,6 +178,26 @@ class Mapper
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Return a filesystem instance
+     *
+     * @return Filesystem
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
+     * Return a filesystem instance
+     *
+     * @return Filesystem
+     */
+    public function getFilesystem()
+    {
+        return $this->files;
     }
 
     /**

@@ -125,6 +125,16 @@ class Creator
     }
 
     /**
+     * Return the filesystem instance
+     *
+     * @return Filesystem
+     */
+    public function getFilesystem()
+    {
+        return $this->files;
+    }
+
+    /**
      * Get the full path name to the mapping
      *
      * @param string $model

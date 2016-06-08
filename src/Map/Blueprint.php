@@ -60,7 +60,7 @@ class Blueprint
                     '_source'    => [
                         'enabled' => true
                     ],
-                    'properties' => $this->toQueryDSL($grammar),
+                    'properties' => $this->toDSL($grammar),
                 ]
             ]
         ];
@@ -82,154 +82,168 @@ class Blueprint
      * Add a string field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function string($field)
+    public function string($field, $attributes = [])
     {
-        return $this->addField('string', $field);
+        return $this->addField('string', $field, $attributes);
     }
 
     /**
      * Add a date field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function date($field)
+    public function date($field, $attributes = [])
     {
-        return $this->addField('date', $field);
+        return $this->addField('date', $field, $attributes);
     }
 
     /**
      * Add a long numeric field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function long($field)
+    public function long($field, $attributes = [])
     {
-        return $this->addField('long', $field);
+        return $this->addField('long', $field, $attributes);
     }
 
     /**
      * Add an integer field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function integer($field)
+    public function integer($field, $attributes = [])
     {
-        return $this->addField('integer', $field);
+        return $this->addField('integer', $field, $attributes);
     }
 
     /**
      * Add a short numeric field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function short($field)
+    public function short($field, $attributes = [])
     {
-        return $this->addField('short', $field);
+        return $this->addField('short', $field, $attributes);
     }
 
     /**
      * Add a byte numeric field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function byte($field)
+    public function byte($field, $attributes = [])
     {
-        return $this->addField('byte', $field);
+        return $this->addField('byte', $field, $attributes);
     }
 
     /**
      * Add a double field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function double($field)
+    public function double($field, $attributes = [])
     {
-        return $this->addField('double', $field);
+        return $this->addField('double', $field, $attributes);
     }
 
     /**
      * Add a binary field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function binary($field)
+    public function binary($field, $attributes = [])
     {
-        return $this->addField('binary', $field);
+        return $this->addField('binary', $field, $attributes);
     }
 
     /**
      * Add a float field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function float($field)
+    public function float($field, $attributes = [])
     {
-        return $this->addField('float', $field);
+        return $this->addField('float', $field, $attributes);
     }
 
     /**
      * Add a boolean field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function boolean($field)
+    public function boolean($field, $attributes = [])
     {
-        return $this->addField('boolean', $field);
+        return $this->addField('boolean', $field, $attributes);
     }
 
     /**
      * Add a geo point field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function point($field)
+    public function point($field, $attributes = [])
     {
-        return $this->addField('geo_point', $field);
+        return $this->addField('point', $field, $attributes);
     }
 
     /**
      * Add a geo shape field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function shape($field)
+    public function shape($field, $attributes = [])
     {
-        return $this->addField('geo_shape', $field);
+        return $this->addField('shape', $field, $attributes);
     }
 
     /**
      * Add an IPv4 field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function ip($field)
+    public function ip($field, $attributes = [])
     {
-        return $this->addField('ip', $field);
+        return $this->addField('ip', $field, $attributes);
     }
 
     /**
      * Add a completion field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function completion($field)
+    public function completion($field, $attributes = [])
     {
-        return $this->addField('completion', $field);
+        return $this->addField('completion', $field, $attributes);
     }
 
 
@@ -237,11 +251,12 @@ class Blueprint
      * Add a completion field to the map
      *
      * @param string $field
+     * @param array $attributes
      * @return Fluent
      */
-    public function tokenCount($field)
+    public function tokenCount($field, $attributes = [])
     {
-        return $this->addField('token_count', $field);
+        return $this->addField('token_count', $field, $attributes);
     }
 
     /**
@@ -284,6 +299,16 @@ class Blueprint
     }
 
     /**
+     * Get the command fields
+     *
+     * @return array
+     */
+    public function getCommands()
+    {
+        return $this->fields;
+    }
+
+    /**
      * Add a new command to the blueprint.
      *
      * @param  string $name
@@ -316,7 +341,7 @@ class Blueprint
      * @param  Grammar $grammar
      * @return array
      */
-    public function toQueryDSL(Grammar $grammar)
+    public function toDSL(Grammar $grammar)
     {
         $statements = [];
 
@@ -327,6 +352,7 @@ class Blueprint
             $method = 'compile' . ucfirst($command->name);
 
             if (method_exists($grammar, $method)) {
+
                 if (!is_null($dsl = $grammar->$method($this, $command))) {
                     $statements = array_merge($statements, (array)$dsl);
                 }

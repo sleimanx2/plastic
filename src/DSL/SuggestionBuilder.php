@@ -82,11 +82,11 @@ class SuggestionBuilder
     /**
      * Execute the suggest query against elastic and return the raw result if model not set
      *
-     * @return PlasticResults
+     * @return array
      */
     public function get()
     {
-        return $this->connection->suggestStatement($this);
+        return $this->connection->suggestStatement(['body' => $this->toDSL()]);
     }
 
     /**

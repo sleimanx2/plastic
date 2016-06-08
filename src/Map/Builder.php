@@ -82,7 +82,7 @@ class Builder
     protected function createBlueprint($type, Closure $callback = null)
     {
         if (isset($this->resolver)) {
-            return call_user_func($this->resolver, $table, $callback);
+            return call_user_func($this->resolver, $type, $callback);
         }
 
         return new Blueprint($type, $callback);

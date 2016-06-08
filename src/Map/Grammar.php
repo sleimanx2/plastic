@@ -85,12 +85,12 @@ class Grammar
     public function compileBinary(Fluent $fluent)
     {
         $map = [
-            'type'       => $fluent->type,
+            'type'       => 'binary',
             'doc_values' => $fluent->doc_values,
             'store'      => $fluent->store
         ];
 
-        return $this->formatMap($fluent, $map);
+        return $this->formatMap($map);
     }
 
 
@@ -114,7 +114,7 @@ class Grammar
     public function compileDate(Fluent $fluent)
     {
         $map = [
-            'type'             => $fluent->type,
+            'type'             => 'date',
             'boost'            => $fluent->boost,
             'doc_values'       => $fluent->doc_values,
             'format'           => $fluent->format,
@@ -138,6 +138,7 @@ class Grammar
     public function compileBoolean(Fluent $fluent)
     {
         $map = [
+            'type'       => 'boolean',
             "boost"      => $fluent->boost,
             "doc_values" => $fluent->doc_values,
             "index"      => $fluent->index,
@@ -157,6 +158,7 @@ class Grammar
     public function compilePoint(Fluent $fluent)
     {
         $map = [
+            'type'              => 'geo_point',
             "geohash"           => $fluent->geohash,
             "geohash_precision" => $fluent->geohash_precision,
             "geohash_prefix"    => $fluent->geohash_prefix,
@@ -177,7 +179,7 @@ class Grammar
     public function compileShape(Fluent $fluent)
     {
         $map = [
-            'type'               => $fluent->type,
+            'type'               => 'geo_shape',
             'tree'               => $fluent->tree,
             'precision'          => $fluent->precision,
             'tree_levels'        => $fluent->tree_levels,
@@ -221,7 +223,7 @@ class Grammar
     public function compileCompletion(Fluent $fluent)
     {
         $map = [
-            'type'                => $fluent->type,
+            'type'                => 'completion',
             'analyzer'            => $fluent->analyzer,
             'search_analyzer'     => $fluent->search_analyzer,
             'payloads'            => $fluent->payloads,
@@ -242,7 +244,7 @@ class Grammar
     public function compileToken_count(Fluent $fluent)
     {
         $map = [
-            'type'           => $fluent->type,
+            'type'           => 'token_count',
             'boost'          => $fluent->boost,
             'doc_values'     => $fluent->doc_values,
             'include_in_all' => $fluent->include_in_all,
@@ -264,7 +266,7 @@ class Grammar
     public function compileString(Fluent $fluent)
     {
         $map = [
-            'type'                   => $fluent->type,
+            'type'                   => 'string',
             'analyzer'               => $fluent->analyzer,
             'boost'                  => $fluent->boost,
             'doc_values'             => $fluent->doc_values,
@@ -364,6 +366,7 @@ class Grammar
                 }
             }
         }
+
         return $statement;
     }
 
