@@ -2,6 +2,6 @@
 
 namespace Sleimanx2\Plastic\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException
+class MissingArgumentException extends \InvalidArgumentException
 {
 }

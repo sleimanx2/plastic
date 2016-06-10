@@ -24,9 +24,7 @@ class MappingMapperTest extends \PHPUnit_Framework_TestCase
         $mapper->getFilesystem()->shouldReceive('requireOnce')->with(__DIR__.'/1_foo.php');
         $mapper->getFilesystem()->shouldReceive('requireOnce')->with(__DIR__.'/3_baz.php');
 
-        $mapper->getRepository()->shouldReceive('getRan')->once()->andReturn([
-            '1_foo',
-        ]);
+        $mapper->getRepository()->shouldReceive('getRan')->once()->andReturn(['1_foo']);
 
         $mapper->getRepository()->shouldReceive('getNextBatchNumber')->once()->andReturn(1);
 

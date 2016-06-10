@@ -65,7 +65,7 @@ class Mappings
     {
         $query = $this->table()->where('batch', $this->getLastBatchNumber());
 
-        return $query->orderBy('mapping', 'desc');
+        return $query->orderBy('mapping', 'desc')->get();
     }
 
     /**

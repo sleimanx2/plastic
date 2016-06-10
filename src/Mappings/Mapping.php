@@ -2,18 +2,19 @@
 
 namespace Sleimanx2\Plastic\Mappings;
 
+use Illuminate\Database\Eloquent\Model;
+use Sleimanx2\Plastic\Exception\MissingArgumentException;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
 use Sleimanx2\Plastic\Searchable;
 
 abstract class Mapping
 {
-
     /**
-     * Elastic type that should be mapped
+     * Eloquent instance
      *
-     * @var string
+     * @var Model
      */
-    protected $type = '';
+    protected $model;
 
     /**
      * Mapping constructor.
@@ -28,6 +29,11 @@ abstract class Mapping
      */
     protected function prepareModel()
     {
+        if(!$this->model)
+        {
+            throw new MissingArgumentException('model property should be filled');
+        }
+
         $this->model = new $this->model;
 
         $traits = class_uses($this->model);
@@ -37,5 +43,15 @@ abstract class Mapping
         }
 
         $this->type = $this->model->getType();
+    }
+
+    /**
+     * Get the model elastic type
+     *
+     * @return mixed
+     */
+    public function getModelType()
+    {
+        return $this->model->getType();
     }
 }

@@ -70,23 +70,13 @@ class AggregationBuilder
     {
         $aggregation = new CardinalityAggregation($alias);
 
-        $this->setFieldAndScript($field, $script, $aggregation);
+        $aggregation->setField($field);
 
-        if ($field) {
-            $aggregation->setField($field);
-        }
+        $aggregation->setScript($script);
 
-        if ($script) {
-            $aggregation->setScript($script);
-        }
+        $aggregation->setPrecisionThreshold($precision);
 
-        if ($precision) {
-            $aggregation->setPrecisionThreshold($precision);
-        }
-
-        if ($rehash) {
-            $aggregation->setRehash($rehash);
-        }
+        $aggregation->setRehash($rehash);
 
         $this->append($aggregation);
     }
@@ -98,8 +88,10 @@ class AggregationBuilder
      * @param $field
      * @param $format
      * @param array $ranges
+     * @internal param null $from
+     * @internal param null $to
      */
-    public function dateRange($alias, $field = null, $format, array $ranges)
+    public function dateRange($alias, $field, $format, array $ranges)
     {
         $aggregation = new DateRangeAggregation($alias, $field, $format, $ranges);
 
@@ -113,7 +105,7 @@ class AggregationBuilder
      * @param null|string $field
      * @param bool $wrap_longitude
      */
-    public function geoBounds($alias, $field = null, $wrap_longitude = true)
+    public function geoBounds($alias, $field, $wrap_longitude = true)
     {
         $aggregation = new GeoBoundsAggregation($alias, $field, $wrap_longitude);
 
@@ -128,7 +120,7 @@ class AggregationBuilder
      * @param string $origin
      * @param array $ranges
      */
-    public function geoDistance($alias, $field = null, $origin, array $ranges)
+    public function geoDistance($alias, $field, $origin, array $ranges)
     {
         $aggregation = new GeoDistanceAggregation($alias, $field, $origin, $ranges);
 
@@ -144,7 +136,7 @@ class AggregationBuilder
      * @param null $size
      * @param null $shardSize
      */
-    public function geoHashGrid($alias, $field = null, $precision, $size = null, $shardSize = null)
+    public function geoHashGrid($alias, $field, $precision, $size = null, $shardSize = null)
     {
         $aggregation = new GeoHashGridAggregation($alias, $field, $precision, $size, $shardSize);
 
@@ -166,8 +158,8 @@ class AggregationBuilder
      */
     public function histogram(
         $alias,
-        $field = null,
-        $interval = null,
+        $field,
+        $interval,
         $minDocCount = null,
         $orderMode = null,
         $orderDirection = 'asc',
@@ -188,7 +180,7 @@ class AggregationBuilder
      * @param null $field
      * @param array $ranges
      */
-    public function ipv4Range($alias, $field = null, array $ranges = [])
+    public function ipv4Range($alias, $field, array $ranges)
     {
         $aggregation = new Ipv4RangeAggregation($alias, $field, $ranges);
 
@@ -241,13 +233,13 @@ class AggregationBuilder
      *
      * @param $alias
      * @param string $field
-     * @param array $values
+     * @param $percents
      * @param null $script
      * @param null $compression
      */
-    public function percentile($alias, $field = null, $values = [], $script = null, $compression = null)
+    public function percentile($alias, $field = null,$percents, $script = null, $compression = null)
     {
-        $aggregation = new PercentilesAggregation($alias, $field, $values, $script, $compression);
+        $aggregation = new PercentilesAggregation($alias, $field, $percents, $script, $compression);
 
         $this->append($aggregation);
     }
@@ -318,7 +310,7 @@ class AggregationBuilder
      * @param array $ranges
      * @param bool $keyed
      */
-    public function range($alias, $field = null, array $ranges = [], $keyed = false)
+    public function range($alias, $field, array $ranges, $keyed = false)
     {
         $aggregation = new RangeAggregation($alias, $field, $ranges, $keyed);
 
@@ -340,6 +332,15 @@ class AggregationBuilder
         $this->append($aggregation);
     }
 
+    /**
+     * Return the DSL query
+     *
+     * @return array
+     */
+    public function toDSL()
+    {
+        return $this->query->toArray();
+    }
 
     /**
      * Append an aggregation to the aggregation query builder

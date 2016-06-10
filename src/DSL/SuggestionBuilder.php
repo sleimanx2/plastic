@@ -26,6 +26,7 @@ class SuggestionBuilder
     /**
      * Builder constructor.
      *
+     * @param Connection $connection
      * @param Query $query
      */
     public function __construct(Connection $connection, Query $query = null)
@@ -89,6 +90,15 @@ class SuggestionBuilder
         return $this->connection->suggestStatement(['body' => $this->toDSL()]);
     }
 
+    /**
+     * Returns the connection instance
+     *
+     * @return Connection
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
     /**
      * Append a suggestion to query
      *
