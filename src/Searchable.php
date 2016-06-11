@@ -112,6 +112,7 @@ trait Searchable
         // If the model contain a buildDocument function
         // use it to build the document
         if (method_exists($this, 'buildDocument')) {
+
             $document = $this->buildDocument();
 
             return $document;

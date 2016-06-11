@@ -19,6 +19,9 @@ abstract class PersistenceAbstract
 
     /**
      * PersistenceAbstract constructor.
+     *
+     * @param Connection $connection
+     * @param Model $model
      */
     public function __construct(Connection $connection, Model $model)
     {

@@ -5,6 +5,9 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Sleimanx2\Plastic\Facades\Plastic;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PlasticServiceProvider extends ServiceProvider
 {
 

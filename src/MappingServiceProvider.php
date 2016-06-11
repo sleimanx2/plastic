@@ -12,6 +12,9 @@ use Sleimanx2\Plastic\Mappings\Creator;
 use Sleimanx2\Plastic\Mappings\Mapper;
 use Sleimanx2\Plastic\Mappings\Mappings;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MappingServiceProvider extends ServiceProvider
 {
     /**

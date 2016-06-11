@@ -3,10 +3,12 @@
 namespace Sleimanx2\Plastic\Console\Mapping;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\ConfirmableTrait;
 use Sleimanx2\Plastic\Mappings\Mappings;
 
 class Reset extends Command
 {
+    use ConfirmableTrait;
 
     /**
      * The console command name.
@@ -45,7 +47,7 @@ class Reset extends Command
      */
     public function handle()
     {
-        if (! $this->confirm('Resetting mappings will delete all mapping logs continue ? [y|N]')) {
+        if (!$this->confirmToProceed()) {
             return;
         }
 

@@ -31,12 +31,12 @@ class EloquentPersistence extends PersistenceAbstract
      * Update a model document
      *
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
     public function update()
     {
         if (!$this->model->exists) {
-            throw new Exception('Model not persisted yet');
+            throw new \Exception('Model not persisted yet');
         }
 
         $document = $this->model->getDocumentData();
@@ -56,14 +56,9 @@ class EloquentPersistence extends PersistenceAbstract
      * Delete a model document
      *
      * @return mixed
-     * @throws Exception
      */
     public function delete()
     {
-        if (!$this->model->exists) {
-            throw new Exception('Model not persisted yet');
-        }
-
         $params = [
             'id'   => $this->model->getKey(),
             'type' => $this->model->getType(),
@@ -82,12 +77,14 @@ class EloquentPersistence extends PersistenceAbstract
     {
         $params = [];
 
+        $index = $this->connection->getDefaultIndex();
+
         foreach ($collection as $item) {
             $params['body'][] = [
                 'index' => [
                     '_id'    => $item->getKey(),
                     '_type'  => $item->getType(),
-                    '_index' => $this->connection->getDefaultIndex(),
+                    '_index' => $index,
                 ],
             ];
             $params['body'][] = $item->getDocumentData();
@@ -97,7 +94,7 @@ class EloquentPersistence extends PersistenceAbstract
     }
 
     /**
-     * Bulk Delete a collection of Modelss
+     * Bulk Delete a collection of Models
      *
      * @param array $collection
      * @return mixed
@@ -106,12 +103,14 @@ class EloquentPersistence extends PersistenceAbstract
     {
         $params = [];
 
+        $index = $this->connection->getDefaultIndex();
+
         foreach ($collection as $item) {
             $params['body'][] = [
                 'delete' => [
                     '_id'    => $item->getKey(),
                     '_type'  => $item->getType(),
-                    '_index' => $this->connection->getDefaultIndex(),
+                    '_index' => $index,
                 ],
             ];
         }
