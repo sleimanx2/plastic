@@ -4,6 +4,8 @@
 > Elasticsearch by providing a fluent syntax for mapping , querying and storing eloquent models.
 
 [![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
+[![StyleCI](https://styleci.io/repos/58264395/shield)](https://styleci.io/repos/58264395)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/sleimanx2/plastic)
 
 ##Installing Plastic
 
