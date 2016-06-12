@@ -23,6 +23,8 @@ To get started lets enable searching capabilities to our model by adding the Sea
 
 ```php
 use Sleimanx2\Plastic\Searchable;
+use Sleimanx2\Plastic\DSL\SearchBuilder;
+use Sleimanx2\Plastic\DSL\AggregationBuilder;
 
 class Book extends Model
 {
@@ -148,15 +150,45 @@ $books->result();
 ```php
 User::search()
   ->must()
-    ->term('user','kimchy')
+    ->term('name','kimchy')
   ->mustNot()
     ->range('age',['from'=>10,'to'=>20]);
   ->should()
-    ->term('tag','wow')
-    ->term('tag','elastic')
+    ->match('bio','developer')
+    ->match('bio','elastic')
   ->filter()
    ->term('tag','tech')
   ->get();
 
   // unlike must the matching filter score will be ignore
+```
+
+#####Nested Query
+```php
+$contain = 'foo';
+
+Post::search()
+->multiMatch(['title', 'body'], $contain)
+->nested('tags', function (SearchBuilder $builder) use ($contain) {
+    $builder->match('tags.name', $contain);
+});
+```
+
+#####Aggregation
+```php
+$result = User::search()
+  ->match('bio','elastic')
+  ->aggregate(function(AggregationBuilder $builder){
+    $builder->average('average_age','age');
+  });
+
+$aggregations = $result->aggregations();
+```
+#####Suggestions
+```php
+Plastic::suggest()->completion('tag_suggest', 'photo')->get();
+```
+suggestions query builder can also be accessed directly from the model as follows
+```php
+Tag::suggest()->term('tag_term','admin');
 ```
