@@ -204,3 +204,7 @@ Mappings are an important aspect of elastic we can compare them to indexing in S
 ```
 php artisan make:mapping 'App\User'
 ```
+
+## License
+
+Plastic is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
