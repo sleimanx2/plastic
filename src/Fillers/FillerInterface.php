@@ -8,10 +8,11 @@ use Sleimanx2\Plastic\PlasticResult as  Result;
 interface FillerInterface
 {
     /**
-     * Fill the results hists into Model
+     * Fill the results hists into Model.
      *
-     * @param Model $model
+     * @param Model  $model
      * @param Result $result
+     *
      * @return mixed
      */
     public function fill(Model $model, Result $result);

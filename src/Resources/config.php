@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -52,7 +53,7 @@ return [
         'logging' => [
             'enabled' => false,
             'path'    => storage_path('logs/plastic.log'),
-            'level'   => 200
+            'level'   => 200,
         ],
     ],
 

@@ -11,10 +11,11 @@ use Sleimanx2\Plastic\PlasticResult as Result;
 class EloquentFiller implements FillerInterface
 {
     /**
-     * Fill the results hists into Model
+     * Fill the results hists into Model.
      *
-     * @param Model $model
+     * @param Model  $model
      * @param Result $result
+     *
      * @return mixed|void
      */
     public function fill(Model $model, Result $result)
@@ -27,12 +28,13 @@ class EloquentFiller implements FillerInterface
     }
 
     /**
-     * New From Hit Builder
+     * New From Hit Builder.
      *
      * Variation on newFromBuilder. Instead, takes
      *
      * @param $model
      * @param array $hit
+     *
      * @return static
      */
     public function fillModel(Model $model, $hit = [])
@@ -68,17 +70,18 @@ class EloquentFiller implements FillerInterface
     }
 
     /**
-     * Fill a model with form an elastic hit
+     * Fill a model with form an elastic hit.
      *
-     * @param Model $model
-     * @param array $attributes
+     * @param Model    $model
+     * @param array    $attributes
      * @param Relation $parentRelation
+     *
      * @return mixed
      */
     public function newFromBuilderRecursive(Model $model, array $attributes = [], Relation $parentRelation = null)
     {
         $instance = $model->newInstance([], $exists = true);
-        $instance->setRawAttributes((array)$attributes, $sync = true);
+        $instance->setRawAttributes((array) $attributes, $sync = true);
 
         // Load relations recursive
         $this->loadRelationsAttributesRecursive($instance);
@@ -92,20 +95,17 @@ class EloquentFiller implements FillerInterface
     /**
      * Get the relations attributes from a model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      */
     protected function loadRelationsAttributesRecursive(Model $model)
     {
         $attributes = $model->getAttributes();
 
         foreach ($attributes as $key => $value) {
-
             if (method_exists($model, $key)) {
-
                 $reflection_method = new ReflectionMethod($model, $key);
 
                 if ($reflection_method->class != "Illuminate\Database\Eloquent\Model") {
-
                     $relation = $model->$key();
 
                     if ($relation instanceof Relation) {
@@ -134,9 +134,10 @@ class EloquentFiller implements FillerInterface
     /**
      * Create a collection of models from plain arrays recursive.
      *
-     * @param  Model $model
-     * @param  Relation $parentRelation
-     * @param  array $items
+     * @param Model    $model
+     * @param Relation $parentRelation
+     * @param array    $items
+     *
      * @return Collection
      */
     protected function hydrateRecursive(Model $model, array $items, Relation $parentRelation = null)
@@ -150,12 +151,11 @@ class EloquentFiller implements FillerInterface
         return $instance->newCollection($items);
     }
 
-
     /**
      * Get the pivot attribute from a model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
-     * @param  \Illuminate\Database\Eloquent\Relations\Relation $parentRelation
+     * @param \Illuminate\Database\Eloquent\Model              $model
+     * @param \Illuminate\Database\Eloquent\Relations\Relation $parentRelation
      */
     public function loadPivotAttribute(Model $model, Relation $parentRelation = null)
     {
@@ -174,8 +174,9 @@ class EloquentFiller implements FillerInterface
      *
      * For detect if a relation field is single model or collections.
      *
-     * @param  array $array
-     * @return boolean
+     * @param array $array
+     *
+     * @return bool
      */
     private function isMultiLevelArray(array $array)
     {

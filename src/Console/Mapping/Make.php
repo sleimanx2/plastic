@@ -7,7 +7,6 @@ use Sleimanx2\Plastic\Mappings\Creator;
 
 class Make extends BaseCommand
 {
-
     /**
      * The console command name.
      *
@@ -20,7 +19,7 @@ class Make extends BaseCommand
      *
      * @var string
      */
-    protected $description = "create a new mapping file";
+    protected $description = 'create a new mapping file';
 
     /**
      * @var Creator
@@ -32,11 +31,10 @@ class Make extends BaseCommand
      */
     private $composer;
 
-
     /**
-     * Reset constructor
+     * Reset constructor.
      *
-     * @param Creator $creator
+     * @param Creator  $creator
      * @param Composer $composer
      */
     public function __construct(Creator $creator, Composer $composer)
@@ -48,7 +46,7 @@ class Make extends BaseCommand
     }
 
     /**
-     * Execute the console command
+     * Execute the console command.
      */
     public function handle()
     {
@@ -60,7 +58,7 @@ class Make extends BaseCommand
     }
 
     /**
-     * Create the mapping file
+     * Create the mapping file.
      *
      * @param $model
      */
@@ -70,8 +68,6 @@ class Make extends BaseCommand
 
         $file = pathinfo($this->creator->create($model, $path), PATHINFO_FILENAME);
 
-        $this->comment($file . ' was created successfully');
+        $this->comment($file.' was created successfully');
     }
-
-
 }

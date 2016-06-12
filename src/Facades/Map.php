@@ -1,4 +1,5 @@
 <?php
+
 namespace Sleimanx2\Plastic\Facades;
 
 use Illuminate\Support\Facades\Facade;

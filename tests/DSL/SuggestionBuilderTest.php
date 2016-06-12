@@ -2,7 +2,6 @@
 
 class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -13,8 +12,8 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'tags_completion' => [
                 'text'       => 'name',
-                'completion' => ['field' => 'suggest', 'size' => 3]
-            ]
+                'completion' => ['field' => 'suggest', 'size' => 3],
+            ],
         ], $builder->toDSL());
     }
 
@@ -28,8 +27,8 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'tags_completion' => [
                 'text'       => 'name',
-                'term' => ['field' => '_all', 'size' => 3]
-            ]
+                'term'       => ['field' => '_all', 'size' => 3],
+            ],
         ], $builder->toDSL());
     }
 
@@ -41,7 +40,7 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
         $builder = $this->getBuilder();
         $builder->shouldReceive('toDSL')->once()->andReturn([]);
         $connection = $builder->getConnection();
-        $connection->shouldReceive('suggestStatement')->once()->with(['body'=>[]]);
+        $connection->shouldReceive('suggestStatement')->once()->with(['body' => []]);
         $builder->get();
     }
 

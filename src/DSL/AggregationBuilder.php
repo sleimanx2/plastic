@@ -26,7 +26,7 @@ use ONGR\ElasticsearchDSL\Search as Query;
 class AggregationBuilder
 {
     /**
-     * An instance of DSL query
+     * An instance of DSL query.
      *
      * @var Query
      */
@@ -42,9 +42,8 @@ class AggregationBuilder
         $this->query = $query;
     }
 
-
     /**
-     * Add an average aggregate
+     * Add an average aggregate.
      *
      * @param $alias
      * @param string|null $field
@@ -58,13 +57,13 @@ class AggregationBuilder
     }
 
     /**
-     * Add an cardinality aggregate
+     * Add an cardinality aggregate.
      *
      * @param $alias
      * @param string|null $field
      * @param string|null $script
-     * @param int $precision
-     * @param boolean $rehash
+     * @param int         $precision
+     * @param bool        $rehash
      */
     public function cardinality($alias, $field = null, $script = null, $precision = null, $rehash = null)
     {
@@ -82,12 +81,13 @@ class AggregationBuilder
     }
 
     /**
-     * Add a date range aggregate
+     * Add a date range aggregate.
      *
      * @param $alias
      * @param $field
      * @param $format
      * @param array $ranges
+     *
      * @internal param null $from
      * @internal param null $to
      */
@@ -99,11 +99,11 @@ class AggregationBuilder
     }
 
     /**
-     * Add a geo bounds aggregate
+     * Add a geo bounds aggregate.
      *
-     * @param string $alias
+     * @param string      $alias
      * @param null|string $field
-     * @param bool $wrap_longitude
+     * @param bool        $wrap_longitude
      */
     public function geoBounds($alias, $field, $wrap_longitude = true)
     {
@@ -113,12 +113,12 @@ class AggregationBuilder
     }
 
     /**
-     * Add a geo bounds aggregate
+     * Add a geo bounds aggregate.
      *
-     * @param string $alias
+     * @param string      $alias
      * @param null|string $field
-     * @param string $origin
-     * @param array $ranges
+     * @param string      $origin
+     * @param array       $ranges
      */
     public function geoDistance($alias, $field, $origin, array $ranges)
     {
@@ -128,13 +128,13 @@ class AggregationBuilder
     }
 
     /**
-     * Add a geo hash grid aggregate
+     * Add a geo hash grid aggregate.
      *
-     * @param string $alias
+     * @param string      $alias
      * @param null|string $field
-     * @param float $precision
-     * @param null $size
-     * @param null $shardSize
+     * @param float       $precision
+     * @param null        $size
+     * @param null        $shardSize
      */
     public function geoHashGrid($alias, $field, $precision, $size = null, $shardSize = null)
     {
@@ -144,17 +144,17 @@ class AggregationBuilder
     }
 
     /**
-     * Add a histogram aggregate
+     * Add a histogram aggregate.
      *
      * @param $alias
      * @param string $field
-     * @param int $interval
-     * @param int $minDocCount
+     * @param int    $interval
+     * @param int    $minDocCount
      * @param string $orderMode
      * @param string $orderDirection
-     * @param int $extendedBoundsMin
-     * @param int $extendedBoundsMax
-     * @param bool $keyed
+     * @param int    $extendedBoundsMin
+     * @param int    $extendedBoundsMax
+     * @param bool   $keyed
      */
     public function histogram(
         $alias,
@@ -174,10 +174,10 @@ class AggregationBuilder
     }
 
     /**
-     * Add an ipv4 range aggregate
+     * Add an ipv4 range aggregate.
      *
      * @param $alias
-     * @param null $field
+     * @param null  $field
      * @param array $ranges
      */
     public function ipv4Range($alias, $field, array $ranges)
@@ -188,7 +188,7 @@ class AggregationBuilder
     }
 
     /**
-     * Add an max aggregate
+     * Add an max aggregate.
      *
      * @param $alias
      * @param string|null $field
@@ -202,7 +202,7 @@ class AggregationBuilder
     }
 
     /**
-     * Add an min aggregate
+     * Add an min aggregate.
      *
      * @param $alias
      * @param string|null $field
@@ -216,7 +216,7 @@ class AggregationBuilder
     }
 
     /**
-     * Add an missing aggregate
+     * Add an missing aggregate.
      *
      * @param string $alias
      * @param string $field
@@ -229,7 +229,7 @@ class AggregationBuilder
     }
 
     /**
-     * Add an percentile aggregate
+     * Add an percentile aggregate.
      *
      * @param $alias
      * @param string $field
@@ -237,7 +237,7 @@ class AggregationBuilder
      * @param null $script
      * @param null $compression
      */
-    public function percentile($alias, $field = null,$percents, $script = null, $compression = null)
+    public function percentile($alias, $field, $percents, $script = null, $compression = null)
     {
         $aggregation = new PercentilesAggregation($alias, $field, $percents, $script, $compression);
 
@@ -245,15 +245,15 @@ class AggregationBuilder
     }
 
     /**
-     * Add an percentileRanks aggregate
+     * Add an percentileRanks aggregate.
      *
      * @param $alias
      * @param string $field
-     * @param array $values
-     * @param null $script
-     * @param null $compression
+     * @param array  $values
+     * @param null   $script
+     * @param null   $compression
      */
-    public function percentileRanks($alias, $field = null, array $values, $script = null, $compression = null)
+    public function percentileRanks($alias, $field, array $values, $script = null, $compression = null)
     {
         $aggregation = new PercentileRanksAggregation($alias, $field, $values, $script, $compression);
 
@@ -261,10 +261,10 @@ class AggregationBuilder
     }
 
     /**
-     * Add an stats aggregate
+     * Add an stats aggregate.
      *
      * @param $alias
-     * @param string $field
+     * @param string      $field
      * @param string|null $script
      */
     public function stats($alias, $field = null, $script = null)
@@ -275,10 +275,10 @@ class AggregationBuilder
     }
 
     /**
-     * Add an sum aggregate
+     * Add an sum aggregate.
      *
      * @param $alias
-     * @param string $field
+     * @param string      $field
      * @param string|null $script
      */
     public function sum($alias, $field = null, $script = null)
@@ -289,10 +289,10 @@ class AggregationBuilder
     }
 
     /**
-     * Add a value count aggregate
+     * Add a value count aggregate.
      *
      * @param $alias
-     * @param string $field
+     * @param string      $field
      * @param string|null $script
      */
     public function valueCount($alias, $field = null, $script = null)
@@ -303,12 +303,12 @@ class AggregationBuilder
     }
 
     /**
-     * Add a range aggregate
+     * Add a range aggregate.
      *
      * @param string $alias
      * @param string $field
-     * @param array $ranges
-     * @param bool $keyed
+     * @param array  $ranges
+     * @param bool   $keyed
      */
     public function range($alias, $field, array $ranges, $keyed = false)
     {
@@ -317,11 +317,10 @@ class AggregationBuilder
         $this->append($aggregation);
     }
 
-
     /**
-     * Add a terms aggregate
+     * Add a terms aggregate.
      *
-     * @param string $alias
+     * @param string      $alias
      * @param string|null $field
      * @param string|null $script
      */
@@ -333,7 +332,7 @@ class AggregationBuilder
     }
 
     /**
-     * Return the DSL query
+     * Return the DSL query.
      *
      * @return array
      */
@@ -343,7 +342,7 @@ class AggregationBuilder
     }
 
     /**
-     * Append an aggregation to the aggregation query builder
+     * Append an aggregation to the aggregation query builder.
      *
      * @param AbstractAggregation $aggregation
      */
@@ -351,5 +350,4 @@ class AggregationBuilder
     {
         $this->query->addAggregation($aggregation);
     }
-
 }

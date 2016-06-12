@@ -10,14 +10,14 @@ use Sleimanx2\Plastic\Connection;
 class SuggestionBuilder
 {
     /**
-     * An instance of DSL query
+     * An instance of DSL query.
      *
      * @var Query
      */
     public $query;
 
     /**
-     * An instance of plastic Connection
+     * An instance of plastic Connection.
      *
      * @var Connection
      */
@@ -27,7 +27,7 @@ class SuggestionBuilder
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query $query
+     * @param Query      $query
      */
     public function __construct(Connection $connection, Query $query = null)
     {
@@ -37,11 +37,12 @@ class SuggestionBuilder
     }
 
     /**
-     * Add a completion suggestion
+     * Add a completion suggestion.
      *
      * @param $name
      * @param $text
      * @param array $parameters
+     *
      * @return $this
      */
     public function completion($name, $text, $parameters = [])
@@ -54,11 +55,12 @@ class SuggestionBuilder
     }
 
     /**
-     * Add a term suggestion
+     * Add a term suggestion.
      *
      * @param string $name
      * @param string $text
-     * @param array $parameters
+     * @param array  $parameters
+     *
      * @return $this
      */
     public function term($name, $text, array $parameters = [])
@@ -71,7 +73,7 @@ class SuggestionBuilder
     }
 
     /**
-     * Return the DSL query
+     * Return the DSL query.
      *
      * @return array
      */
@@ -81,7 +83,7 @@ class SuggestionBuilder
     }
 
     /**
-     * Execute the suggest query against elastic and return the raw result if model not set
+     * Execute the suggest query against elastic and return the raw result if model not set.
      *
      * @return array
      */
@@ -91,7 +93,7 @@ class SuggestionBuilder
     }
 
     /**
-     * Returns the connection instance
+     * Returns the connection instance.
      *
      * @return Connection
      */
@@ -99,8 +101,9 @@ class SuggestionBuilder
     {
         return $this->connection;
     }
+
     /**
-     * Append a suggestion to query
+     * Append a suggestion to query.
      *
      * @param $suggestion
      */

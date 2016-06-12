@@ -2,7 +2,6 @@
 
 class MappingMapperTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -12,7 +11,7 @@ class MappingMapperTest extends \PHPUnit_Framework_TestCase
 
         $fileSystem = Mockery::mock(Illuminate\Filesystem\Filesystem::class);
 
-        $mapper = $this->getMock(Sleimanx2\Plastic\Mappings\Mapper::class,['resolve'],[$repository,$fileSystem]);
+        $mapper = $this->getMock(Sleimanx2\Plastic\Mappings\Mapper::class, ['resolve'], [$repository, $fileSystem]);
 
         $mapper->getFilesystem()->shouldReceive('glob')->once()->with(__DIR__.'/*_*.php')->andReturn([
             __DIR__.'/2_bar.php',

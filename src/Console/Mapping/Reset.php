@@ -22,16 +22,15 @@ class Reset extends Command
      *
      * @var string
      */
-    protected $description = "remove all mapping log from the repository";
+    protected $description = 'remove all mapping log from the repository';
 
     /**
      * @var Mappings
      */
     private $mappings;
 
-
     /**
-     * Reset constructor
+     * Reset constructor.
      *
      * @param Mappings $mappings
      */
@@ -43,7 +42,7 @@ class Reset extends Command
     }
 
     /**
-     * Execute the console command
+     * Execute the console command.
      */
     public function handle()
     {

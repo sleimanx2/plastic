@@ -11,13 +11,12 @@ class PlasticPaginator extends LengthAwarePaginator
      */
     protected $result;
 
-
     /**
      * PlasticPaginator constructor.
      *
      * @param PlasticResult $result
-     * @param int $limit
-     * @param int $page
+     * @param int           $limit
+     * @param int           $page
      */
     public function __construct(PlasticResult $result, $limit, $page)
     {
@@ -31,9 +30,8 @@ class PlasticPaginator extends LengthAwarePaginator
         $result->setHits($hitsReference);
     }
 
-
     /**
-     * Access the plastic result object
+     * Access the plastic result object.
      *
      * @return PlasticResult
      */

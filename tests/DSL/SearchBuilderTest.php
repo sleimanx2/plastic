@@ -86,7 +86,6 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['min_score' => 100], $dsl);
     }
 
-
     /**
      * @test
      */
@@ -201,8 +200,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $builder->geoBoundingBox('geo', [0.2, 3]);
         $this->assertEquals([
             'query' => [
-                'geo_bounding_box' => ['geo' => ['top_left' => 0.2, 'bottom_right' => 3]]
-            ]
+                'geo_bounding_box' => ['geo' => ['top_left' => 0.2, 'bottom_right' => 3]],
+            ],
         ], $builder->toDSL());
 
         $builder = $this->getBuilder();
@@ -214,10 +213,10 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                         'top'    => 1,
                         'left'   => 2,
                         'bottom' => 3,
-                        'right'  => 4
-                    ]
-                ]
-            ]
+                        'right'  => 4,
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -232,9 +231,9 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             'query' => [
                 'geo_distance' => [
                     'distance' => '12km',
-                    'location' => ['lat' => 1, 'long' => 2]
-                ]
-            ]
+                    'location' => ['lat' => 1, 'long' => 2],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -250,9 +249,9 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                 'geo_distance_range' => [
                     'from'     => '0km',
                     'to'       => '12km',
-                    'location' => ['lat' => 1, 'long' => 2]
-                ]
-            ]
+                    'location' => ['lat' => 1, 'long' => 2],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -266,9 +265,9 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'query' => [
                 'geohash_cell' => [
-                    'location' => ['lat' => 1, 'long' => 2]
-                ]
-            ]
+                    'location' => ['lat' => 1, 'long' => 2],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -282,9 +281,9 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'query' => [
                 'geo_polygon' => [
-                    'location' => ['points' => [1, 2, 3, 4]]
-                ]
-            ]
+                    'location' => ['points' => [1, 2, 3, 4]],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -327,7 +326,6 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $builder->range('date', ['gte' => '1974-2-9']);
         $this->assertEquals(['query' => ['range' => ['date' => ['gte' => '1974-2-9']]]], $builder->toDSL());
     }
-
 
     /**
      * @test
@@ -374,13 +372,12 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                 'nested' => [
                     'path'       => 'tag',
                     'query'      => ['term' => ['tag.name' => 'foo']],
-                    'score_mode' => 'avg'
-                ]
-            ]
+                    'score_mode' => 'avg',
+                ],
+            ],
 
         ], $builder->toDSL());
     }
-
 
     /**
      * @test
@@ -393,8 +390,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             'query' => [
                 'bool' => [
                     'should' => [['term' => ['name' => 'foo']]],
-                ]
-            ]
+                ],
+            ],
 
         ], $builder->toDSL());
     }
@@ -410,8 +407,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             'query' => [
                 'bool' => [
                     'filter' => [['bool' => ['must_not' => [['term' => ['name' => 'foo']]]]]],
-                ]
-            ]
+                ],
+            ],
 
         ], $builder->toDSL());
     }
@@ -445,17 +442,16 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                 'hits'      => [],
                 'total'     => 0,
                 'max_score' => 0,
-            ]
+            ],
         ];
         $filler->shouldReceive('fill')->once();
 
         $connection->shouldReceive('searchStatement')->with([
             'type' => 'searchable_model_builders',
-            'body' => []
+            'body' => [],
         ])->andReturn($return);
         $this->assertInstanceOf(PlasticResult::class, $builder->get());
     }
-
 
     /**
      * @test
@@ -472,7 +468,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                 'hits'      => [],
                 'total'     => 0,
                 'max_score' => 0,
-            ]
+            ],
         ]);
         $builder->shouldAllowMockingProtectedMethods();
         $builder->shouldReceive('getCurrentPage')->once()->andReturn(1);
@@ -490,16 +486,14 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
 
         return Mockery::mock('Sleimanx2\Plastic\DSL\SearchBuilder', [$connection, $query])->makePartial();
     }
-
 }
 
 
-Class SearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
+class SearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
 {
     use \Sleimanx2\Plastic\Searchable;
 }
 
-Class NotSearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
+class NotSearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
 {
 }
-

@@ -1,6 +1,5 @@
 <?php
 
-use Sleimanx2\Plastic\PlasticResult;
 
 class AggregationBuilderTest extends PHPUnit_Framework_TestCase
 {
@@ -39,11 +38,11 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                         'field'  => 'bar',
                         'ranges' => [
                             ['from' => '2001-3-3'],
-                            ['to' => '2002-3-3']
-                        ]
-                    ]
-                ]
-            ]
+                            ['to' => '2002-3-3'],
+                        ],
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -59,13 +58,12 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                 'foo' => [
                     'geo_bounds' => [
                         'field'          => 'bar',
-                        'wrap_longitude' => true
-                    ]
-                ]
-            ]
+                        'wrap_longitude' => true,
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
-
 
     /**
      * @test
@@ -82,11 +80,11 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                         'field'  => 'bar',
                         'ranges' => [
                             ['from' => 'x'],
-                            ['to' => 'y']
-                        ]
-                    ]
-                ]
-            ]
+                            ['to' => 'y'],
+                        ],
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -103,9 +101,9 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                     'geohash_grid' => [
                         'precision' => 'baz',
                         'field'     => 'bar',
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -122,9 +120,9 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                     'histogram' => [
                         'interval' => '2',
                         'field'    => 'bar',
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -142,9 +140,9 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                         'field'  => 'bar',
                         'ranges' => [['from' => 1, 'to' => 2]],
 
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -243,10 +241,10 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
                     'range' => [
                         'field'  => 'bar',
                         'keyed'  => false,
-                        'ranges' => [['from' => 1], ['to' => 2]]
-                    ]
-                ]
-            ]
+                        'ranges' => [['from' => 1], ['to' => 2]],
+                    ],
+                ],
+            ],
         ], $builder->toDSL());
     }
 
@@ -266,6 +264,4 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
 
         return new Sleimanx2\Plastic\DSL\AggregationBuilder($query);
     }
-
 }
-

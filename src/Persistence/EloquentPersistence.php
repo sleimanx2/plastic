@@ -2,14 +2,14 @@
 
 namespace Sleimanx2\Plastic\Persistence;
 
-
 class EloquentPersistence extends PersistenceAbstract
 {
     /**
-     * Save a model instance
+     * Save a model instance.
+     *
+     * @throws \Exception
      *
      * @return mixed
-     * @throws \Exception
      */
     public function save()
     {
@@ -28,10 +28,11 @@ class EloquentPersistence extends PersistenceAbstract
     }
 
     /**
-     * Update a model document
+     * Update a model document.
+     *
+     * @throws \Exception
      *
      * @return mixed
-     * @throws \Exception
      */
     public function update()
     {
@@ -45,15 +46,15 @@ class EloquentPersistence extends PersistenceAbstract
             'id'   => $this->model->getKey(),
             'type' => $this->model->getType(),
             'body' => [
-                'doc' => $document
-            ]
+                'doc' => $document,
+            ],
         ];
 
         return $this->connection->updateStatement($params);
     }
 
     /**
-     * Delete a model document
+     * Delete a model document.
      *
      * @return mixed
      */
@@ -68,9 +69,10 @@ class EloquentPersistence extends PersistenceAbstract
     }
 
     /**
-     * Bulk save a collection Models
+     * Bulk save a collection Models.
      *
      * @param array|Collection $collection
+     *
      * @return mixed
      */
     public function bulkSave($collection = [])
@@ -94,9 +96,10 @@ class EloquentPersistence extends PersistenceAbstract
     }
 
     /**
-     * Bulk Delete a collection of Models
+     * Bulk Delete a collection of Models.
      *
      * @param array|collecection $collection
+     *
      * @return mixed
      */
     public function bulkDelete($collection = [])

@@ -48,7 +48,8 @@ class Blueprint
      * Execute the blueprint against the database.
      *
      * @param Connection $connection
-     * @param Grammar $grammar
+     * @param Grammar    $grammar
+     *
      * @return array
      */
     public function build(Connection $connection, Grammar $grammar)
@@ -58,11 +59,11 @@ class Blueprint
             'body' => [
                 $this->type => [
                     '_source'    => [
-                        'enabled' => true
+                        'enabled' => true,
                     ],
                     'properties' => $this->toDSL($grammar),
-                ]
-            ]
+                ],
+            ],
         ];
 
         return $connection->mapStatement($statement);
@@ -79,10 +80,11 @@ class Blueprint
     }
 
     /**
-     * Add a string field to the map
+     * Add a string field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function string($field, $attributes = [])
@@ -91,10 +93,11 @@ class Blueprint
     }
 
     /**
-     * Add a date field to the map
+     * Add a date field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function date($field, $attributes = [])
@@ -103,10 +106,11 @@ class Blueprint
     }
 
     /**
-     * Add a long numeric field to the map
+     * Add a long numeric field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function long($field, $attributes = [])
@@ -115,10 +119,11 @@ class Blueprint
     }
 
     /**
-     * Add an integer field to the map
+     * Add an integer field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function integer($field, $attributes = [])
@@ -127,10 +132,11 @@ class Blueprint
     }
 
     /**
-     * Add a short numeric field to the map
+     * Add a short numeric field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function short($field, $attributes = [])
@@ -139,10 +145,11 @@ class Blueprint
     }
 
     /**
-     * Add a byte numeric field to the map
+     * Add a byte numeric field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function byte($field, $attributes = [])
@@ -151,10 +158,11 @@ class Blueprint
     }
 
     /**
-     * Add a double field to the map
+     * Add a double field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function double($field, $attributes = [])
@@ -163,10 +171,11 @@ class Blueprint
     }
 
     /**
-     * Add a binary field to the map
+     * Add a binary field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function binary($field, $attributes = [])
@@ -175,10 +184,11 @@ class Blueprint
     }
 
     /**
-     * Add a float field to the map
+     * Add a float field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function float($field, $attributes = [])
@@ -187,10 +197,11 @@ class Blueprint
     }
 
     /**
-     * Add a boolean field to the map
+     * Add a boolean field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function boolean($field, $attributes = [])
@@ -199,10 +210,11 @@ class Blueprint
     }
 
     /**
-     * Add a geo point field to the map
+     * Add a geo point field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function point($field, $attributes = [])
@@ -211,10 +223,11 @@ class Blueprint
     }
 
     /**
-     * Add a geo shape field to the map
+     * Add a geo shape field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function shape($field, $attributes = [])
@@ -223,10 +236,11 @@ class Blueprint
     }
 
     /**
-     * Add an IPv4 field to the map
+     * Add an IPv4 field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function ip($field, $attributes = [])
@@ -235,10 +249,11 @@ class Blueprint
     }
 
     /**
-     * Add a completion field to the map
+     * Add a completion field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function completion($field, $attributes = [])
@@ -246,12 +261,12 @@ class Blueprint
         return $this->addField('completion', $field, $attributes);
     }
 
-
     /**
-     * Add a completion field to the map
+     * Add a completion field to the map.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function tokenCount($field, $attributes = [])
@@ -260,10 +275,11 @@ class Blueprint
     }
 
     /**
-     * Add a nested map
+     * Add a nested map.
      *
      * @param $field
      * @param Closure $callback
+     *
      * @return Fluent
      */
     public function nested($field, Closure $callback)
@@ -272,11 +288,12 @@ class Blueprint
     }
 
     /**
-     * Add a new field to the blueprint
+     * Add a new field to the blueprint.
      *
      * @param string $type
      * @param string $name
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return Fluent
      */
     public function addField($type, $name, array $attributes = [])
@@ -289,7 +306,7 @@ class Blueprint
     }
 
     /**
-     * Get the registered fields
+     * Get the registered fields.
      *
      * @return array
      */
@@ -299,7 +316,7 @@ class Blueprint
     }
 
     /**
-     * Get the command fields
+     * Get the command fields.
      *
      * @return array
      */
@@ -311,8 +328,9 @@ class Blueprint
     /**
      * Add a new command to the blueprint.
      *
-     * @param  string $name
-     * @param  array $parameters
+     * @param string $name
+     * @param array  $parameters
+     *
      * @return \Illuminate\Support\Fluent
      */
     protected function addCommand($name, array $parameters = [])
@@ -325,8 +343,9 @@ class Blueprint
     /**
      * Create a new Fluent command.
      *
-     * @param  string $name
-     * @param  array $parameters
+     * @param string $name
+     * @param array  $parameters
+     *
      * @return \Illuminate\Support\Fluent
      */
     protected function createCommand($name, array $parameters = [])
@@ -334,11 +353,11 @@ class Blueprint
         return new Fluent(array_merge(compact('name'), $parameters));
     }
 
-
     /**
      * Get the raw DSL statements for the blueprint.
      *
-     * @param  Grammar $grammar
+     * @param Grammar $grammar
+     *
      * @return array
      */
     public function toDSL(Grammar $grammar)
@@ -349,17 +368,15 @@ class Blueprint
         // grammar which is used to build the necessary DSL statements to build
         // the blueprint element, so we'll just call that compilers function.
         foreach ($this->commands as $command) {
-            $method = 'compile' . ucfirst($command->name);
+            $method = 'compile'.ucfirst($command->name);
 
             if (method_exists($grammar, $method)) {
-
                 if (!is_null($dsl = $grammar->$method($this, $command))) {
-                    $statements = array_merge($statements, (array)$dsl);
+                    $statements = array_merge($statements, (array) $dsl);
                 }
             }
         }
 
         return $statements;
     }
-
 }

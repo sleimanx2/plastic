@@ -9,11 +9,10 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
         'hits'         => [
             'total'     => 2,
             'max_score' => 3,
-            'hits'      =>
-                ['foo', 'bar']
+            'hits'      => ['foo', 'bar'],
 
         ],
-        'aggregations' => ['aggregations']
+        'aggregations' => ['aggregations'],
     ];
 
     /**

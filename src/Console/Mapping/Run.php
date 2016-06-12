@@ -21,7 +21,7 @@ class Run extends BaseCommand
      *
      * @var string
      */
-    protected $description = "remove all mapping log from the repository";
+    protected $description = 'remove all mapping log from the repository';
 
     /**
      * @var Mapper
@@ -29,7 +29,7 @@ class Run extends BaseCommand
     private $mapper;
 
     /**
-     * Reset constructor
+     * Reset constructor.
      *
      * @param Mapper $mapper
      */
@@ -41,7 +41,7 @@ class Run extends BaseCommand
     }
 
     /**
-     * Execute the console command
+     * Execute the console command.
      */
     public function handle()
     {
@@ -63,19 +63,14 @@ class Run extends BaseCommand
         foreach ($this->mapper->getNotes() as $note) {
             $this->output->writeln($note);
         }
-
     }
 
 
-    /**
-     *
-     */
     protected function prepareDatabase()
     {
         $this->mapper->setConnection($this->option('database'));
 
         if (!$this->mapper->repositoryExists()) {
-
             $options = ['--database' => $this->option('database')];
 
             $this->call('mapping:install', $options);

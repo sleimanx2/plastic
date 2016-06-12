@@ -22,7 +22,7 @@ abstract class PersistenceAbstract
      * PersistenceAbstract constructor.
      *
      * @param Connection $connection
-     * @param Model $model
+     * @param Model      $model
      */
     public function __construct(Connection $connection, Model $model)
     {
@@ -31,46 +31,49 @@ abstract class PersistenceAbstract
     }
 
     /**
-     * Save a model instance
+     * Save a model instance.
      *
      * @return mixed
      */
     abstract public function save();
 
     /**
-     * Update a model document
+     * Update a model document.
      *
      * @return mixed
      */
     abstract public function update();
 
     /**
-     * Delete a model document
+     * Delete a model document.
      *
      * @return mixed
      */
     abstract public function delete();
 
     /**
-     * Bulk save a collection Models
+     * Bulk save a collection Models.
      *
      * @param array|Collection $collection
+     *
      * @return mixed
      */
     abstract public function bulkSave($collection = []);
 
     /**
-     * Bulk Delete a collection of Models
+     * Bulk Delete a collection of Models.
      *
      * @param array|Collection $collection
+     *
      * @return mixed
      */
     abstract public function bulkDelete($collection = []);
 
     /**
-     * Reindex a collection of Models
+     * Reindex a collection of Models.
      *
      * @param array|Collection $collection
+     *
      * @return mixed
      */
     public function reindex($collection = [])

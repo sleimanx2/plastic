@@ -2,7 +2,6 @@
 
 class MapBlueprintTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -10,7 +9,7 @@ class MapBlueprintTest extends PHPUnit_Framework_TestCase
     {
         $assertion = [
             'type' => 'posts',
-            'body' => ['posts' => ['_source' => ['enabled' => true], 'properties' => ['foo' => 'bar'],]]
+            'body' => ['posts' => ['_source' => ['enabled' => true], 'properties' => ['foo' => 'bar']]],
         ];
 
         $connection = Mockery::mock(Sleimanx2\Plastic\Connection::class);
@@ -30,17 +29,17 @@ class MapBlueprintTest extends PHPUnit_Framework_TestCase
     {
         $blueprint = new \Sleimanx2\Plastic\Map\Blueprint('posts');
 
-        $blueprint->addField('foo','bar',['baz'=>'qux']);
-        $blueprint->point('coordinate',['foo'=>'bar']);
+        $blueprint->addField('foo', 'bar', ['baz' => 'qux']);
+        $blueprint->point('coordinate', ['foo' => 'bar']);
 
         $fields = $blueprint->getFields();
 
-        $this->assertEquals('foo',$fields[0]->type);
-        $this->assertEquals('bar',$fields[0]->name);
-        $this->assertEquals('qux',$fields[0]->baz);
+        $this->assertEquals('foo', $fields[0]->type);
+        $this->assertEquals('bar', $fields[0]->name);
+        $this->assertEquals('qux', $fields[0]->baz);
 
-        $this->assertEquals('point',$fields[1]->type);
-        $this->assertEquals('coordinate',$fields[1]->name);
-        $this->assertEquals('bar',$fields[1]->foo);
+        $this->assertEquals('point', $fields[1]->type);
+        $this->assertEquals('coordinate', $fields[1]->name);
+        $this->assertEquals('bar', $fields[1]->foo);
     }
 }
