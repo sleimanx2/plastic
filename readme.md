@@ -15,6 +15,10 @@ php artisan vendor:publish
 
 This will create a config file at ```config/plastic.php``` and a mapping directory at ```database/mappings```.
 
+Finally we need to add the plastic service provider to ```app/config.php``` under the providers key.
+
+ ```'Sleimanx2\Plastic\PlasticServiceProvider'```
+
 ##Quick Start
 
 ###Defining Searchable Models
@@ -23,8 +27,6 @@ To get started lets enable searching capabilities to our model by adding the Sea
 
 ```php
 use Sleimanx2\Plastic\Searchable;
-use Sleimanx2\Plastic\DSL\SearchBuilder;
-use Sleimanx2\Plastic\DSL\AggregationBuilder;
 
 class Book extends Model
 {
@@ -190,5 +192,15 @@ Plastic::suggest()->completion('tag_suggest', 'photo')->get();
 ```
 suggestions query builder can also be accessed directly from the model as follows
 ```php
-Tag::suggest()->term('tag_term','admin');
+Tag::suggest()->term('tag_term','admin')->get();
+```
+
+###Mapping Model
+
+Mappings are an important aspect of elastic we can compare them to indexing in SQL databases. Mapping our models yields to better search results and allows us to use some special query functions like nested and suggestions.
+
+###### generate a model mapping
+
+```
+php artisan make:mapping 'App\User'
 ```
