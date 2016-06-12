@@ -3,6 +3,7 @@
 namespace Sleimanx2\Plastic\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Sleimanx2\Plastic\Connection;
 
 abstract class PersistenceAbstract
@@ -53,26 +54,26 @@ abstract class PersistenceAbstract
     /**
      * Bulk save a collection Models
      *
-     * @param array $collection
+     * @param array|Collection $collection
      * @return mixed
      */
-    abstract public function bulkSave(array $collection = []);
+    abstract public function bulkSave($collection = []);
 
     /**
      * Bulk Delete a collection of Models
      *
-     * @param array $collection
+     * @param array|Collection $collection
      * @return mixed
      */
-    abstract public function bulkDelete(array $collection = []);
+    abstract public function bulkDelete($collection = []);
 
     /**
      * Reindex a collection of Models
      *
-     * @param array $collection
+     * @param array|Collection $collection
      * @return mixed
      */
-    public function reindex(array $collection = [])
+    public function reindex($collection = [])
     {
         $this->bulkDelete($collection);
 

@@ -70,10 +70,10 @@ class EloquentPersistence extends PersistenceAbstract
     /**
      * Bulk save a collection Models
      *
-     * @param array $collection
+     * @param array|Collection $collection
      * @return mixed
      */
-    public function bulkSave(array $collection = [])
+    public function bulkSave($collection = [])
     {
         $params = [];
 
@@ -96,10 +96,10 @@ class EloquentPersistence extends PersistenceAbstract
     /**
      * Bulk Delete a collection of Models
      *
-     * @param array $collection
+     * @param array|collecection $collection
      * @return mixed
      */
-    public function bulkDelete(array $collection = [])
+    public function bulkDelete($collection = [])
     {
         $params = [];
 
