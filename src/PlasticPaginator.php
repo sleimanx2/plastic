@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class PlasticPaginator extends LengthAwarePaginator
 {
     /**
-     * @var PlasticResults
+     * @var PlasticResult
      */
     protected $result;
 
@@ -35,7 +35,7 @@ class PlasticPaginator extends LengthAwarePaginator
     /**
      * Access the plastic result object
      *
-     * @return PlasticResults
+     * @return PlasticResult
      */
     public function result()
     {
