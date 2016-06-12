@@ -57,27 +57,6 @@ trait Searchable
     }
 
     /**
-     * Start an elastic dsl search query builder
-     *
-     * @return SearchBuilder
-     */
-    public function search()
-    {
-        return Plastic::search()->model($this);
-    }
-
-    /**
-     * Start an elastic dsl suggest query builder
-     *
-     * @return SuggestionBuilder
-     */
-    public function suggest()
-    {
-        return Plastic::suggest();
-    }
-
-
-    /**
      * Start an elastic persistence query builder
      *
      * @return EloquentPersistence
@@ -86,6 +65,7 @@ trait Searchable
     {
         return Plastic::persist($this);
     }
+
 
     /**
      * Get the model elastic type
@@ -161,6 +141,28 @@ trait Searchable
         }
 
         return $document;
+    }
+
+    /**
+     * Handle dynamic method calls into the model.
+     *
+     * @param  string $method
+     * @param  array $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if ($method == 'search') {
+            //Start an elastic dsl search query builder
+            return Plastic::search()->model($this);
+        }
+
+        if ($method == 'suggest') {
+            //Start an elastic dsl suggest query builder
+            return Plastic::suggest();
+        }
+
+        return parent::__call($method, $parameters);
     }
 
 }
