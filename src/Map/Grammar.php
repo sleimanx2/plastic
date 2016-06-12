@@ -1,4 +1,5 @@
 <?php
+
 namespace Sleimanx2\Plastic\Map;
 
 use Illuminate\Support\Fluent;
@@ -6,10 +7,11 @@ use Illuminate\Support\Fluent;
 class Grammar
 {
     /**
-     * Create a map body
+     * Create a map body.
      *
      * @param Blueprint $blueprint
-     * @param Fluent $command
+     * @param Fluent    $command
+     *
      * @return array
      */
     public function compileCreate(Blueprint $blueprint, Fluent $command)
@@ -22,9 +24,10 @@ class Grammar
     }
 
     /**
-     * Compile an integer map
+     * Compile an integer map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileInteger(Fluent $fluent)
@@ -33,9 +36,10 @@ class Grammar
     }
 
     /**
-     * Compile a long map
+     * Compile a long map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileLong(Fluent $fluent)
@@ -44,9 +48,10 @@ class Grammar
     }
 
     /**
-     * Compile a short map
+     * Compile a short map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileShort(Fluent $fluent)
@@ -55,9 +60,10 @@ class Grammar
     }
 
     /**
-     * Compile a byte map
+     * Compile a byte map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileByte(Fluent $fluent)
@@ -66,9 +72,10 @@ class Grammar
     }
 
     /**
-     * Compile a double map
+     * Compile a double map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileDouble(Fluent $fluent)
@@ -77,9 +84,10 @@ class Grammar
     }
 
     /**
-     * Compile a binary map
+     * Compile a binary map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileBinary(Fluent $fluent)
@@ -87,17 +95,17 @@ class Grammar
         $map = [
             'type'       => 'binary',
             'doc_values' => $fluent->doc_values,
-            'store'      => $fluent->store
+            'store'      => $fluent->store,
         ];
 
         return $this->formatMap($map);
     }
 
-
     /**
-     * Compile float map
+     * Compile float map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileFloat(Fluent $fluent)
@@ -106,9 +114,10 @@ class Grammar
     }
 
     /**
-     * Compile a date map
+     * Compile a date map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileDate(Fluent $fluent)
@@ -130,50 +139,53 @@ class Grammar
     }
 
     /**
-     * Compile a boolean map
+     * Compile a boolean map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileBoolean(Fluent $fluent)
     {
         $map = [
             'type'       => 'boolean',
-            "boost"      => $fluent->boost,
-            "doc_values" => $fluent->doc_values,
-            "index"      => $fluent->index,
-            "null_value" => $fluent->null_value,
-            "store"      => $fluent->store
+            'boost'      => $fluent->boost,
+            'doc_values' => $fluent->doc_values,
+            'index'      => $fluent->index,
+            'null_value' => $fluent->null_value,
+            'store'      => $fluent->store,
         ];
 
         return $this->formatMap($map);
     }
 
     /**
-     * Compile a geo point map
+     * Compile a geo point map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compilePoint(Fluent $fluent)
     {
         $map = [
             'type'              => 'geo_point',
-            "geohash"           => $fluent->geohash,
-            "geohash_precision" => $fluent->geohash_precision,
-            "geohash_prefix"    => $fluent->geohash_prefix,
-            "ignore_malformed"  => $fluent->ignore_malformed,
-            "lat_lon"           => $fluent->lat_lon,
-            "precision_step"    => $fluent->precision_step,
+            'geohash'           => $fluent->geohash,
+            'geohash_precision' => $fluent->geohash_precision,
+            'geohash_prefix'    => $fluent->geohash_prefix,
+            'ignore_malformed'  => $fluent->ignore_malformed,
+            'lat_lon'           => $fluent->lat_lon,
+            'precision_step'    => $fluent->precision_step,
         ];
 
         return $this->formatMap($map);
     }
 
     /**
-     * Compile a geo shape map
+     * Compile a geo shape map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileShape(Fluent $fluent)
@@ -193,9 +205,10 @@ class Grammar
     }
 
     /**
-     * Compile an ip map
+     * Compile an ip map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileIp(Fluent $fluent)
@@ -208,16 +221,17 @@ class Grammar
             'index'          => $fluent->index,
             'null_value'     => $fluent->null_value,
             'precision_step' => $fluent->precision_step,
-            'store'          => $fluent->store
+            'store'          => $fluent->store,
         ];
 
         return $this->formatMap($map);
     }
 
     /**
-     * Compile a completion map
+     * Compile a completion map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileCompletion(Fluent $fluent)
@@ -234,11 +248,11 @@ class Grammar
         return $this->formatMap($map);
     }
 
-
     /**
-     * Compile a completion map
+     * Compile a completion map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileToken_count(Fluent $fluent)
@@ -251,16 +265,17 @@ class Grammar
             'index'          => $fluent->index,
             'null_value'     => $fluent->null_value,
             'precision_step' => $fluent->precision_step,
-            'store'          => $fluent->store
+            'store'          => $fluent->store,
         ];
 
         return $this->formatMap($map);
     }
 
     /**
-     * Compile a string map
+     * Compile a string map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileString(Fluent $fluent)
@@ -282,17 +297,17 @@ class Grammar
             'search_analyzer'        => $fluent->search_analyzer,
             'search_quote_analyzer'  => $fluent->search_quote_analyzer,
             'similarity'             => $fluent->similarity,
-            'term_vector'            => $fluent->term_vector
+            'term_vector'            => $fluent->term_vector,
         ];
 
         return $this->formatMap($map);
     }
 
-
     /**
-     * Compile a numeric map
+     * Compile a numeric map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileNumeric(Fluent $fluent)
@@ -306,16 +321,17 @@ class Grammar
             'include_in_all'   => $fluent->include_in_all,
             'index'            => $fluent->index,
             'null_value'       => $fluent->null_value,
-            'precision_step'   => $fluent->precision_step
+            'precision_step'   => $fluent->precision_step,
         ];
 
         return $this->formatMap($map);
     }
 
     /**
-     * Compile a nested map
+     * Compile a nested map.
      *
      * @param Fluent $fluent
+     *
      * @return array
      */
     public function compileNested(Fluent $fluent)
@@ -331,14 +347,15 @@ class Grammar
 
         return [
             'type'       => 'nested',
-            'properties' => $this->compileFields($blueprint->getFields())
+            'properties' => $this->compileFields($blueprint->getFields()),
         ];
     }
 
     /**
-     * Format the map array for submission
+     * Format the map array for submission.
      *
      * @param array $map
+     *
      * @return array
      */
     protected function formatMap(array $map)
@@ -347,9 +364,10 @@ class Grammar
     }
 
     /**
-     * Compile an array of fluent fields
+     * Compile an array of fluent fields.
      *
      * @param $fields
+     *
      * @return array
      */
     public function compileFields($fields)
@@ -357,8 +375,7 @@ class Grammar
         $statement = [];
 
         foreach ($fields as $field) {
-
-            $method = 'compile' . ucfirst($field->type);
+            $method = 'compile'.ucfirst($field->type);
 
             if (method_exists($this, $method)) {
                 if (!empty($map = $this->$method($field))) {
@@ -369,6 +386,4 @@ class Grammar
 
         return $statement;
     }
-
-
 }

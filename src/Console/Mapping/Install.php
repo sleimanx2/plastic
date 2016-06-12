@@ -26,7 +26,6 @@ class Install extends Command
      */
     private $repository;
 
-
     public function __construct(Mappings $repository)
     {
         parent::__construct();
@@ -35,7 +34,7 @@ class Install extends Command
     }
 
     /**
-     * Execute the console command
+     * Execute the console command.
      */
     public function handle()
     {
@@ -45,7 +44,4 @@ class Install extends Command
 
         $this->info('Mapping table created successfully');
     }
-
-
-
 }

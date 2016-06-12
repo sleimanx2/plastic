@@ -5,8 +5,8 @@ namespace Sleimanx2\Plastic;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Sleimanx2\Plastic\DSL\SearchBuilder;
 use ONGR\ElasticsearchDSL\Search as DSLQuery;
+use Sleimanx2\Plastic\DSL\SearchBuilder;
 use Sleimanx2\Plastic\DSL\SuggestionBuilder;
 use Sleimanx2\Plastic\Map\Builder as MapBuilder;
 use Sleimanx2\Plastic\Map\Grammar as MapGrammar;
@@ -14,16 +14,15 @@ use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
 class Connection
 {
-
     /**
-     * Elastic Search default index
+     * Elastic Search default index.
      *
      * @var string
      */
     public $index;
 
     /**
-     * Elasticsearch client instance
+     * Elasticsearch client instance.
      *
      * @var Client
      */
@@ -42,7 +41,7 @@ class Connection
     }
 
     /**
-     * Get map builder instance for this connection
+     * Get map builder instance for this connection.
      *
      * @return MapBuilder
      */
@@ -52,7 +51,7 @@ class Connection
     }
 
     /**
-     * Get map grammar instance for this connection
+     * Get map grammar instance for this connection.
      *
      * @return MapBuilder
      */
@@ -62,7 +61,7 @@ class Connection
     }
 
     /**
-     * Get DSL grammar instance for this connection
+     * Get DSL grammar instance for this connection.
      *
      * @return DSLGrammar
      */
@@ -72,7 +71,7 @@ class Connection
     }
 
     /**
-     * Get the elastic search client instance
+     * Get the elastic search client instance.
      *
      * @return Client
      */
@@ -82,7 +81,7 @@ class Connection
     }
 
     /**
-     * Set a custom elastic client
+     * Set a custom elastic client.
      *
      * @param Client $client
      */
@@ -92,7 +91,7 @@ class Connection
     }
 
     /**
-     * Get the default elastic index
+     * Get the default elastic index.
      *
      * @return string
      */
@@ -102,9 +101,10 @@ class Connection
     }
 
     /**
-     * Execute a map statement on index;
+     * Execute a map statement on index;.
      *
      * @param array $mappings
+     *
      * @return array
      */
     public function mapStatement(array $mappings)
@@ -113,9 +113,10 @@ class Connection
     }
 
     /**
-     * Execute a map statement on index;
+     * Execute a map statement on index;.
      *
      * @param array $search
+     *
      * @return array
      */
     public function searchStatement(array $search)
@@ -124,9 +125,10 @@ class Connection
     }
 
     /**
-     * Execute a map statement on index;
+     * Execute a map statement on index;.
      *
      * @param array $suggestions
+     *
      * @return array
      */
     public function suggestStatement(array $suggestions)
@@ -135,9 +137,10 @@ class Connection
     }
 
     /**
-     * Execute a insert statement on index;
+     * Execute a insert statement on index;.
      *
      * @param $params
+     *
      * @return array
      */
     public function indexStatement(array $params)
@@ -146,9 +149,10 @@ class Connection
     }
 
     /**
-     * Execute a update statement on index;
+     * Execute a update statement on index;.
      *
      * @param $params
+     *
      * @return array
      */
     public function updateStatement(array $params)
@@ -157,9 +161,10 @@ class Connection
     }
 
     /**
-     * Execute a update statement on index;
+     * Execute a update statement on index;.
      *
      * @param $params
+     *
      * @return array
      */
     public function deleteStatement(array $params)
@@ -168,9 +173,10 @@ class Connection
     }
 
     /**
-     * Execute a bulk statement on index;
+     * Execute a bulk statement on index;.
      *
      * @param $params
+     *
      * @return array
      */
     public function bulkStatement(array $params)
@@ -199,9 +205,10 @@ class Connection
     }
 
     /**
-     * Create a new elastic persistence handler
+     * Create a new elastic persistence handler.
      *
      * @param Model $model
+     *
      * @return EloquentPersistence
      */
     public function persist(Model $model)
@@ -210,9 +217,10 @@ class Connection
     }
 
     /**
-     * Create an elastic search instance
+     * Create an elastic search instance.
      *
      * @param array $config
+     *
      * @return Client
      */
     private function buildClient(array $config)

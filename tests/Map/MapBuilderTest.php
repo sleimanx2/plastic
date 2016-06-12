@@ -13,7 +13,7 @@ class MapBuilderTest extends \PHPUnit_Framework_TestCase
 
         $builder = new \Sleimanx2\Plastic\Map\Builder($connection);
 
-        $builder->create('posts',function($blueprint){
+        $builder->create('posts', function ($blueprint) {
             $blueprint->ip('ip');
         });
     }

@@ -4,16 +4,13 @@ namespace Sleimanx2\Plastic;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Sleimanx2\Plastic\DSL\SearchBuilder;
-use Sleimanx2\Plastic\DSL\SuggestionBuilder;
 use Sleimanx2\Plastic\Facades\Plastic;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
 trait Searchable
 {
-
     /**
-     * Is indexed in elastic search
+     * Is indexed in elastic search.
      *
      * @var bool
      */
@@ -33,9 +30,8 @@ trait Searchable
      */
     protected $documentVersion = null;
 
-
     /**
-     * Searchable boot model
+     * Searchable boot model.
      */
     public static function bootSearchable()
     {
@@ -53,7 +49,7 @@ trait Searchable
     }
 
     /**
-     * Start an elastic persistence query builder
+     * Start an elastic persistence query builder.
      *
      * @return EloquentPersistence
      */
@@ -62,9 +58,8 @@ trait Searchable
         return Plastic::persist($this);
     }
 
-
     /**
-     * Get the model elastic type
+     * Get the model elastic type.
      *
      * @return string
      */
@@ -79,7 +74,7 @@ trait Searchable
     }
 
     /**
-     * Build the document data with the appropriate method
+     * Build the document data with the appropriate method.
      *
      * @return array
      */
@@ -88,7 +83,6 @@ trait Searchable
         // If the model contain a buildDocument function
         // use it to build the document
         if (method_exists($this, 'buildDocument')) {
-
             $document = $this->buildDocument();
 
             return $document;
@@ -107,9 +101,10 @@ trait Searchable
     }
 
     /**
-     * Build the document from a searchable array
+     * Build the document from a searchable array.
      *
      * @param array $searchable
+     *
      * @return array
      */
     protected function buildDocumentFromArray(array $searchable)
@@ -117,19 +112,13 @@ trait Searchable
         $document = [];
 
         foreach ($searchable as $value) {
-
             $result = $this->$value;
 
             if ($result instanceof Collection) {
-
                 $result = $result->toArray();
-
             } elseif ($result instanceof Carbon) {
-
                 $result = $result->format('c');
-
             } else {
-
                 $result = $this->$value;
             }
 
@@ -140,7 +129,7 @@ trait Searchable
     }
 
     /**
-     * Checks if the model content should be auto synced with elastic
+     * Checks if the model content should be auto synced with elastic.
      *
      * @return boolean;
      */
@@ -153,12 +142,12 @@ trait Searchable
         return false;
     }
 
-
     /**
      * Handle dynamic method calls into the model.
      *
-     * @param  string $method
-     * @param  array $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)
@@ -175,6 +164,4 @@ trait Searchable
 
         return parent::__call($method, $parameters);
     }
-
-
 }

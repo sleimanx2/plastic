@@ -16,6 +16,6 @@ class MappingInstallCommandTest extends \PHPUnit_Framework_TestCase
 
     protected function runCommand($command, $options = [])
     {
-        return $command->run(new Symfony\Component\Console\Input\ArrayInput($options), new Symfony\Component\Console\Output\NullOutput);
+        return $command->run(new Symfony\Component\Console\Input\ArrayInput($options), new Symfony\Component\Console\Output\NullOutput());
     }
 }

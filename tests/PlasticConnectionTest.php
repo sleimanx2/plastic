@@ -60,11 +60,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('indices->putMapping')->withArgs([['index'=>'plastic']])->andReturn('ok');
+        $client->shouldReceive('indices->putMapping')->withArgs([['index' => 'plastic']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->mapStatement([]));
+        $this->assertEquals('ok', $connection->mapStatement([]));
     }
 
     /**
@@ -75,11 +75,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('search')->withArgs([['index'=>'plastic']])->andReturn('ok');
+        $client->shouldReceive('search')->withArgs([['index' => 'plastic']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->searchStatement([]));
+        $this->assertEquals('ok', $connection->searchStatement([]));
     }
 
     /**
@@ -90,11 +90,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('suggest')->withArgs([['index'=>'plastic']])->andReturn('ok');
+        $client->shouldReceive('suggest')->withArgs([['index' => 'plastic']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->suggestStatement([]));
+        $this->assertEquals('ok', $connection->suggestStatement([]));
     }
 
     /**
@@ -105,11 +105,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('index')->withArgs([['index'=>'plastic']])->andReturn('ok');
+        $client->shouldReceive('index')->withArgs([['index' => 'plastic']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->indexStatement([]));
+        $this->assertEquals('ok', $connection->indexStatement([]));
     }
 
     /**
@@ -120,11 +120,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('update')->withArgs([['index'=>'plastic']])->andReturn('ok');
+        $client->shouldReceive('update')->withArgs([['index' => 'plastic']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->updateStatement([]));
+        $this->assertEquals('ok', $connection->updateStatement([]));
     }
 
     /**
@@ -135,11 +135,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('delete')->withArgs([['index'=>'plastic']])->andReturn('ok');
+        $client->shouldReceive('delete')->withArgs([['index' => 'plastic']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->deleteStatement([]));
+        $this->assertEquals('ok', $connection->deleteStatement([]));
     }
 
     /**
@@ -150,11 +150,11 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $connection = $this->getConnectionMock();
 
         $client = Mockery::mock('Elasticsearch\Client');
-        $client->shouldReceive('bulk')->withArgs([['test'=>'test']])->andReturn('ok');
+        $client->shouldReceive('bulk')->withArgs([['test' => 'test']])->andReturn('ok');
 
         $connection->setClient($client);
 
-        $this->assertEquals('ok',$connection->bulkStatement(['test'=>'test']));
+        $this->assertEquals('ok', $connection->bulkStatement(['test' => 'test']));
     }
 
     /**
@@ -164,7 +164,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf('Sleimanx2\Plastic\DSL\SearchBuilder',$connection->search());
+        $this->assertInstanceOf('Sleimanx2\Plastic\DSL\SearchBuilder', $connection->search());
     }
 
     /**
@@ -174,7 +174,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf('Sleimanx2\Plastic\DSL\SuggestionBuilder',$connection->suggest());
+        $this->assertInstanceOf('Sleimanx2\Plastic\DSL\SuggestionBuilder', $connection->suggest());
     }
 
     /**
@@ -184,14 +184,15 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf(Sleimanx2\Plastic\Persistence\EloquentPersistence::class,$connection->persist(new TestModel));
+        $this->assertInstanceOf(Sleimanx2\Plastic\Persistence\EloquentPersistence::class, $connection->persist(new TestModel()));
     }
 
     /**
-     * Generate a connection object
+     * Generate a connection object.
      *
      * @param array $methods
      * @param array $config
+     *
      * @return Connection
      */
     protected function getConnectionMock($methods = [], $config = [])
@@ -209,5 +210,4 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
 
 class TestModel extends \Illuminate\Database\Eloquent\Model
 {
-
 }

@@ -8,7 +8,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
     public function it_runs_mappings()
     {
         $mapper = Mockery::mock('Sleimanx2\Plastic\Mappings\Mapper');
-        $vendorDir = __DIR__ . '/vendor';
+        $vendorDir = __DIR__.'/vendor';
         $command = new \Sleimanx2\Plastic\Console\Mapping\Run($mapper, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
@@ -18,7 +18,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         $mapper->shouldReceive('setConnection')->once()->with(null);
-        $mapper->shouldReceive('run')->once()->with(__DIR__ . DIRECTORY_SEPARATOR . 'mappings', ['step' => false]);
+        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => false]);
         $mapper->shouldReceive('getNotes')->andReturn([]);
         $mapper->shouldReceive('repositoryExists')->once()->andReturn(true);
         $this->runCommand($command);
@@ -30,7 +30,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
     public function it_runs_mappings_in_steps()
     {
         $mapper = Mockery::mock('Sleimanx2\Plastic\Mappings\Mapper');
-        $vendorDir = __DIR__ . '/vendor';
+        $vendorDir = __DIR__.'/vendor';
         $command = new \Sleimanx2\Plastic\Console\Mapping\Run($mapper, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
@@ -40,12 +40,11 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         $mapper->shouldReceive('setConnection')->once()->with(null);
-        $mapper->shouldReceive('run')->once()->with(__DIR__ . DIRECTORY_SEPARATOR . 'mappings', ['step' => true]);
+        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => true]);
         $mapper->shouldReceive('getNotes')->andReturn([]);
         $mapper->shouldReceive('repositoryExists')->once()->andReturn(true);
         $this->runCommand($command, ['--step' => true]);
     }
-
 
     /**
      * @test
@@ -53,7 +52,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
     public function it_runs_mappings_with_a_given_database()
     {
         $mapper = Mockery::mock('Sleimanx2\Plastic\Mappings\Mapper');
-        $vendorDir = __DIR__ . '/vendor';
+        $vendorDir = __DIR__.'/vendor';
         $command = new \Sleimanx2\Plastic\Console\Mapping\Run($mapper, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
@@ -63,7 +62,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         $mapper->shouldReceive('setConnection')->once()->with('foo');
-        $mapper->shouldReceive('run')->once()->with(__DIR__ . DIRECTORY_SEPARATOR . 'mappings', ['step' => false]);
+        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => false]);
         $mapper->shouldReceive('getNotes')->andReturn([]);
         $mapper->shouldReceive('repositoryExists')->once()->andReturn(true);
         $this->runCommand($command, ['--database' => 'foo']);
@@ -72,6 +71,6 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
     protected function runCommand($command, $input = [])
     {
         return $command->run(new Symfony\Component\Console\Input\ArrayInput($input),
-            new Symfony\Component\Console\Output\NullOutput);
+            new Symfony\Component\Console\Output\NullOutput());
     }
 }

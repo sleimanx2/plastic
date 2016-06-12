@@ -1,12 +1,11 @@
 <?php
+
 namespace Sleimanx2\Plastic\Mappings;
 
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
 
 /**
- * Mapping log repository
- *
- * @package Sleimanx2\Plastic\Mappings
+ * Mapping log repository.
  */
 class Mappings
 {
@@ -34,8 +33,8 @@ class Mappings
     /**
      * Create a new database mapping repository instance.
      *
-     * @param  \Illuminate\Database\ConnectionResolverInterface $resolver
-     * @param  string $table
+     * @param \Illuminate\Database\ConnectionResolverInterface $resolver
+     * @param string                                           $table
      */
     public function __construct(Resolver $resolver, $table)
     {
@@ -44,7 +43,7 @@ class Mappings
     }
 
     /**
-     * Get the ran mappings
+     * Get the ran mappings.
      *
      * @return array
      */
@@ -57,7 +56,7 @@ class Mappings
     }
 
     /**
-     * Get the last mapping batch
+     * Get the last mapping batch.
      *
      * @return $this
      */
@@ -69,7 +68,7 @@ class Mappings
     }
 
     /**
-     * Log that a mapping was run
+     * Log that a mapping was run.
      *
      * @param $file
      * @param $batch
@@ -82,9 +81,9 @@ class Mappings
     }
 
     /**
-     * Remove mapping from the log
+     * Remove mapping from the log.
      *
-     * @param Object $mapping
+     * @param object $mapping
      */
     public function delete($mapping)
     {
@@ -92,7 +91,7 @@ class Mappings
     }
 
     /**
-     * Remove all mapping logs from the repository
+     * Remove all mapping logs from the repository.
      */
     public function reset()
     {
@@ -110,7 +109,7 @@ class Mappings
     }
 
     /**
-     * Get the next mapping batch number
+     * Get the next mapping batch number.
      *
      * @return float|int
      */
@@ -120,7 +119,7 @@ class Mappings
     }
 
     /**
-     * Create the mapping repository data store
+     * Create the mapping repository data store.
      */
     public function createRepository()
     {
@@ -136,7 +135,7 @@ class Mappings
     }
 
     /**
-     * Check it the repository table exits
+     * Check it the repository table exits.
      *
      * @return mixed
      */
@@ -146,7 +145,7 @@ class Mappings
     }
 
     /**
-     * get a schema builder instance
+     * get a schema builder instance.
      *
      * @return \Illuminate\Database\Schema\Builder
      */
@@ -156,7 +155,7 @@ class Mappings
     }
 
     /**
-     * Get a query builder for the mapping table
+     * Get a query builder for the mapping table.
      *
      * @return \Illuminate\Database\Query\Builder
      */
@@ -166,7 +165,7 @@ class Mappings
     }
 
     /**
-     * Resolve the database connection instance
+     * Resolve the database connection instance.
      *
      * @return \Illuminate\Database\ConnectionInterface
      */
@@ -188,7 +187,8 @@ class Mappings
     /**
      * Set the information source to gather data.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return void
      */
     public function setSource($name)

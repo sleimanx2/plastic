@@ -1,4 +1,5 @@
 <?php
+
 namespace Sleimanx2\Plastic\Mappings;
 
 use Closure;
@@ -7,9 +8,8 @@ use Illuminate\Support\Str;
 
 class Creator
 {
-
     /**
-     * The filesystem instance
+     * The filesystem instance.
      *
      * @var \Illuminate\Filesystem\Filesystem
      */
@@ -33,10 +33,11 @@ class Creator
     }
 
     /**
-     * Create a mapping file
+     * Create a mapping file.
      *
      * @param $model
      * @param $path
+     *
      * @return string
      */
     public function create($model, $path)
@@ -52,7 +53,6 @@ class Creator
         return $path;
     }
 
-
     /**
      * Get the path to the stubs.
      *
@@ -60,25 +60,27 @@ class Creator
      */
     public function getStubPath()
     {
-        return __DIR__ . '/stubs';
+        return __DIR__.'/stubs';
     }
 
     /**
-     * Get the mapping stub template
+     * Get the mapping stub template.
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      *
      * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     protected function getStub()
     {
-        return $this->files->get($this->getStubPath() . "/default.stub");
+        return $this->files->get($this->getStubPath().'/default.stub');
     }
 
     /**
      * Populate the place-holders in the mapping stub.
      *
-     * @param  string $model
-     * @param  string $stub
+     * @param string $model
+     * @param string $stub
+     *
      * @return string
      */
     protected function populateStub($model, $stub)
@@ -94,6 +96,7 @@ class Creator
      * Get the class name of a migration name.
      *
      * @param $model
+     *
      * @return string
      */
     protected function getClassName($model)
@@ -116,7 +119,8 @@ class Creator
     /**
      * Register a post migration create hook.
      *
-     * @param  Closure $callback
+     * @param Closure $callback
+     *
      * @return void
      */
     public function afterCreate(Closure $callback)
@@ -125,7 +129,7 @@ class Creator
     }
 
     /**
-     * Return the filesystem instance
+     * Return the filesystem instance.
      *
      * @return Filesystem
      */
@@ -135,18 +139,17 @@ class Creator
     }
 
     /**
-     * Get the full path name to the mapping
+     * Get the full path name to the mapping.
      *
      * @param string $model
      * @param string $path
+     *
      * @return string
      */
     protected function getPath($model, $path)
     {
         $name = Str::lower(str_replace('\\', '_', $model));
 
-        return $path . '/' . $name . ".php";
+        return $path.'/'.$name.'.php';
     }
-
-
 }

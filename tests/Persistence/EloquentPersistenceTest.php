@@ -104,8 +104,8 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
- * @test
- */
+     * @test
+     */
     public function it_saves_models_data_in_bulk()
     {
         $connection = \Mockery::mock(Connection::class);
@@ -132,19 +132,19 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
                     'index' => [
                         '_id'    => 1,
                         '_type'  => 'foo',
-                        '_index' => 'plastic'
-                    ]
+                        '_index' => 'plastic',
+                    ],
                 ],
                 ['foo' => 'bar'],
                 [
                     'index' => [
                         '_id'    => 2,
                         '_type'  => 'bar',
-                        '_index' => 'plastic'
-                    ]
+                        '_index' => 'plastic',
+                    ],
                 ],
-                ['foo' => 'bar']
-            ]
+                ['foo' => 'bar'],
+            ],
         ]);
         $persistence = new EloquentPersistence($connection, $model);
         $persistence->bulkSave($collection);
@@ -176,22 +176,21 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
                     'delete' => [
                         '_id'    => 1,
                         '_type'  => 'foo',
-                        '_index' => 'plastic'
-                    ]
+                        '_index' => 'plastic',
+                    ],
                 ],
                 [
                     'delete' => [
                         '_id'    => 2,
                         '_type'  => 'bar',
-                        '_index' => 'plastic'
-                    ]
+                        '_index' => 'plastic',
+                    ],
                 ],
-            ]
+            ],
         ]);
         $persistence = new EloquentPersistence($connection, $model);
         $persistence->bulkDelete($collection);
     }
-
 
     /**
      * @test
@@ -201,13 +200,12 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $connection = \Mockery::mock(Connection::class);
         $model = \Mockery::mock(PersistenceModelTest::class);
 
-        $persistence = \Mockery::mock(EloquentPersistence::class,[$connection, $model])->makePartial();
+        $persistence = \Mockery::mock(EloquentPersistence::class, [$connection, $model])->makePartial();
 
         $persistence->shouldReceive('bulkDelete')->once();
         $persistence->shouldReceive('bulkSave')->once();
 
         $persistence->reindex([]);
-
     }
 }
 

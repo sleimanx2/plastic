@@ -1,4 +1,5 @@
 <?php
+
 namespace Sleimanx2\Plastic;
 
 use Illuminate\Foundation\AliasLoader;
@@ -41,12 +42,11 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the mapping repository service
+     * Register the mapping repository service.
      */
     protected function registerRepository()
     {
         $this->app->singleton('mapping.repository', function ($app) {
-
             $table = $app['config']['plastic.mappings'];
 
             return new Mappings($app['db'], $table);
@@ -54,18 +54,17 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the mapping creator service
+     * Register the mapping creator service.
      */
     protected function registerCreator()
     {
-
         $this->app->singleton('mapping.creator', function ($app) {
             return new Creator($app['files']);
         });
     }
 
     /**
-     * Register the mapper service
+     * Register the mapper service.
      */
     protected function registerMapper()
     {
@@ -75,26 +74,26 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register all needed commands
+     * Register all needed commands.
      */
     protected function registerCommands()
     {
         $commands = ['Install', 'Reset', 'Make', 'Run'];
 
         foreach ($commands as $command) {
-            $this->{'register' . $command . 'Command'}();
+            $this->{'register'.$command.'Command'}();
         }
 
         $this->commands([
             'command.mapping.install',
             'command.mapping.reset',
             'command.mapping.make',
-            'command.mapping.run'
+            'command.mapping.run',
         ]);
     }
 
     /**
-     * Register the Install command
+     * Register the Install command.
      */
     protected function registerInstallCommand()
     {
@@ -104,7 +103,7 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the Install command
+     * Register the Install command.
      */
     protected function registerRunCommand()
     {
@@ -114,7 +113,7 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the reset command
+     * Register the reset command.
      */
     protected function registerResetCommand()
     {
@@ -124,7 +123,7 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the make command
+     * Register the make command.
      */
     protected function registerMakeCommand()
     {
@@ -134,11 +133,10 @@ class MappingServiceProvider extends ServiceProvider
     }
 
     /**
-     *  Register the Map alias
+     *  Register the Map alias.
      */
     protected function registerAlias()
     {
-        AliasLoader::getInstance()->alias("Map", Map::class);
+        AliasLoader::getInstance()->alias('Map', Map::class);
     }
-
 }
