@@ -159,5 +159,4 @@ User::search()
   ->get();
 
   // unlike must the matching filter score will be ignore
-
 ```
