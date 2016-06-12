@@ -20,8 +20,6 @@ trait Searchable
     protected $isDocument = false;
 
     /**
-     * Document Score
-     *
      * Hit score after querying Elasticsearch.
      *
      * @var null|int
@@ -29,8 +27,6 @@ trait Searchable
     protected $documentScore = null;
 
     /**
-     * Document Version
-     *
      * Elasticsearch document version.
      *
      * @var null|int
@@ -43,16 +39,16 @@ trait Searchable
      */
     public static function bootSearchable()
     {
-        static::creating(function ($model) {
-            $model->documet()->save();
+        static::saved(function ($model) {
+            if ($model->shouldSyncDocument()) {
+                $model->document()->save();
+            }
         });
 
-        static::updating(function ($model) {
-            $model->document()->update();
-        });
-
-        static::deleting(function ($model) {
-            $model->document()->delete();
+        static::deleted(function ($model) {
+            if ($model->shouldSyncDocument()) {
+                $model->document()->delete();
+            }
         });
     }
 
@@ -144,6 +140,21 @@ trait Searchable
     }
 
     /**
+     * Checks if the model content should be auto synced with elastic
+     *
+     * @return boolean;
+     */
+    public function shouldSyncDocument()
+    {
+        if (property_exists($this, 'syncDocument') and $this->syncDocument == true) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
      * Handle dynamic method calls into the model.
      *
      * @param  string $method
@@ -164,5 +175,6 @@ trait Searchable
 
         return parent::__call($method, $parameters);
     }
+
 
 }
