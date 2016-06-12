@@ -31,7 +31,7 @@ class Book extends Model
 ```
 #####Defining what data to store.
 
-In addition to default attributes Plastic provides us two ways to select which attributes/relations data to store in elastic.
+In addition to default attributes Plastic provides us with two ways to select which attributes/relations data to store in elastic.
 
 1 - Providing a searchable property to out model
 
@@ -108,4 +108,56 @@ $author->document()->blukDelete($author->books);
 $post = new Post();
 
 $post->document()->reindex($post->all());
+```
+
+###Searching Model Content
+
+Plastic provides a fluent syntax to query our elastic db which leads to a compact readable code lets dig into it.
+
+```php
+$result = Book::search()->match('title','pulp')->get();
+
+// Returns a collection of Book Models
+$books = $result->hits();
+
+// Returns the total number of matched documents
+$result->totalHits();
+
+// Returns the highest query score
+$result->maxScore();
+
+//Returns the time needed to execute the query
+$result->took();
+```
+
+#####Pagination
+
+```php
+$books = Book::search()
+  ->multiMatch(['title','description'],'ham on rie',['fuzziness' => 'AUTO'])
+  ->orderBy('date')
+  ->paginate();
+```
+we still can access the result object after pagination using the result method
+
+```php
+$books->result();
+```
+#####Bool Query
+
+```
+User::search()
+  ->must()
+    ->term('user','kimchy')
+  ->mustNot()
+    ->range('age',['from'=>10,'to'=>20]);
+  ->should()
+    ->term('tag','wow')
+    ->term('tag','elastic')
+  ->filter()
+   ->term('tag','tech')
+  ->get();
+
+  // unlike must the matching filter score will be ignore
+
 ```
