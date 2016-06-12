@@ -17,13 +17,14 @@ This will create a config file at ```config/plastic.php``` and a mapping directo
 
 Finally we need to add the plastic service provider to ```app/config.php``` under the providers key.
 
- ```'Sleimanx2\Plastic\PlasticServiceProvider'```
+`Sleimanx2\Plastic\PlasticServiceProvider`
 
 ##Quick Start
 
 ###Defining Searchable Models
 
-To get started lets enable searching capabilities to our model by adding the Searchable ``` Sleimanx2\Plastic\Searchable``` trait.
+To get started lets enable searching capabilities to our model by adding the Searchable
+```Sleimanx2\Plastic\Searchable``` trait.
 
 ```php
 use Sleimanx2\Plastic\Searchable;

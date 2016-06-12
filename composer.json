@@ -1,10 +1,17 @@
 {
   "name": "sleimanx2/plastic",
-  "autoload": {
-    "psr-4": {
-      "Sleimanx2\\Plastic\\": "src/"
+  "license": "MIT",
+  "description": "Laravel elasticsearch ODM and mapper",
+  "keywords": ["elasticsearch","elastic","laravel","eloquent","model","ODM","mapper"],
+  "homepage": "https://github.com/sleimanx2/plastic",
+  "authors": [
+    {
+      "name": "Sleiman Sleiman",
+      "email": "sleiman@outlook.com",
+      "homepage": "http://bowtie.land",
+      "role": "Developer"
     }
-  },
+  ],
   "require": {
     "php": ">=5.5.9",
     "elasticsearch/elasticsearch": "~2.0",
@@ -20,6 +27,11 @@
     "phpunit/phpunit": "~4.0",
     "mockery/mockery": "^0.9.4",
     "phpunit/php-code-coverage": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sleimanx2\\Plastic\\": "src/"
+    }
   },
   "autoload-dev": {
     "psr-4": {
