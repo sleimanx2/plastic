@@ -2,7 +2,6 @@
 
 class MappingAbstractTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @tests
      */
@@ -29,7 +28,6 @@ class MappingAbstractTest extends PHPUnit_Framework_TestCase
         $mapping = new MappingWithSearchableModel();
         $this->assertEquals('searchable_models', $mapping->getModelType());
     }
-
 }
 
 class MappingWithSearchableModel extends \Sleimanx2\Plastic\Mappings\Mapping

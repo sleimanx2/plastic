@@ -3,20 +3,16 @@
 namespace Sleimanx2\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
 use ONGR\ElasticsearchDSL\Query\CommonTermsQuery;
-use ONGR\ElasticsearchDSL\Query\ConstantScoreQuery;
 use ONGR\ElasticsearchDSL\Query\FuzzyQuery;
 use ONGR\ElasticsearchDSL\Query\GeoBoundingBoxQuery;
 use ONGR\ElasticsearchDSL\Query\GeoDistanceQuery;
 use ONGR\ElasticsearchDSL\Query\GeoDistanceRangeQuery;
 use ONGR\ElasticsearchDSL\Query\GeohashCellQuery;
 use ONGR\ElasticsearchDSL\Query\GeoPolygonQuery;
-use ONGR\ElasticsearchDSL\Query\GeoShapeQuery;
 use ONGR\ElasticsearchDSL\Query\IdsQuery;
 use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchDSL\Query\MatchQuery;
-use ONGR\ElasticsearchDSL\Query\MoreLikeThisQuery;
 use ONGR\ElasticsearchDSL\Query\MultiMatchQuery;
 use ONGR\ElasticsearchDSL\Query\NestedQuery;
 use ONGR\ElasticsearchDSL\Query\PrefixQuery;
@@ -29,7 +25,6 @@ use ONGR\ElasticsearchDSL\Query\TermsQuery;
 use ONGR\ElasticsearchDSL\Query\WildcardQuery;
 use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
-use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
 use Sleimanx2\Plastic\Connection;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
 use Sleimanx2\Plastic\Fillers\EloquentFiller;
@@ -41,49 +36,49 @@ use Sleimanx2\Plastic\Searchable;
 class SearchBuilder
 {
     /**
-     * An instance of DSL query
+     * An instance of DSL query.
      *
      * @var Query
      */
     public $query;
 
     /**
-     * The elastic type to query against
+     * The elastic type to query against.
      *
      * @var string
      */
     public $type;
 
     /**
-     * The model to use when querying elastic search
+     * The model to use when querying elastic search.
      *
      * @var Model
      */
     protected $model;
 
     /**
-     * The model filler to use after retrieving the results
+     * The model filler to use after retrieving the results.
      *
      * @var FillerInterface
      */
     protected $modelFiller;
 
     /**
-     * An instance of plastic Connection
+     * An instance of plastic Connection.
      *
      * @var Connection
      */
     protected $connection;
 
     /**
-     * Query filtering state
+     * Query filtering state.
      *
      * @var bool
      */
     protected $filtering = false;
 
     /**
-     * Query bool state
+     * Query bool state.
      *
      * @var string
      */
@@ -93,7 +88,7 @@ class SearchBuilder
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query $grammar
+     * @param Query      $grammar
      */
     public function __construct(Connection $connection, Query $grammar = null)
     {
@@ -102,9 +97,10 @@ class SearchBuilder
     }
 
     /**
-     * Set the elastic type to query against
+     * Set the elastic type to query against.
      *
      * @param string $type
+     *
      * @return $this
      */
     public function type($type)
@@ -115,11 +111,13 @@ class SearchBuilder
     }
 
     /**
-     * Set the eloquent model to use when querying elastic search
+     * Set the eloquent model to use when querying elastic search.
      *
      * @param Model $model
-     * @return $this
+     *
      * @throws InvalidArgumentException
+     *
+     * @return $this
      */
     public function model(Model $model)
     {
@@ -127,7 +125,7 @@ class SearchBuilder
         $traits = class_uses($model);
 
         if (!isset($traits[Searchable::class])) {
-            throw new InvalidArgumentException(get_class($model) . ' does not use the searchable trait');
+            throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
         }
 
         $this->type = $model->getType();
@@ -138,9 +136,10 @@ class SearchBuilder
     }
 
     /**
-     * Set the query from/offset value
+     * Set the query from/offset value.
      *
      * @param int $offset
+     *
      * @return $this
      */
     public function from($offset)
@@ -151,9 +150,10 @@ class SearchBuilder
     }
 
     /**
-     * Set the query limit/size value
+     * Set the query limit/size value.
      *
      * @param int $limit
+     *
      * @return $this
      */
     public function size($limit)
@@ -164,11 +164,12 @@ class SearchBuilder
     }
 
     /**
-     * Set the query sort values values
+     * Set the query sort values values.
      *
      * @param string|array $fields
-     * @param null $order
-     * @param array $parameters
+     * @param null         $order
+     * @param array        $parameters
+     *
      * @return $this
      */
     public function sortBy($fields, $order = null, array $parameters = [])
@@ -185,9 +186,10 @@ class SearchBuilder
     }
 
     /**
-     * Set the query min score value
+     * Set the query min score value.
      *
      * @param $score
+     *
      * @return $this
      */
     public function minScore($score)
@@ -198,7 +200,7 @@ class SearchBuilder
     }
 
     /**
-     * Switch to a should statement
+     * Switch to a should statement.
      */
     public function should()
     {
@@ -208,7 +210,7 @@ class SearchBuilder
     }
 
     /**
-     * Switch to a must statement
+     * Switch to a must statement.
      */
     public function must()
     {
@@ -218,7 +220,7 @@ class SearchBuilder
     }
 
     /**
-     * Switch to a must not statement
+     * Switch to a must not statement.
      */
     public function mustNot()
     {
@@ -228,7 +230,7 @@ class SearchBuilder
     }
 
     /**
-     * Switch to a filter query
+     * Switch to a filter query.
      */
     public function filter()
     {
@@ -238,7 +240,7 @@ class SearchBuilder
     }
 
     /**
-     * Switch to a regular query
+     * Switch to a regular query.
      */
     public function query()
     {
@@ -248,9 +250,10 @@ class SearchBuilder
     }
 
     /**
-     * Add an ids query
+     * Add an ids query.
      *
      * @param array | string $ids
+     *
      * @return $this
      */
     public function ids($ids)
@@ -265,11 +268,12 @@ class SearchBuilder
     }
 
     /**
-     * Add an term query
+     * Add an term query.
      *
      * @param string $field
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function term($field, $term, array $attributes = [])
@@ -282,11 +286,12 @@ class SearchBuilder
     }
 
     /**
-     * Add an terms query
+     * Add an terms query.
      *
      * @param string $field
-     * @param array $terms
-     * @param array $attributes
+     * @param array  $terms
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function terms($field, array $terms, array $attributes = [])
@@ -299,11 +304,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a wildcard query
+     * Add a wildcard query.
      *
      * @param string $field
      * @param string $value
-     * @param float $boost
+     * @param float  $boost
+     *
      * @return $this
      */
     public function wildcard($field, $value, $boost = 1.0)
@@ -316,10 +322,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a boost query
+     * Add a boost query.
      *
      * @param float|null $boost
+     *
      * @return $this
+     *
      * @internal param $field
      */
     public function matchAll($boost = 1.0)
@@ -332,11 +340,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a match query
+     * Add a match query.
      *
      * @param string $field
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function match($field, $term, array $attributes = [])
@@ -349,11 +358,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a multi match query
+     * Add a multi match query.
      *
-     * @param array $fields
+     * @param array  $fields
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function multiMatch(array $fields, $term, array $attributes = [])
@@ -366,11 +376,11 @@ class SearchBuilder
     }
 
     /**
-     * Add a geo bounding box query
+     * Add a geo bounding box query.
      *
      * @param string $field
-     * @param array $values
-     * @param array $parameters
+     * @param array  $values
+     * @param array  $parameters
      *
      * @return $this
      */
@@ -384,12 +394,13 @@ class SearchBuilder
     }
 
     /**
-     * Add a geo distance query
+     * Add a geo distance query.
      *
      * @param string $field
      * @param string $distance
-     * @param mixed $location
-     * @param array $attributes
+     * @param mixed  $location
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function geoDistance($field, $distance, $location, array $attributes = [])
@@ -402,13 +413,14 @@ class SearchBuilder
     }
 
     /**
-     * Add a geo distance range query
+     * Add a geo distance range query.
      *
      * @param string $field
      * @param $from
      * @param $to
      * @param mixed $location
      * @param array $attributes
+     *
      * @return $this
      */
     public function geoDistanceRange($field, $from, $to, array $location, array $attributes = [])
@@ -422,13 +434,13 @@ class SearchBuilder
         return $this;
     }
 
-
     /**
-     * Add a geo hash query
+     * Add a geo hash query.
      *
      * @param string $field
-     * @param mixed $location
-     * @param array $attributes
+     * @param mixed  $location
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function geoHash($field, $location, array $attributes = [])
@@ -441,11 +453,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a geo polygon query
+     * Add a geo polygon query.
      *
      * @param string $field
-     * @param array $points
-     * @param array $attributes
+     * @param array  $points
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function geoPolygon($field, array $points = [], array $attributes = [])
@@ -458,11 +471,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a prefix query
+     * Add a prefix query.
      *
      * @param string $field
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function prefix($field, $term, array $attributes = [])
@@ -475,10 +489,11 @@ class SearchBuilder
     }
 
     /**
-     * Add a query string query
+     * Add a query string query.
      *
      * @param string $query
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function queryString($query, array $attributes = [])
@@ -490,12 +505,12 @@ class SearchBuilder
         return $this;
     }
 
-
     /**
-     * Add a simple query string query
+     * Add a simple query string query.
      *
      * @param string $query
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function simpleQueryString($query, array $attributes = [])
@@ -508,10 +523,11 @@ class SearchBuilder
     }
 
     /**
-     * Add a range query
+     * Add a range query.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function range($field, array $attributes = [])
@@ -523,12 +539,12 @@ class SearchBuilder
         return $this;
     }
 
-
     /**
-     * Add a regexp query
+     * Add a regexp query.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return $this
      */
     public function regexp($field, $regex, array $attributes = [])
@@ -541,11 +557,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a common term query
+     * Add a common term query.
      *
      * @param $field
      * @param $term
      * @param array $attributes
+     *
      * @return $this
      */
     public function commonTerm($field, $term, array $attributes = [])
@@ -558,11 +575,12 @@ class SearchBuilder
     }
 
     /**
-     * Add a fuzzy query
+     * Add a fuzzy query.
      *
      * @param $field
      * @param $term
      * @param array $attributes
+     *
      * @return $this
      */
     public function fuzzy($field, $term, array $attributes = [])
@@ -574,18 +592,18 @@ class SearchBuilder
         return $this;
     }
 
-
     /**
      * Add a nested query.
      *
      * @param $field
      * @param \Closure $closure
-     * @param string $score_mode
+     * @param string   $score_mode
+     *
      * @return $this
      */
     public function nested($field, \Closure $closure, $score_mode = 'avg')
     {
-        $builder = new self($this->connection, new $this->query);
+        $builder = new self($this->connection, new $this->query());
 
         $closure($builder);
 
@@ -598,11 +616,11 @@ class SearchBuilder
         return $this;
     }
 
-
     /**
-     * Add aggregation
+     * Add aggregation.
      *
      * @param \Closure $closure
+     *
      * @return $this
      */
     public function aggregate(\Closure $closure)
@@ -615,7 +633,7 @@ class SearchBuilder
     }
 
     /**
-     * Set the model filler to use after retrieving the results
+     * Set the model filler to use after retrieving the results.
      *
      * @param FillerInterface $filler
      */
@@ -625,7 +643,7 @@ class SearchBuilder
     }
 
     /**
-     * get the model filler to use after retrieving the results
+     * get the model filler to use after retrieving the results.
      *
      * @return FillerInterface
      */
@@ -635,7 +653,7 @@ class SearchBuilder
     }
 
     /**
-     * Execute the search query against elastic and return the raw result
+     * Execute the search query against elastic and return the raw result.
      *
      * @return array
      */
@@ -649,9 +667,8 @@ class SearchBuilder
         return $this->connection->searchStatement($params);
     }
 
-
     /**
-     * Execute the search query against elastic and return the raw result if the model is not set
+     * Execute the search query against elastic and return the raw result if the model is not set.
      *
      * @return PlasticResult
      */
@@ -669,7 +686,7 @@ class SearchBuilder
     }
 
     /**
-     * Return the current elastic type
+     * Return the current elastic type.
      *
      * @return string
      */
@@ -679,7 +696,7 @@ class SearchBuilder
     }
 
     /**
-     * Return the current plastic connection
+     * Return the current plastic connection.
      *
      * @return Connection
      */
@@ -689,7 +706,7 @@ class SearchBuilder
     }
 
     /**
-     * Return the boolean query state
+     * Return the boolean query state.
      *
      * @return string
      */
@@ -699,7 +716,7 @@ class SearchBuilder
     }
 
     /**
-     * Return the filtering state
+     * Return the filtering state.
      *
      * @return string
      */
@@ -709,9 +726,10 @@ class SearchBuilder
     }
 
     /**
-     * Paginate result hits
+     * Paginate result hits.
      *
      * @param int $limit
+     *
      * @return PlasticPaginator
      */
     public function paginate($limit = 25)
@@ -727,7 +745,7 @@ class SearchBuilder
     }
 
     /**
-     * Return the DSL query
+     * Return the DSL query.
      *
      * @return array
      */
@@ -737,7 +755,7 @@ class SearchBuilder
     }
 
     /**
-     * Append a query
+     * Append a query.
      *
      * @param $query
      */
@@ -751,12 +769,12 @@ class SearchBuilder
     }
 
     /**
-     * return the current query string value
+     * return the current query string value.
      *
      * @return int
      */
     protected function getCurrentPage()
     {
-        return \Input::get('page') ? (int)\Input::get('page') : 1;
+        return \Input::get('page') ? (int) \Input::get('page') : 1;
     }
 }

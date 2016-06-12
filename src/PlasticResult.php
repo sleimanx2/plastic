@@ -6,16 +6,15 @@ use Illuminate\Support\Collection;
 
 class PlasticResult
 {
-
     /**
-     * Time needed to execute the query
+     * Time needed to execute the query.
      *
      * @var
      */
     protected $took;
 
     /**
-     * Check if the query timed out
+     * Check if the query timed out.
      *
      * @var
      */
@@ -27,35 +26,35 @@ class PlasticResult
     protected $shards;
 
     /**
-     * Result of the query
+     * Result of the query.
      *
      * @var
      */
     protected $hits;
 
     /**
-     * Total number of hits
+     * Total number of hits.
      *
      * @var
      */
     protected $totalHits;
 
     /**
-     * Highest document score
+     * Highest document score.
      *
      * @var
      */
     protected $maxScore;
 
     /**
-     * The aggregations result
+     * The aggregations result.
      *
      * @var array|null
      */
     protected $aggregations = null;
 
     /**
-     * _construct
+     * _construct.
      *
      * @param array $results
      */
@@ -77,7 +76,7 @@ class PlasticResult
     }
 
     /**
-     * Total Hits
+     * Total Hits.
      *
      * @return int
      */
@@ -87,7 +86,7 @@ class PlasticResult
     }
 
     /**
-     * Max Score
+     * Max Score.
      *
      * @return float
      */
@@ -97,7 +96,7 @@ class PlasticResult
     }
 
     /**
-     * Get Shards
+     * Get Shards.
      *
      * @return array
      */
@@ -107,7 +106,7 @@ class PlasticResult
     }
 
     /**
-     * Took
+     * Took.
      *
      * @return string
      */
@@ -117,17 +116,17 @@ class PlasticResult
     }
 
     /**
-     * Timed Out
+     * Timed Out.
      *
      * @return bool
      */
     public function timedOut()
     {
-        return (bool)$this->timed_out;
+        return (bool) $this->timed_out;
     }
 
     /**
-     * Get Hits
+     * Get Hits.
      *
      * Get the raw hits array from
      * Elasticsearch results.
@@ -140,7 +139,7 @@ class PlasticResult
     }
 
     /**
-     * Set the hits value
+     * Set the hits value.
      *
      * @param $values
      */
@@ -150,7 +149,7 @@ class PlasticResult
     }
 
     /**
-     * Get aggregations
+     * Get aggregations.
      *
      * Get the raw hits array from
      * Elasticsearch results.

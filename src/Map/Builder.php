@@ -5,26 +5,25 @@ namespace Sleimanx2\Plastic\Map;
 use Closure;
 use Sleimanx2\Plastic\Connection;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
-use Sleimanx2\Plastic\Searchable;
 
 class Builder
 {
     /**
-     * Plastic connection instance
+     * Plastic connection instance.
      *
      * @var Connection
      */
     protected $connection;
 
     /**
-     * Map grammar instance
+     * Map grammar instance.
      *
      * @var Grammar
      */
     protected $grammar;
 
     /**
-     * Blueprint resolver callback
+     * Blueprint resolver callback.
      *
      * @var Closure
      */
@@ -42,9 +41,9 @@ class Builder
     }
 
     /**
-     * Create a map on your elasticsearch index
+     * Create a map on your elasticsearch index.
      *
-     * @param string $type
+     * @param string  $type
      * @param Closure $callback
      */
     public function create($type, Closure $callback)
@@ -65,7 +64,7 @@ class Builder
     /**
      * Execute the blueprint to build.
      *
-     * @param  Blueprint $blueprint
+     * @param Blueprint $blueprint
      */
     protected function build(Blueprint $blueprint)
     {
@@ -75,8 +74,9 @@ class Builder
     /**
      * Create a new command set with a Closure.
      *
-     * @param  string $type
-     * @param  Closure|null $callback
+     * @param string       $type
+     * @param Closure|null $callback
+     *
      * @return mixed|Blueprint
      */
     protected function createBlueprint($type, Closure $callback = null)
@@ -91,12 +91,12 @@ class Builder
     /**
      * Set the Schema Blueprint resolver callback.
      *
-     * @param  \Closure $resolver
+     * @param \Closure $resolver
+     *
      * @return void
      */
     public function blueprintResolver(Closure $resolver)
     {
         $this->resolver = $resolver;
     }
-
 }

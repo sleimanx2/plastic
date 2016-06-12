@@ -1,4 +1,5 @@
 <?php
+
 namespace Sleimanx2\Plastic;
 
 use Illuminate\Foundation\AliasLoader;
@@ -10,7 +11,6 @@ use Sleimanx2\Plastic\Facades\Plastic;
  */
 class PlasticServiceProvider extends ServiceProvider
 {
-
     /**
      * Perform post-registration booting of services.
      *
@@ -20,12 +20,12 @@ class PlasticServiceProvider extends ServiceProvider
     {
         // Publish the configuration path
         $this->publishes([
-            __DIR__ . '/resources/config.php' => config_path('plastic.php'),
+            __DIR__.'/resources/config.php' => config_path('plastic.php'),
         ]);
 
         // Create the mapping folder
         $this->publishes([
-            __DIR__ . '/resources/database' => database_path()
+            __DIR__.'/resources/database' => database_path(),
         ], 'database');
     }
 
@@ -44,7 +44,7 @@ class PlasticServiceProvider extends ServiceProvider
     }
 
     /**
-     *  Register plastic's Manager and connection
+     *  Register plastic's Manager and connection.
      */
     protected function registerManager()
     {
@@ -58,7 +58,7 @@ class PlasticServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the mappings service provider
+     * Register the mappings service provider.
      */
     protected function registerMappings()
     {
@@ -66,10 +66,10 @@ class PlasticServiceProvider extends ServiceProvider
     }
 
     /**
-     *  Register the Plastic alias
+     *  Register the Plastic alias.
      */
     protected function registerAlias()
     {
-        AliasLoader::getInstance()->alias("Plastic", Plastic::class);
+        AliasLoader::getInstance()->alias('Plastic', Plastic::class);
     }
 }

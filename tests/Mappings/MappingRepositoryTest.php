@@ -2,7 +2,6 @@
 
 class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -17,7 +16,6 @@ class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
         $query->shouldReceive('orderBy')->once()->with('mapping', 'asc')->andReturn($query);
         $query->shouldReceive('pluck')->once()->with('mapping')->andReturn('bar');
         $this->assertEquals('bar', $repo->getRan());
-
     }
 
     /**
@@ -68,7 +66,6 @@ class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
         $mapping = (object) ['mapping' => 'foo'];
         $repo->delete($mapping);
     }
-
 
     /**
      * @test

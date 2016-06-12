@@ -4,7 +4,6 @@ use Sleimanx2\Plastic\Map\Blueprint;
 
 class MapGrammarTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -204,5 +203,4 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
     {
         return new \Sleimanx2\Plastic\Map\Grammar();
     }
-
 }

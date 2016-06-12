@@ -2,7 +2,6 @@
 
 namespace Sleimanx2\Plastic;
 
-
 use Illuminate\Foundation\Application;
 
 class PlasticManager
@@ -27,14 +26,12 @@ class PlasticManager
         $this->app = $app;
     }
 
-
     /**
-     * Get an elastic search connection instance
+     * Get an elastic search connection instance.
      */
     public function connection()
     {
         if (!$this->connection) {
-
             $config = $this->app['config']['plastic'];
 
             $this->connection = new Connection($config);
@@ -46,8 +43,9 @@ class PlasticManager
     /**
      * Dynamically pass methods to the default connection.
      *
-     * @param  string $method
-     * @param  array $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)

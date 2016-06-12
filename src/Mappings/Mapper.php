@@ -19,7 +19,7 @@ class Mapper
     private $files;
 
     /**
-     * The message notes for the current operation
+     * The message notes for the current operation.
      *
      * @var array
      */
@@ -28,7 +28,7 @@ class Mapper
     /**
      * Mapper constructor.
      *
-     * @param Mappings $repository
+     * @param Mappings   $repository
      * @param Filesystem $files
      */
     public function __construct(Mappings $repository, Filesystem $files)
@@ -37,10 +37,8 @@ class Mapper
         $this->files = $files;
     }
 
-
     public function run($path, array $options = [])
     {
-
         $files = $this->getMappingFiles($path);
 
         $ran = $this->repository->getRan();
@@ -50,11 +48,10 @@ class Mapper
         $this->requireFiles($path, $mappings);
 
         $this->runMappingList($mappings, $options);
-
     }
 
     /**
-     * Run an array of mappings
+     * Run an array of mappings.
      *
      * @param array $mappings
      * @param array $options
@@ -82,9 +79,8 @@ class Mapper
         }
     }
 
-
     /**
-     * Run the given mapping file
+     * Run the given mapping file.
      *
      * @param $file
      * @param $batch
@@ -100,29 +96,30 @@ class Mapper
         $this->note('<info>Mapped:</info> '.$file);
     }
 
-
     /**
-     * Resolve mapping file from
+     * Resolve mapping file from.
      *
      * @param $file
+     *
      * @return mixed
      */
     public function resolve($file)
     {
         $class = Str::studly($file);
 
-        return new $class;
+        return new $class();
     }
 
     /**
      * Get all of the migration files in a given path.
      *
      * @param $path
+     *
      * @return array
      */
     public function getMappingFiles($path)
     {
-        $files = $this->files->glob($path . '/*_*.php');
+        $files = $this->files->glob($path.'/*_*.php');
 
         if ($files === false) {
             return [];
@@ -136,7 +133,7 @@ class Mapper
     }
 
     /**
-     * Require All migration files in a given path
+     * Require All migration files in a given path.
      *
      * @param $path
      * @param array $files
@@ -144,13 +141,12 @@ class Mapper
     public function requireFiles($path, array $files)
     {
         foreach ($files as $file) {
-            $this->files->requireOnce($path . '/' . $file . '.php');
+            $this->files->requireOnce($path.'/'.$file.'.php');
         }
     }
 
-
     /**
-     * Check if the mappings repository exists
+     * Check if the mappings repository exists.
      *
      * @return mixed
      */
@@ -162,7 +158,8 @@ class Mapper
     /**
      * Set the default connection name.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return void
      */
     public function setConnection($name)
@@ -171,7 +168,7 @@ class Mapper
     }
 
     /**
-     * Return the registered notes
+     * Return the registered notes.
      *
      * @return array
      */
@@ -181,7 +178,7 @@ class Mapper
     }
 
     /**
-     * Return a filesystem instance
+     * Return a filesystem instance.
      *
      * @return Filesystem
      */
@@ -191,7 +188,7 @@ class Mapper
     }
 
     /**
-     * Return a filesystem instance
+     * Return a filesystem instance.
      *
      * @return Filesystem
      */
@@ -201,7 +198,7 @@ class Mapper
     }
 
     /**
-     * Add a message to the note array
+     * Add a message to the note array.
      *
      * @param $message
      */
