@@ -29,12 +29,33 @@ class Book extends Model
     use Searchable;
 }
 ```
+#####Defining what data to store.
+
+In addition to default attributes Plastic provides us two ways to select which attributes/relations data to store in elastic.
+
+1 - Providing a searchable property to out model
+
+```php
+public $searchable = ['id','name','body','tags','images'];
+```
+
+2 - Providing a buildDocument method
+
+```php
+public function buildDocument()
+{
+  return [
+    'id'=> $this->id,
+    'tags'=>$this->tags
+  ]
+}
+```
 
 #####Custom elastic type name
 
-By the default Plastic will use the model table name as the model type however we can customize it by adding a type field to our model.
+By the default Plastic will use the model table name as the model type however we can customize it by adding a type property to our model.
 
-```
+```php
 public $type = 'custom_type';
 ```
 
