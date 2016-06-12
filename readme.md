@@ -3,7 +3,7 @@
 > It renders the developer experience more enjoyable while using
 > Elasticsearch by providing a fluent syntax for mapping , querying and storing eloquent models.
 
-[![Software License][ico-license]](LICENSE.txt) [![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
+[![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
 
 ##Installing Plastic
 
