@@ -6,6 +6,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Sleimanx2\Plastic\Console\Mapping\Install;
 use Sleimanx2\Plastic\Console\Mapping\Make;
+use Sleimanx2\Plastic\Console\Mapping\ReRun;
 use Sleimanx2\Plastic\Console\Mapping\Reset;
 use Sleimanx2\Plastic\Console\Mapping\Run;
 use Sleimanx2\Plastic\Facades\Map;
@@ -78,7 +79,7 @@ class MappingServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        $commands = ['Install', 'Reset', 'Make', 'Run'];
+        $commands = ['Install', 'Reset', 'Make', 'Run','ReRun'];
 
         foreach ($commands as $command) {
             $this->{'register'.$command.'Command'}();
@@ -89,6 +90,7 @@ class MappingServiceProvider extends ServiceProvider
             'command.mapping.reset',
             'command.mapping.make',
             'command.mapping.run',
+            'command.mapping.rerun',
         ]);
     }
 
@@ -109,6 +111,16 @@ class MappingServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.mapping.run', function ($app) {
             return new Run($app['mapping.mapper']);
+        });
+    }
+
+    /**
+     * Register the Install command.
+     */
+    protected function registerReRunCommand()
+    {
+        $this->app->singleton('command.mapping.rerun', function ($app) {
+            return new ReRun();
         });
     }
 

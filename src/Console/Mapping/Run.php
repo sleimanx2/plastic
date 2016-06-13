@@ -14,14 +14,14 @@ class Run extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'mapping:run {--database=} {--path=} {--force} {--step}';
+    protected $signature = 'mapping:run {--database=} {--step}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'remove all mapping log from the repository';
+    protected $description = 'run the remaining mappings';
 
     /**
      * @var Mapper
