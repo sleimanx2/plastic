@@ -1,19 +1,20 @@
 ![Plastic Logo](http://i.imgur.com/PyolY7g.png)
 > Plastic is an Elasticsearch ODM and mapper for Laravel.
 > It renders the developer experience more enjoyable while using
-> Elasticsearch by providing a fluent syntax for mapping , querying and storing eloquent models.
+> Elasticsearch, by providing a fluent syntax for mapping, querying, and storing eloquent models.
 
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/sleimanx2/plastic)
 [![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
 [![StyleCI](https://styleci.io/repos/58264395/shield)](https://styleci.io/repos/58264395)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/sleimanx2/plastic)
+
 
 ##Installing Plastic
 
-```
+```bash
 composer require sleimanx2/plastic
 ```
 
-```
+```bash
 php artisan vendor:publish
 ```
 
@@ -204,12 +205,77 @@ Tag::suggest()->term('tag_term','admin')->get();
 
 Mappings are an important aspect of elastic we can compare them to indexing in SQL databases. Mapping our models yields to better search results and allows us to use some special query functions like nested and suggestions.
 
-###### generate a model mapping
+##### Generate a Model Mapping
 
-```
+```bash
 php artisan make:mapping 'App\User'
 ```
+The new mapping will be placed in your `database/mappings` directory.
+
+##### Mapping Structure
+
+A mapping class contains a single method `map`. The map method is used to map the given model fields.
+
+Within the `map` method we may use the Plastic Map builder to expressively create fields maps. To learn about all of the methods available on the Map builder, check out its [documentation](docs/mapping.md). For example, let's look at a sample mapping that creates a Tag model map:
+
+```php
+use Sleimanx2\Plastic\Map\Blueprint;
+use Sleimanx2\Plastic\Mappings\Mapping;
+
+class AppTag extends Mapping
+{
+    /**
+     * Full name of the model that should be mapped
+     *
+     * @var string
+     */
+    protected $model = App\Tag::class;
+
+    /**
+     * Run the mapping.
+     *
+     * @return void
+     */
+    public function map()
+    {
+        Map::create($this->getModelType(),function(Blueprint $map){
+
+          $map->string('name')->store('true')->index('analyzed');
+
+          // instead of the fluent syntax we can use the second method argument to fill the attributes
+          $map->completion('suggestion',['analyzer' => 'simple', 'search_analyzer'=>'simple'];
+
+        });
+    }
+}
+```
+
+##### Run Mappings
+Running the created mappings can be done using the artisan console command.
+
+```bash
+php artisan mapping:run
+```
+
+##### Updating Mappings
+In general, the mapping for existing fields cannot be updated or delete. however their are some techniques to update your mapping.
+
+1- Create a new index
+
+You can always create a new Elasticsearch index and re-run the mappings.
+After running the mappings you can use the `blukSave` method to sync your SQL data with Elasticsearch.
+
+2- Using aliases
+
+Its recommended to create your Elasticsearch index with an alias to ease the process of updating mapping your models with zero downtime more to read.
+
+https://www.elastic.co/blog/changing-mapping-with-zero-downtime
+
+
+## Contributing
+
+Thank you for contributing, The contribution guide can be found [Here](CONTRIBUTING.md).
 
 ## License
 
-Plastic is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Plastic is open-sourced software licensed under the [MIT license](LICENSE.md).
