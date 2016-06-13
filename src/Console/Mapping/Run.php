@@ -65,7 +65,6 @@ class Run extends BaseCommand
         }
     }
 
-
     protected function prepareDatabase()
     {
         $this->mapper->setConnection($this->option('database'));

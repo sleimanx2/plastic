@@ -3,8 +3,6 @@
 namespace Sleimanx2\Plastic\Console\Mapping;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\ConfirmableTrait;
-use Sleimanx2\Plastic\Mappings\Mappings;
 
 class ReRun extends Command
 {
@@ -36,11 +34,11 @@ class ReRun extends Command
     public function handle()
     {
         $this->call('mapping:reset', [
-            '--database' => $this->option('database')
+            '--database' => $this->option('database'),
         ]);
 
         $this->call('mapping:run', [
-            '--database' => $this->option('database')
+            '--database' => $this->option('database'),
         ]);
     }
 }
