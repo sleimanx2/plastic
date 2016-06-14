@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
 [![StyleCI](https://styleci.io/repos/58264395/shield)](https://styleci.io/repos/58264395)
 
-> This package is still under active development and prone to changes 
+> This package is still under active development and prone to changes
 
 ##Installing Plastic
 
@@ -25,9 +25,16 @@ Finally we need to add the plastic service provider to ```app/config.php``` unde
 
 `Sleimanx2\Plastic\PlasticServiceProvider`
 
-##Quick Start
+##Usage
+- [Defining Searchable Models](#searchable-models)
+- [Storing Model Content](#store-content)
+- [Searching](#searching)
+- [Aggregation](#aggregation)
+- [Suggestions](#suggestions)
+- [Mappings](#mappings)
 
-###Defining Searchable Models
+
+###<a name="searchable-models"/>Defining Searchable Models</a>
 
 To get started lets enable searching capabilities to our model by adding the Searchable
 ```Sleimanx2\Plastic\Searchable``` trait.
@@ -70,7 +77,7 @@ By the default Plastic will use the model table name as the model type however w
 public $type = 'custom_type';
 ```
 
-###Storing Model Content
+###<a name="store-content"/>Storing Model Content</a>
 
 Plastic automatically syncs model data with elastic when you save or delete your model from our SQL DB however this feature can be disable by adding the following property to our model ``` public $syncDocument = false ``` .
 
@@ -121,7 +128,7 @@ $post = new Post();
 $post->document()->reindex($post->all());
 ```
 
-###Searching Model Content
+###<a name="searching"/>Searching Model Content</a>
 
 Plastic provides a fluent syntax to query our elastic db which leads to a compact readable code lets dig into it.
 
@@ -185,7 +192,7 @@ Post::search()
 
 >Check out this [documentation](docs/aggregation.md) of supported search queries within plastic and how to apply unsupported queries.
 
-###Aggregation
+###<a name="aggregation"/>Aggregation</a>
 ```php
 $result = User::search()
   ->match('bio','elastic')
@@ -197,7 +204,7 @@ $aggregations = $result->aggregations();
 ```
 >Check out this [documentation](docs/aggregation.md) of supported aggregations within plastic and how to apply unsupported aggregations.
 
-###Suggestions
+###<a name="suggestions"/>Suggestions</a>
 ```php
 Plastic::suggest()->completion('tag_suggest', 'photo')->get();
 ```
@@ -206,7 +213,7 @@ suggestions query builder can also be accessed directly from the model as follow
 Tag::suggest()->term('tag_term','admin')->get();
 ```
 
-###Mapping Model
+###<a name="mappings"/>Mapping Model</a>
 
 Mappings are an important aspect of elastic we can compare them to indexing in SQL databases. Mapping our models yields to better search results and allows us to use some special query functions like nested and suggestions.
 
