@@ -110,7 +110,7 @@ $book = Book::first()->document()->delete();
 ```php
 $tag = Tag::first();
 
-$tag->document()->blukSave($tag->books);
+$tag->document()->bulkSave($tag->books);
 ```
 
 #####Deleting documents in bulk
@@ -118,7 +118,7 @@ $tag->document()->blukSave($tag->books);
 ```php
 $author = Author::first();
 
-$author->document()->blukDelete($author->books);
+$author->document()->bulkDelete($author->books);
 ```
 #####Reindexing documents in bulk
 
@@ -278,7 +278,7 @@ The mapping for existing fields cannot be updated or deleted. So we need to use 
 1- Create a new index
 
 You can always create a new Elasticsearch index and re-run the mappings.
-After running the mappings you can use the `blukSave` method to sync your SQL data with Elasticsearch.
+After running the mappings you can use the `bulkSave` method to sync your SQL data with Elasticsearch.
 
 2- Using aliases
 
