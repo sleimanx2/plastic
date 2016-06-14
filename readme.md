@@ -147,6 +147,11 @@ $result->maxScore();
 //Returns the time needed to execute the query
 $result->took();
 ```
+To get the DSL query that will be executed against Elasticsearch we can do as follows:
+
+```php
+$dsl = Book::search()->match('title','pulp')->toDSL();
+```
 
 #####Pagination
 
