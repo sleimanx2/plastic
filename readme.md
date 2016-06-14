@@ -7,6 +7,7 @@
 [![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
 [![StyleCI](https://styleci.io/repos/58264395/shield)](https://styleci.io/repos/58264395)
 
+> This package is still under active development and prone to changes 
 
 ##Installing Plastic
 
@@ -182,7 +183,9 @@ Post::search()
 });
 ```
 
-#####Aggregation
+>Check out this [documentation](docs/aggregation.md) of supported search queries within plastic and how to apply unsupported queries.
+
+###Aggregation
 ```php
 $result = User::search()
   ->match('bio','elastic')
@@ -192,7 +195,9 @@ $result = User::search()
 
 $aggregations = $result->aggregations();
 ```
-#####Suggestions
+>Check out this [documentation](docs/aggregation.md) of supported aggregations within plastic and how to apply unsupported aggregations.
+
+###Suggestions
 ```php
 Plastic::suggest()->completion('tag_suggest', 'photo')->get();
 ```
@@ -216,7 +221,7 @@ The new mapping will be placed in your `database/mappings` directory.
 
 A mapping class contains a single method `map`. The map method is used to map the given model fields.
 
-Within the `map` method we may use the Plastic Map builder to expressively create fields maps. To learn about all of the methods available on the Map builder, check out its [documentation](docs/mapping.md). For example, let's look at a sample mapping that creates a Tag model map:
+Within the `map` method we may use the Plastic Map builder to expressively create fields maps. To learn about all of the methods available on the Map builder, check out this  [documentation](docs/mapping.md). For example, let's look at a sample mapping that creates a Tag model map:
 
 ```php
 use Sleimanx2\Plastic\Map\Blueprint;
@@ -258,7 +263,10 @@ php artisan mapping:run
 ```
 
 ##### Updating Mappings
-In general, the mapping for existing fields cannot be updated or delete. however their are some techniques to update your mapping.
+
+If our update consist of adding a new field mapping we can always update our model map with our new field and run `php artisan mapping:rerun`.
+
+The mapping for existing fields cannot be updated or deleted. So we need to use one of below technique to update existing fields .
 
 1- Create a new index
 
@@ -271,6 +279,7 @@ Its recommended to create your Elasticsearch index with an alias to ease the pro
 
 https://www.elastic.co/blog/changing-mapping-with-zero-downtime
 
+> We can access the elastic client to manage our index and aliases as follow `$client = Plastic::getClient()`
 
 ## Contributing
 
@@ -279,3 +288,33 @@ Thank you for contributing, The contribution guide can be found [Here](CONTRIBUT
 ## License
 
 Plastic is open-sourced software licensed under the [MIT license](LICENSE.md).
+
+## To Do
+
+######Search Query Builder
+
+[] implement Boosting query
+
+[] implement ConstantScore query
+
+[] implement DisMaxQuery query
+
+[] implement MoreLikeThis query (with raw eloquent models)
+
+[] implement GeoShape query
+
+######Aggregation Query Builder
+
+[] implement Nested aggregation
+
+[] implement ExtendedStats aggregation
+
+[] implement TopHits aggregation
+
+######Mappings
+
+[] Find a seamless way to update field mappings with zero downtime with aliases
+
+######Overall
+
+[] Better query builder documentation
