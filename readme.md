@@ -15,15 +15,18 @@
 composer require sleimanx2/plastic
 ```
 
+Then we need to add the plastic service provider to ```app/config.php``` under the providers key.
+`Sleimanx2\Plastic\PlasticServiceProvider`
+
+Finally we need to run:
+
 ```bash
 php artisan vendor:publish
 ```
 
 This will create a config file at ```config/plastic.php``` and a mapping directory at ```database/mappings```.
 
-Finally we need to add the plastic service provider to ```app/config.php``` under the providers key.
-
-`Sleimanx2\Plastic\PlasticServiceProvider`
+Finally
 
 ##Usage
 - [Defining Searchable Models](#searchable-models)
