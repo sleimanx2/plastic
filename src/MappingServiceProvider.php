@@ -79,7 +79,7 @@ class MappingServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        $commands = ['Install', 'Reset', 'Make', 'Run','ReRun'];
+        $commands = ['Install', 'Reset', 'Make', 'Run', 'ReRun'];
 
         foreach ($commands as $command) {
             $this->{'register'.$command.'Command'}();
