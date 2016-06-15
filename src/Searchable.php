@@ -146,7 +146,7 @@ trait Searchable
      * Handle dynamic method calls into the model.
      *
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return mixed
      */
