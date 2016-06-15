@@ -135,18 +135,18 @@ trait Searchable
      */
     public function shouldSyncDocument()
     {
-        if (property_exists($this, 'syncDocument') and $this->syncDocument == true) {
-            return true;
+        if (property_exists($this, 'syncDocument')) {
+            return $this->syncDocument;
         }
 
-        return false;
+        return true;
     }
 
     /**
      * Handle dynamic method calls into the model.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */
