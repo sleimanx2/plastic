@@ -81,7 +81,10 @@ class EloquentFiller implements FillerInterface
     public function newFromBuilderRecursive(Model $model, array $attributes = [], Relation $parentRelation = null)
     {
         $instance = $model->newInstance([], $exists = true);
-        $instance->setRawAttributes((array) $attributes, $sync = true);
+
+        // fill the instance attributes with checking
+        $instance->unguard();
+        $instance->fill($attributes);
 
         // Load relations recursive
         $this->loadRelationsAttributesRecursive($instance);
