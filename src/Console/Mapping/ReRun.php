@@ -42,12 +42,12 @@ class ReRun extends Command
 
         $this->call('mapping:reset', [
             '--database' => $this->option('database'),
-            '--force'=>true
+            '--force'    => true,
         ]);
 
         $this->call('mapping:run', [
             '--database' => $this->option('database'),
-            '--force'=>true
+            '--force'    => true,
         ]);
     }
 }
