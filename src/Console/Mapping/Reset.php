@@ -15,7 +15,7 @@ class Reset extends Command
      *
      * @var string
      */
-    protected $signature = 'mapping:reset {--database=}';
+    protected $signature = 'mapping:reset {--database=} {--force}';
 
     /**
      * The console command description.

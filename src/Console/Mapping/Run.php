@@ -14,7 +14,7 @@ class Run extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'mapping:run {--database=} {--step}';
+    protected $signature = 'mapping:run {--database=} {--step} {--force}';
 
     /**
      * The console command description.

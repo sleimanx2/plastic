@@ -3,15 +3,18 @@
 namespace Sleimanx2\Plastic\Console\Mapping;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\ConfirmableTrait;
 
 class ReRun extends Command
 {
+    use ConfirmableTrait;
+
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $signature = 'mapping:rerun {--database=}';
+    protected $signature = 'mapping:rerun {--database=} {--force}';
 
     /**
      * The console command description.
@@ -33,12 +36,18 @@ class ReRun extends Command
      */
     public function handle()
     {
+        if (!$this->confirmToProceed()) {
+            return;
+        }
+
         $this->call('mapping:reset', [
             '--database' => $this->option('database'),
+            '--force'=>true
         ]);
 
         $this->call('mapping:run', [
             '--database' => $this->option('database'),
+            '--force'=>true
         ]);
     }
 }
