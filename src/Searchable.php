@@ -117,7 +117,7 @@ trait Searchable
             if ($result instanceof Collection) {
                 $result = $result->toArray();
             } elseif ($result instanceof Carbon) {
-                $result = $result->format('c');
+                $result = $result->toDateTimeString();
             } else {
                 $result = $this->$value;
             }
