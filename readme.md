@@ -4,7 +4,7 @@
 > Elasticsearch, by providing a fluent syntax for mapping, querying, and storing eloquent models.
 
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/sleimanx2/plastic)
-[![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master)](https://travis-ci.org/sleimanx2/plastic)
+[![Build Status](https://travis-ci.org/sleimanx2/plastic.svg?branch=master&&refresh=1)](https://travis-ci.org/sleimanx2/plastic)
 [![StyleCI](https://styleci.io/repos/58264395/shield)](https://styleci.io/repos/58264395)
 
 > This package is still under active development and prone to changes
