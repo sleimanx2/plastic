@@ -26,8 +26,6 @@ php artisan vendor:publish
 
 This will create a config file at ```config/plastic.php``` and a mapping directory at ```database/mappings```.
 
-Finally
-
 ##Usage
 - [Defining Searchable Models](#searchable-models)
 - [Storing Model Content](#store-content)
@@ -326,7 +324,7 @@ Plastic is open-sourced software licensed under the [MIT license](LICENSE.md).
 
 [] implement TopHits aggregation
 
-######Mappings
+######Mapping
 
 [] Find a seamless way to update field mappings with zero downtime with aliases
 
