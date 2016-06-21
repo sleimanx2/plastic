@@ -14,21 +14,21 @@ trait Searchable
      *
      * @var bool
      */
-    protected $isDocument = false;
+    public $isDocument = false;
 
     /**
      * Hit score after querying Elasticsearch.
      *
      * @var null|int
      */
-    protected $documentScore = null;
+    public $documentScore = null;
 
     /**
      * Elasticsearch document version.
      *
      * @var null|int
      */
-    protected $documentVersion = null;
+    public $documentVersion = null;
 
     /**
      * Searchable boot model.
@@ -146,7 +146,7 @@ trait Searchable
      * Handle dynamic method calls into the model.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */
