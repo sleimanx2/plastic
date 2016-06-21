@@ -55,6 +55,7 @@ class EloquentFiller implements FillerInterface
         }
 
         $instance = $this->newFromBuilderRecursive($model, $attributes);
+
         // In addition to setting the attributes
         // from the index, we will set the score as well.
         $instance->documentScore = $hit['_score'];
@@ -85,7 +86,7 @@ class EloquentFiller implements FillerInterface
         // fill the instance attributes with checking
         $instance->unguard();
         $instance->fill($attributes);
-
+        $instance->reguard();
         // Load relations recursive
         $this->loadRelationsAttributesRecursive($instance);
 
