@@ -128,7 +128,7 @@ class SearchBuilder
             throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
         }
 
-        $this->type = $model->getType();
+        $this->type = $model->getDocumentType();
 
         $this->model = $model;
 

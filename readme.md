@@ -72,10 +72,10 @@ public function buildDocument()
 
 #####Custom elastic type name
 
-By the default Plastic will use the model table name as the model type however we can customize it by adding a type property to our model.
+By the default Plastic will use the model table name as the model type however we can customize it by adding a ```$documentType``` property to our model.
 
 ```php
-public $type = 'custom_type';
+public $documentType = 'custom_type';
 ```
 
 ###<a name="store-content"/>Storing Model Content</a>

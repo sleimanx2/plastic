@@ -19,7 +19,7 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 
         $model->exists = true;
         $model->shouldReceive('getDocumentData')->once()->andReturn([]);
-        $model->shouldReceive('getType')->once()->andReturn('foo');
+        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
         $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('indexStatement')->once()->with([
@@ -56,7 +56,7 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 
         $model->exists = true;
         $model->shouldReceive('getDocumentData')->once()->andReturn([]);
-        $model->shouldReceive('getType')->once()->andReturn('foo');
+        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
         $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('updateStatement')->once()->with([
@@ -92,7 +92,7 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model = \Mockery::mock(PersistenceModelTest::class);
 
         $model->exists = true;
-        $model->shouldReceive('getType')->once()->andReturn('foo');
+        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
         $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('deleteStatement')->once()->with([
@@ -115,12 +115,12 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model = \Mockery::mock(PersistenceModelTest::class);
 
         $model1 = \Mockery::mock(PersistenceModelTest::class);
-        $model1->shouldReceive('getType')->once()->andReturn('foo');
+        $model1->shouldReceive('getDocumentType')->once()->andReturn('foo');
         $model1->shouldReceive('getKey')->once()->andReturn(1);
         $model1->shouldReceive('getDocumentData')->once()->andReturn(['foo' => 'bar']);
 
         $model2 = \Mockery::mock(PersistenceModelTest::class);
-        $model2->shouldReceive('getType')->once()->andReturn('bar');
+        $model2->shouldReceive('getDocumentType')->once()->andReturn('bar');
         $model2->shouldReceive('getKey')->once()->andReturn(2);
         $model2->shouldReceive('getDocumentData')->once()->andReturn(['foo' => 'bar']);
 
@@ -161,11 +161,11 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model = \Mockery::mock(PersistenceModelTest::class);
 
         $model1 = \Mockery::mock(PersistenceModelTest::class);
-        $model1->shouldReceive('getType')->once()->andReturn('foo');
+        $model1->shouldReceive('getDocumentType')->once()->andReturn('foo');
         $model1->shouldReceive('getKey')->once()->andReturn(1);
 
         $model2 = \Mockery::mock(PersistenceModelTest::class);
-        $model2->shouldReceive('getType')->once()->andReturn('bar');
+        $model2->shouldReceive('getDocumentType')->once()->andReturn('bar');
         $model2->shouldReceive('getKey')->once()->andReturn(2);
 
         $collection = [$model1, $model2];

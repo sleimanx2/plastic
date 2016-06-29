@@ -63,11 +63,11 @@ trait Searchable
      *
      * @return string
      */
-    public function getType()
+    public function getDocumentType()
     {
         // if the type is defined use it else return the table name
-        if (isset($this->type)) {
-            return $this->type;
+        if (isset($this->documentType) and !empty($this->documentType)) {
+            return $this->documentType;
         }
 
         return $this->getTable();
@@ -146,7 +146,7 @@ trait Searchable
      * Handle dynamic method calls into the model.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */

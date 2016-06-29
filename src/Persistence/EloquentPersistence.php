@@ -20,7 +20,7 @@ class EloquentPersistence extends PersistenceAbstract
 
         $params = [
             'id'   => $this->model->getKey(),
-            'type' => $this->model->getType(),
+            'type' => $this->model->getDocumentType(),
             'body' => $document,
         ];
 
@@ -44,7 +44,7 @@ class EloquentPersistence extends PersistenceAbstract
 
         $params = [
             'id'   => $this->model->getKey(),
-            'type' => $this->model->getType(),
+            'type' => $this->model->getDocumentType(),
             'body' => [
                 'doc' => $document,
             ],
@@ -62,7 +62,7 @@ class EloquentPersistence extends PersistenceAbstract
     {
         $params = [
             'id'   => $this->model->getKey(),
-            'type' => $this->model->getType(),
+            'type' => $this->model->getDocumentType(),
         ];
 
         return $this->connection->deleteStatement($params);
@@ -85,7 +85,7 @@ class EloquentPersistence extends PersistenceAbstract
             $params['body'][] = [
                 'index' => [
                     '_id'    => $item->getKey(),
-                    '_type'  => $item->getType(),
+                    '_type'  => $item->getDocumentType(),
                     '_index' => $index,
                 ],
             ];
@@ -112,7 +112,7 @@ class EloquentPersistence extends PersistenceAbstract
             $params['body'][] = [
                 'delete' => [
                     '_id'    => $item->getKey(),
-                    '_type'  => $item->getType(),
+                    '_type'  => $item->getDocumentType(),
                     '_index' => $index,
                 ],
             ];

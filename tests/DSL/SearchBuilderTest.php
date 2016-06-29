@@ -450,6 +450,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             'type' => 'searchable_model_builders',
             'body' => [],
         ])->andReturn($return);
+
         $this->assertInstanceOf(PlasticResult::class, $builder->get());
     }
 

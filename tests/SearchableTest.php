@@ -8,7 +8,7 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
     public function it_gets_the_elastic_type_from_table_field_if_type_is_not_set()
     {
         $model = new SearchableModelTest();
-        $this->assertEquals('searchable_model_tests', $model->getType());
+        $this->assertEquals('searchable_model_tests', $model->getDocumentType());
     }
 
     /**
@@ -17,8 +17,8 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
     public function it_gets_the_elastic_type_from_type_field_if_set()
     {
         $model = new SearchableModelTest();
-        $model->type = 'foo';
-        $this->assertEquals('foo', $model->getType());
+        $model->documentType = 'foo';
+        $this->assertEquals('foo', $model->getDocumentType());
     }
 
     /**

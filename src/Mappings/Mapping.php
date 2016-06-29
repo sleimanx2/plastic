@@ -41,7 +41,7 @@ abstract class Mapping
             throw new InvalidArgumentException(get_class($this->model).' does not use the searchable trait');
         }
 
-        $this->type = $this->model->getType();
+        $this->type = $this->model->getDocumentType();
     }
 
     /**
@@ -51,6 +51,6 @@ abstract class Mapping
      */
     public function getModelType()
     {
-        return $this->model->getType();
+        return $this->model->getDocumentType();
     }
 }
