@@ -52,7 +52,7 @@ class Book extends Model
 
 In addition to default attributes Plastic provides us with two ways to select which attributes/relations data to store in elastic.
 
-1 - Providing a searchable property to out model
+1 - Providing a searchable property to our model
 
 ```php
 public $searchable = ['id','name','body','tags','images'];
