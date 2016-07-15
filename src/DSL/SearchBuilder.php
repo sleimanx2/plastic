@@ -758,6 +758,8 @@ class SearchBuilder
      * Append a query.
      *
      * @param $query
+     *
+     * @return $this
      */
     public function append($query)
     {
@@ -766,6 +768,8 @@ class SearchBuilder
         } else {
             $this->query->addQuery($query, $this->getBoolState());
         }
+
+        return $this;
     }
 
     /**
