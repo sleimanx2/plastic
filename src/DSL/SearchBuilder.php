@@ -775,6 +775,6 @@ class SearchBuilder
      */
     protected function getCurrentPage()
     {
-        return \Input::get('page') ? (int) \Input::get('page') : 1;
+        return \Request::get('page') ? (int) \Request::get('page') : 1;
     }
 }
