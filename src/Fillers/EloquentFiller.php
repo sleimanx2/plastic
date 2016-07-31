@@ -115,22 +115,21 @@ class EloquentFiller implements FillerInterface
                     if ($relation instanceof Relation) {
 
                         // Get the relation models/model if value is not null
-                        if($value === null) {
+                        if ($value === null) {
                             $models = null;
-                        }
-                        else {
+                        } else {
 
                           // Check if the relation field is single model or collections
                           if (!$multiLevelRelation = $this->isMultiLevelArray($value)) {
                               $value = [$value];
                           }
 
-                          $models = $this->hydrateRecursive($relation->getModel(), $value, $relation);
+                            $models = $this->hydrateRecursive($relation->getModel(), $value, $relation);
 
 
-                          if (!$multiLevelRelation) {
-                              $models = $models->first();
-                          }
+                            if (!$multiLevelRelation) {
+                                $models = $models->first();
+                            }
                         }
 
                         // Unset attribute before setting relation
