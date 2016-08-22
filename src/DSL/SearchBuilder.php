@@ -314,9 +314,9 @@ class SearchBuilder
     public function exists($field)
     {
         $query = new ExistsQuery($field);
-        
+
         $this->append($query);
-        
+
         return $this;
     }
 
