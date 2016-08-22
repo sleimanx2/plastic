@@ -307,15 +307,19 @@ class SearchBuilder
     /**
      * Add an exists query.
      *
-     * @param string $field
+     * @param string|array $fields
      *
      * @return $this
      */
-    public function exists($field)
+    public function exists($fields)
     {
-        $query = new ExistsQuery($field);
+        $fields = is_array($fields) ? $fields : [$fields];
 
-        $this->append($query);
+        foreach ($fields as $field) {
+            $query = new ExistsQuery($field);
+
+            $this->append($query);
+        }
 
         return $this;
     }
