@@ -305,7 +305,7 @@ class SearchBuilder
     }
 
     /**
-     * Add an exists query
+     * Add an exists query.
      *
      * @param string $field
      *
