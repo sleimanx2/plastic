@@ -4,6 +4,7 @@ namespace Sleimanx2\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
 use ONGR\ElasticsearchDSL\Query\CommonTermsQuery;
+use ONGR\ElasticsearchDSL\Query\ExistsQuery;
 use ONGR\ElasticsearchDSL\Query\FuzzyQuery;
 use ONGR\ElasticsearchDSL\Query\GeoBoundingBoxQuery;
 use ONGR\ElasticsearchDSL\Query\GeoDistanceQuery;
@@ -299,6 +300,26 @@ class SearchBuilder
         $query = new TermsQuery($field, $terms, $attributes);
 
         $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add an exists query.
+     *
+     * @param string|array $fields
+     *
+     * @return $this
+     */
+    public function exists($fields)
+    {
+        $fields = is_array($fields) ? $fields : [$fields];
+
+        foreach ($fields as $field) {
+            $query = new ExistsQuery($field);
+
+            $this->append($query);
+        }
 
         return $this;
     }
