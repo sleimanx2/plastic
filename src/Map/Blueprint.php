@@ -288,6 +288,19 @@ class Blueprint
     }
 
     /**
+     * Add a object map
+     *
+     * @param         $field
+     * @param Closure $callback
+     *
+     * @return Fluent
+     */
+    public function object($field, Closure $callback)
+    {
+        return $this->addField('object', $field, ['callback' => $callback]);
+    }
+
+    /**
      * Add a new field to the blueprint.
      *
      * @param string $type

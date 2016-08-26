@@ -352,6 +352,29 @@ class Grammar
     }
 
     /**
+     * Compile a object map
+     *
+     * @param Fluent $fluent
+     *
+     * @return array
+     */
+    public function compileObject(Fluent $fluent)
+    {
+        $blueprint = new Blueprint($fluent->type);
+
+        /* @var \Closure $callback */
+        $callback = $fluent->callback;
+
+        if (is_callable($callback)) {
+            $callback($blueprint);
+        }
+
+        return [
+            'properties' => $this->compileFields($blueprint->getFields()),
+        ];
+    }
+
+    /**
      * Format the map array for submission.
      *
      * @param array $map
