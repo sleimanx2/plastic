@@ -288,7 +288,7 @@ class Blueprint
     }
 
     /**
-     * Add a object map
+     * Add a object map.
      *
      * @param         $field
      * @param Closure $callback

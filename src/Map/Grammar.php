@@ -352,7 +352,7 @@ class Grammar
     }
 
     /**
-     * Compile a object map
+     * Compile a object map.
      *
      * @param Fluent $fluent
      *
