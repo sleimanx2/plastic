@@ -52,7 +52,8 @@ class Mappings
         return $this->table()
             ->orderBy('batch', 'asc')
             ->orderBy('mapping', 'asc')
-            ->pluck('mapping');
+            ->pluck('mapping')
+            ->toArray();
     }
 
     /**
