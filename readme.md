@@ -166,7 +166,7 @@ $dsl = Book::search()->match('title','pulp')->toDSL();
 ```php
 $books = Book::search()
     ->multiMatch(['title', 'description'], 'ham on rye', ['fuzziness' => 'AUTO'])
-    ->orderBy('date')
+    ->sortBy('date')
     ->paginate();
 ```
 
