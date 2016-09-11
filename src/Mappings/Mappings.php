@@ -34,7 +34,7 @@ class Mappings
      * Create a new database mapping repository instance.
      *
      * @param \Illuminate\Database\ConnectionResolverInterface $resolver
-     * @param string $table
+     * @param string                                           $table
      */
     public function __construct(Resolver $resolver, $table)
     {
@@ -54,7 +54,7 @@ class Mappings
             ->orderBy('mapping', 'asc')
             ->pluck('mapping');
 
-        if(is_array($result)) {
+        if (is_array($result)) {
             return $result;
         }
 
@@ -129,7 +129,7 @@ class Mappings
      */
     public function createRepository()
     {
-        $this->schema()->create($this->table, function($table) {
+        $this->schema()->create($this->table, function ($table) {
 
             // The mappings table is responsible for keeping track of which of the
             // mappings have actually run for the application. We'll create the
