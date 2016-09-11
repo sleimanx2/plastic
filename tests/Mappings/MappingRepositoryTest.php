@@ -14,8 +14,8 @@ class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
         $repo->getConnection()->shouldReceive('table')->once()->with('mappings')->andReturn($query);
         $query->shouldReceive('orderBy')->once()->with('batch', 'asc')->andReturn($query);
         $query->shouldReceive('orderBy')->once()->with('mapping', 'asc')->andReturn($query);
-        $query->shouldReceive('pluck')->once()->with('mapping')->andReturn('bar');
-        $this->assertEquals('bar', $repo->getRan());
+        $query->shouldReceive('pluck')->once()->with('mapping')->andReturn(['bar']);
+        $this->assertEquals(['bar'], $repo->getRan());
     }
 
     /**
