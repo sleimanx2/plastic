@@ -49,22 +49,35 @@ class Mappings
      */
     public function getRan()
     {
-        return $this->table()
+        $result = $this->table()
             ->orderBy('batch', 'asc')
             ->orderBy('mapping', 'asc')
             ->pluck('mapping');
+
+        if (is_array($result)) {
+            return $result;
+        }
+
+        return $result->toArray();
     }
 
     /**
      * Get the last mapping batch.
      *
-     * @return $this
+     * @return array
      */
     public function getLast()
     {
-        $query = $this->table()->where('batch', $this->getLastBatchNumber());
+        $result = $this->table()
+            ->where('batch', $this->getLastBatchNumber())
+            ->orderBy('mapping', 'desc')
+            ->get();
 
-        return $query->orderBy('mapping', 'desc')->get();
+        if (is_array($result)) {
+            return $result;
+        }
+
+        return $result->toArray();
     }
 
     /**

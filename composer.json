@@ -15,12 +15,12 @@
   "require": {
     "php": ">=5.5.9",
     "elasticsearch/elasticsearch": "~2.0",
-    "illuminate/container": "5.2.*",
-    "illuminate/contracts": "5.2.*",
-    "illuminate/console": "5.2.*",
-    "illuminate/pagination": "5.2.*",
-    "illuminate/support": "5.2.*",
-    "illuminate/database": "5.2.*",
+    "illuminate/container": "5.2.*|5.3.*",
+    "illuminate/contracts": "5.2.*|5.3.*",
+    "illuminate/console": "5.2.*|5.3.*",
+    "illuminate/pagination": "5.2.*|5.3.*",
+    "illuminate/support": "5.2.*|5.3.*",
+    "illuminate/database": "5.2.*|5.3.*",
     "ongr/elasticsearch-dsl": "~2.0"
   },
   "require-dev": {
