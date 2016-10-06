@@ -199,6 +199,21 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
             $statement);
     }
 
+    /**
+     * @test
+     */
+    public function it_adds_a_object_map()
+    {
+        $blueprint = new Blueprint('post');
+        $blueprint->create();
+        $blueprint->object('tags', function ($blueprint) {
+            $blueprint->string('name');
+        });
+        $statement = $blueprint->toDSL($this->getGrammar());
+        $this->assertEquals(['tags' => ['properties' => ['name' => ['type' => 'string']]]],
+            $statement);
+    }
+
     protected function getGrammar()
     {
         return new \Sleimanx2\Plastic\Map\Grammar();
