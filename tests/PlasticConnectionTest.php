@@ -145,6 +145,21 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_executes_an_exists_statement_on_client()
+    {
+        $connection = $this->getConnectionMock();
+
+        $client = Mockery::mock('Elasticsearch\Client');
+        $client->shouldReceive('exists')->withArgs([['index' => 'plastic']])->andReturn('ok');
+
+        $connection->setClient($client);
+
+        $this->assertEquals('ok', $connection->existsStatement([]));
+    }
+
+    /**
+     * @test
+     */
     public function it_executes_a_bulk_statement_on_client()
     {
         $connection = $this->getConnectionMock();

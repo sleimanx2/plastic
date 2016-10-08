@@ -95,10 +95,38 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
         $model->shouldReceive('getKey')->once()->andReturn(1);
 
+        $connection->shouldReceive('existsStatement')->once()->with([
+            'id'   => 1,
+            'type' => 'foo',
+        ])->andReturn(true);
+
         $connection->shouldReceive('deleteStatement')->once()->with([
             'id'   => 1,
             'type' => 'foo',
         ]);
+        $persistence = new EloquentPersistence($connection, $model);
+        $persistence->delete();
+    }
+
+    /**
+     * @test
+     */
+    public function it_dosent_execute_a_delete_statement_if_model_document_not_indexed()
+    {
+        $connection = \Mockery::mock(Connection::class);
+        $model = \Mockery::mock(PersistenceModelTest::class);
+
+        $model->exists = true;
+        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
+        $model->shouldReceive('getKey')->once()->andReturn(1);
+
+        $connection->shouldReceive('existsStatement')->once()->with([
+            'id'   => 1,
+            'type' => 'foo',
+        ])->andReturn(false);
+
+        $connection->shouldNotReceive('deleteStatement');
+
         $persistence = new EloquentPersistence($connection, $model);
         $persistence->delete();
     }

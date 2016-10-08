@@ -66,7 +66,7 @@ class EloquentPersistence extends PersistenceAbstract
         ];
 
         // check if the document exists before deleting
-        if ($this->connection->existStatement($params)) {
+        if ($this->connection->existsStatement($params)) {
             return $this->connection->deleteStatement($params);
         }
 
