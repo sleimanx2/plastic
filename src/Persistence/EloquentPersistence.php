@@ -19,7 +19,7 @@ class EloquentPersistence extends PersistenceAbstract
         $document = $this->model->getDocumentData();
 
         $params = [
-            'id'   => $this->model->getKey(),
+            'id' => $this->model->getKey(),
             'type' => $this->model->getDocumentType(),
             'body' => $document,
         ];
@@ -43,7 +43,7 @@ class EloquentPersistence extends PersistenceAbstract
         $document = $this->model->getDocumentData();
 
         $params = [
-            'id'   => $this->model->getKey(),
+            'id' => $this->model->getKey(),
             'type' => $this->model->getDocumentType(),
             'body' => [
                 'doc' => $document,
@@ -61,11 +61,16 @@ class EloquentPersistence extends PersistenceAbstract
     public function delete()
     {
         $params = [
-            'id'   => $this->model->getKey(),
+            'id' => $this->model->getKey(),
             'type' => $this->model->getDocumentType(),
         ];
 
-        return $this->connection->deleteStatement($params);
+        // check if the document exists before deleting
+        if ($this->connection->existStatement($params)) {
+            return $this->connection->deleteStatement($params);
+        }
+
+        return true;
     }
 
     /**
@@ -84,8 +89,8 @@ class EloquentPersistence extends PersistenceAbstract
         foreach ($collection as $item) {
             $params['body'][] = [
                 'index' => [
-                    '_id'    => $item->getKey(),
-                    '_type'  => $item->getDocumentType(),
+                    '_id' => $item->getKey(),
+                    '_type' => $item->getDocumentType(),
                     '_index' => $index,
                 ],
             ];
@@ -111,8 +116,8 @@ class EloquentPersistence extends PersistenceAbstract
         foreach ($collection as $item) {
             $params['body'][] = [
                 'delete' => [
-                    '_id'    => $item->getKey(),
-                    '_type'  => $item->getDocumentType(),
+                    '_id' => $item->getKey(),
+                    '_type' => $item->getDocumentType(),
                     '_index' => $index,
                 ],
             ];

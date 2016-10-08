@@ -173,6 +173,18 @@ class Connection
     }
 
     /**
+     * Execute a exist statement on index.
+     *
+     * @param array $params
+     *
+     * @return array|bool
+     */
+    public function existStatement(array $params)
+    {
+        return $this->elastic->exists(array_merge(['index' => $this->index], $params));
+    }
+
+    /**
      * Execute a bulk statement on index;.
      *
      * @param $params
