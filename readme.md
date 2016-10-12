@@ -201,7 +201,7 @@ Post::search()
     ->multiMatch(['title', 'body'], $contain)
     ->nested('tags', function (SearchBuilder $builder) use ($contain) {
         $builder->match('tags.name', $contain);
-    });
+    })->get();
 ```
 
 > Check out this [documentation](docs/search.md) of supported search queries within Plastic and how to apply unsupported queries.
@@ -213,7 +213,7 @@ $result = User::search()
     ->match('bio', 'elastic')
     ->aggregate(function (AggregationBuilder $builder) {
         $builder->average('average_age', 'age');
-    });
+    })->get();
 
 $aggregations = $result->aggregations();
 ```
