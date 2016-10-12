@@ -689,6 +689,18 @@ class SearchBuilder
     }
 
     /**
+     * Overwrite the default index setting for this query.
+     *
+     * @return SearchBuilder
+     */
+    public function inIndex($index)
+    {
+        $this->connection->setIndex($index);
+
+        return $this;
+    }
+
+    /**
      * Execute the search query against elastic and return the raw result if the model is not set.
      *
      * @return PlasticResult
