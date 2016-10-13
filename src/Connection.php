@@ -101,6 +101,18 @@ class Connection
     }
 
     /**
+     * Set the currently used index.
+     *
+     * @return Connection
+     */
+    public function setIndex($index)
+    {
+        $this->index = $index;
+
+        return $this;
+    }
+
+    /**
      * Execute a map statement on index;.
      *
      * @param array $mappings

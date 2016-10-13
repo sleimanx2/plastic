@@ -161,6 +161,13 @@ To get the raw DSL query that will be executed you can call `toDSL()`:
 $dsl = Book::search()->match('title','pulp')->toDSL();
 ```
 
+#### Change index
+
+To switch to a different index for a single query, simply use the `inIndex` method.
+
+$result = Book::search()->inIndex('special-books')->match('title','pulp')->get();
+
+
 #### Pagination
 
 ```php
@@ -292,7 +299,7 @@ php artisan mapping:run
 
 #### Updating Mappings
 
-If your update consists only of adding a new field mapping you can always update our model map with your new field and run: 
+If your update consists only of adding a new field mapping you can always update our model map with your new field and run:
 
 ```bash
 php artisan mapping:rerun

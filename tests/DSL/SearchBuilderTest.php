@@ -416,6 +416,24 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_overwrites_the_connections_default_index()
+    {
+        $builder = $this->getBuilder();
+        $connection = $builder->getConnection();
+
+        $connection->shouldReceive('setIndex')
+                   ->with('test')
+                   ->set('index', 'test')
+                   ->once();
+
+        $builder->inIndex('test');
+
+        $this->assertEquals('test', $connection->index);
+    }
+
+    /**
+     * @test
+     */
     public function it_executes_the_query_and_returns_the_raw_result()
     {
         $builder = $this->getBuilder();
