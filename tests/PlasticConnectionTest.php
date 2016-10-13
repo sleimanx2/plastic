@@ -15,6 +15,18 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_sets_the_default_index()
+    {
+        $connection = $this->getConnectionMock();
+
+        $connection->setIndex("custom-index");
+
+        $this->assertEquals("custom-index", $connection->index);
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_a_map_grammar()
     {
         $connection = $this->getConnectionMock();
