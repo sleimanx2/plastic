@@ -82,4 +82,18 @@ abstract class PersistenceAbstract
 
         return $this->bulkSave($collection);
     }
+
+    /**
+     * Overwrite the default index setting for this query.
+     *
+     * @param string $index
+     *
+     * @return $this
+     */
+    public function inIndex($index)
+    {
+        $this->connection->setIndex($index);
+
+        return $this;
+    }
 }

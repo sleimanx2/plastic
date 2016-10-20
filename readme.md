@@ -165,8 +165,11 @@ $dsl = Book::search()->match('title','pulp')->toDSL();
 
 To switch to a different index for a single query, simply use the `inIndex` method.
 
+```php
 $result = Book::search()->inIndex('special-books')->match('title','pulp')->get();
 
+$result = Book::first()->document()->inIndex('special-books')->save();
+```
 
 #### Pagination
 
