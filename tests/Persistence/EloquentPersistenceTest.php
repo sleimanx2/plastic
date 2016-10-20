@@ -235,6 +235,25 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 
         $persistence->reindex([]);
     }
+
+    /**
+     * @test
+     */
+    public function it_overwrites_the_connections_default_index()
+    {
+        $connection = \Mockery::mock(Connection::class);
+        $connection->shouldReceive('setIndex')
+                   ->with('test')
+                   ->set('index', 'test')
+                   ->once();
+
+        $model = \Mockery::mock(PersistenceModelTest::class);
+
+        $persistence = new EloquentPersistence($connection, $model);
+        $persistence->inIndex('test');
+
+        $this->assertEquals('test', $connection->index);
+    }
 }
 
 class PersistenceModelTest extends Model
