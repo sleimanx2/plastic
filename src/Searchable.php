@@ -74,6 +74,21 @@ trait Searchable
     }
 
     /**
+     * Get the model elastic index if available.
+     *
+     * @return mixed
+     */
+    public function getDocumentIndex()
+    {
+        // if a custom index is defined use it else return null
+        if (isset($this->documentIndex) and !empty($this->documentIndex)) {
+            return $this->documentIndex;
+        }
+
+        return null;
+    }
+
+    /**
      * Build the document data with the appropriate method.
      *
      * @return array
