@@ -269,12 +269,11 @@ class Connection
      */
     private function setStatementIndex(array $params)
     {
-        if(isset($params['index']) and $params['index'])
-        {
+        if (isset($params['index']) and $params['index']) {
             return $params;
         }
 
         // merge the default index with the given params if the index is not set.
-        return array_merge(['index' => $this->getDefaultIndex()], $params);
+        return array_merge($params, ['index' => $this->getDefaultIndex()]);
     }
 }
