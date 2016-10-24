@@ -43,8 +43,8 @@ class Builder
     /**
      * Create a map on your elasticsearch index.
      *
-     * @param string $type
-     * @param string $index
+     * @param string  $type
+     * @param string  $index
      * @param Closure $callback
      */
     public function create($type, Closure $callback, $index = null)
@@ -79,10 +79,10 @@ class Builder
     /**
      * Create a new command set with a Closure.
      *
-     * @param string $type
+     * @param string       $type
      * @param Closure|null $callback
+     * @param null         $index
      *
-     * @param null $index
      * @return mixed|Blueprint
      */
     protected function createBlueprint($type, Closure $callback = null, $index = null)

@@ -9,7 +9,6 @@ use Sleimanx2\Plastic\Connection;
 
 class SuggestionBuilder
 {
-
     /**
      * The elastic index to query against.
      *
@@ -35,7 +34,7 @@ class SuggestionBuilder
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query $query
+     * @param Query      $query
      */
     public function __construct(Connection $connection, Query $query = null)
     {
@@ -91,7 +90,7 @@ class SuggestionBuilder
      *
      * @param string $name
      * @param string $text
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return $this
      */
@@ -124,7 +123,7 @@ class SuggestionBuilder
         return $this->connection->suggestStatement(
             [
                 'index' => $this->getIndex(),
-                'body'  => $this->toDSL()
+                'body'  => $this->toDSL(),
             ]
         );
     }

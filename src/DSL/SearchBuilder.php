@@ -96,7 +96,7 @@ class SearchBuilder
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query $grammar
+     * @param Query      $grammar
      */
     public function __construct(Connection $connection, Query $grammar = null)
     {
@@ -147,7 +147,7 @@ class SearchBuilder
         $traits = class_uses($model);
 
         if (!isset($traits[Searchable::class])) {
-            throw new InvalidArgumentException(get_class($model) . ' does not use the searchable trait');
+            throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
         }
 
         $this->type($model->getDocumentType());
@@ -193,8 +193,8 @@ class SearchBuilder
      * Set the query sort values values.
      *
      * @param string|array $fields
-     * @param null $order
-     * @param array $parameters
+     * @param null         $order
+     * @param array        $parameters
      *
      * @return $this
      */
@@ -298,7 +298,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -315,8 +315,8 @@ class SearchBuilder
      * Add an terms query.
      *
      * @param string $field
-     * @param array $terms
-     * @param array $attributes
+     * @param array  $terms
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -354,7 +354,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $value
-     * @param float $boost
+     * @param float  $boost
      *
      * @return $this
      */
@@ -390,7 +390,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -406,9 +406,9 @@ class SearchBuilder
     /**
      * Add a multi match query.
      *
-     * @param array $fields
+     * @param array  $fields
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -425,8 +425,8 @@ class SearchBuilder
      * Add a geo bounding box query.
      *
      * @param string $field
-     * @param array $values
-     * @param array $parameters
+     * @param array  $values
+     * @param array  $parameters
      *
      * @return $this
      */
@@ -444,8 +444,8 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $distance
-     * @param mixed $location
-     * @param array $attributes
+     * @param mixed  $location
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -484,8 +484,8 @@ class SearchBuilder
      * Add a geo hash query.
      *
      * @param string $field
-     * @param mixed $location
-     * @param array $attributes
+     * @param mixed  $location
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -502,8 +502,8 @@ class SearchBuilder
      * Add a geo polygon query.
      *
      * @param string $field
-     * @param array $points
-     * @param array $attributes
+     * @param array  $points
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -521,7 +521,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $term
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -538,7 +538,7 @@ class SearchBuilder
      * Add a query string query.
      *
      * @param string $query
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -555,7 +555,7 @@ class SearchBuilder
      * Add a simple query string query.
      *
      * @param string $query
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -572,7 +572,7 @@ class SearchBuilder
      * Add a range query.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -589,7 +589,7 @@ class SearchBuilder
      * Add a regexp query.
      *
      * @param string $field
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return $this
      */
@@ -643,7 +643,7 @@ class SearchBuilder
      *
      * @param $field
      * @param \Closure $closure
-     * @param string $score_mode
+     * @param string   $score_mode
      *
      * @return $this
      */
@@ -706,9 +706,9 @@ class SearchBuilder
     public function getRaw()
     {
         $params = [
-            'index'=> $this->getIndex(),
-            'type' => $this->getType(),
-            'body' => $this->toDSL(),
+            'index' => $this->getIndex(),
+            'type'  => $this->getType(),
+            'body'  => $this->toDSL(),
         ];
 
         return $this->connection->searchStatement($params);
@@ -836,6 +836,6 @@ class SearchBuilder
      */
     protected function getCurrentPage()
     {
-        return \Request::get('page') ? (int)\Request::get('page') : 1;
+        return \Request::get('page') ? (int) \Request::get('page') : 1;
     }
 }

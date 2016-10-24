@@ -2,7 +2,6 @@
 
 class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -53,7 +52,7 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
         $builder = $this->getBuilder();
         $builder->shouldReceive('toDSL')->once()->andReturn([]);
         $connection = $builder->getConnection();
-        $connection->shouldReceive('suggestStatement')->once()->with(['index'=>null,'body' => []]);
+        $connection->shouldReceive('suggestStatement')->once()->with(['index' => null, 'body' => []]);
         $builder->get();
     }
 

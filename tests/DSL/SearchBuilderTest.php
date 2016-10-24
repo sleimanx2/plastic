@@ -454,8 +454,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     public function it_executes_the_query_with_custom_index_and_returns_the_raw_result()
     {
         $builder = $this->getBuilder();
-        $builder->index("custom_index");
-        $builder->type("custom_type");
+        $builder->index('custom_index');
+        $builder->type('custom_type');
 
         $connection = $builder->getConnection();
         $connection->shouldReceive('searchStatement')->with(['index' => 'custom_index', 'type' => 'custom_type', 'body' => []])->andReturn('ok');
@@ -533,7 +533,7 @@ class SearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
 {
     use \Sleimanx2\Plastic\Searchable;
 
-    public $documentIndex = "model_index";
+    public $documentIndex = 'model_index';
 }
 
 class NotSearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
