@@ -230,13 +230,11 @@ class Connection
     /**
      * Create a new elastic persistence handler.
      *
-     * @param Model $model
-     *
      * @return EloquentPersistence
      */
-    public function persist(Model $model)
+    public function persist()
     {
-        return new EloquentPersistence($this, $model);
+        return new EloquentPersistence($this);
     }
 
     /**
