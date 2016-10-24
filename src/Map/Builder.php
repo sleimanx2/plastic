@@ -43,16 +43,21 @@ class Builder
     /**
      * Create a map on your elasticsearch index.
      *
-     * @param string  $type
+     * @param string $type
+     * @param string $index
      * @param Closure $callback
      */
-    public function create($type, Closure $callback)
+    public function create($type, Closure $callback, $index = null)
     {
         if (!is_string($type)) {
             throw new InvalidArgumentException('type should be a string');
         }
 
-        $blueprint = $this->createBlueprint($type);
+        if ($index and !is_string($index)) {
+            throw new InvalidArgumentException('index should be a string');
+        }
+
+        $blueprint = $this->createBlueprint($type, $closure = null, $index);
 
         $blueprint->create();
 
@@ -74,18 +79,19 @@ class Builder
     /**
      * Create a new command set with a Closure.
      *
-     * @param string       $type
+     * @param string $type
      * @param Closure|null $callback
      *
+     * @param null $index
      * @return mixed|Blueprint
      */
-    protected function createBlueprint($type, Closure $callback = null)
+    protected function createBlueprint($type, Closure $callback = null, $index = null)
     {
         if (isset($this->resolver)) {
             return call_user_func($this->resolver, $type, $callback);
         }
 
-        return new Blueprint($type, $callback);
+        return new Blueprint($type, $callback, $index);
     }
 
     /**

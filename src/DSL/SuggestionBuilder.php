@@ -9,6 +9,14 @@ use Sleimanx2\Plastic\Connection;
 
 class SuggestionBuilder
 {
+
+    /**
+     * The elastic index to query against.
+     *
+     * @var string
+     */
+    public $index;
+
     /**
      * An instance of DSL query.
      *
@@ -27,13 +35,37 @@ class SuggestionBuilder
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query      $query
+     * @param Query $query
      */
     public function __construct(Connection $connection, Query $query = null)
     {
         $this->query = $query;
 
         $this->connection = $connection;
+    }
+
+    /**
+     * Set the elastic index to query against.
+     *
+     * @param string $index
+     *
+     * @return $this
+     */
+    public function index($index)
+    {
+        $this->index = $index;
+
+        return $this;
+    }
+
+    /**
+     * Return the current elastic index.
+     *
+     * @return string
+     */
+    public function getIndex()
+    {
+        return $this->index;
     }
 
     /**
@@ -59,7 +91,7 @@ class SuggestionBuilder
      *
      * @param string $name
      * @param string $text
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return $this
      */
@@ -89,7 +121,12 @@ class SuggestionBuilder
      */
     public function get()
     {
-        return $this->connection->suggestStatement(['body' => $this->toDSL()]);
+        return $this->connection->suggestStatement(
+            [
+                'index' => $this->getIndex(),
+                'body'  => $this->toDSL()
+            ]
+        );
     }
 
     /**

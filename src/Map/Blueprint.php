@@ -30,33 +30,41 @@ class Blueprint
     protected $commands = [];
 
     /**
+     * @var elastic search index
+     */
+    private $index;
+
+    /**
      * Blueprint constructor.
      *
      * @param $type
      * @param Closure|null $callback
+     * @param null $index
      */
-    public function __construct($type, Closure $callback = null)
+    public function __construct($type, Closure $callback = null, $index = null)
     {
         $this->type = $type;
 
         if (!is_null($callback)) {
             $callback($this);
         }
+        $this->index = $index;
     }
 
     /**
      * Execute the blueprint against the database.
      *
      * @param Connection $connection
-     * @param Grammar    $grammar
+     * @param Grammar $grammar
      *
      * @return array
      */
     public function build(Connection $connection, Grammar $grammar)
     {
         $statement = [
-            'type' => $this->type,
-            'body' => [
+            'index' => $this->index,
+            'type'  => $this->type,
+            'body'  => [
                 $this->type => [
                     '_source'    => [
                         'enabled' => true,
@@ -83,7 +91,7 @@ class Blueprint
      * Add a string field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -96,7 +104,7 @@ class Blueprint
      * Add a date field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -109,7 +117,7 @@ class Blueprint
      * Add a long numeric field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -122,7 +130,7 @@ class Blueprint
      * Add an integer field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -135,7 +143,7 @@ class Blueprint
      * Add a short numeric field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -148,7 +156,7 @@ class Blueprint
      * Add a byte numeric field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -161,7 +169,7 @@ class Blueprint
      * Add a double field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -174,7 +182,7 @@ class Blueprint
      * Add a binary field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -187,7 +195,7 @@ class Blueprint
      * Add a float field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -200,7 +208,7 @@ class Blueprint
      * Add a boolean field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -213,7 +221,7 @@ class Blueprint
      * Add a geo point field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -226,7 +234,7 @@ class Blueprint
      * Add a geo shape field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -239,7 +247,7 @@ class Blueprint
      * Add an IPv4 field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -252,7 +260,7 @@ class Blueprint
      * Add a completion field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -265,7 +273,7 @@ class Blueprint
      * Add a completion field to the map.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -305,7 +313,7 @@ class Blueprint
      *
      * @param string $type
      * @param string $name
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return Fluent
      */
@@ -342,7 +350,7 @@ class Blueprint
      * Add a new command to the blueprint.
      *
      * @param string $name
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return \Illuminate\Support\Fluent
      */
@@ -357,7 +365,7 @@ class Blueprint
      * Create a new Fluent command.
      *
      * @param string $name
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return \Illuminate\Support\Fluent
      */
@@ -381,11 +389,11 @@ class Blueprint
         // grammar which is used to build the necessary DSL statements to build
         // the blueprint element, so we'll just call that compilers function.
         foreach ($this->commands as $command) {
-            $method = 'compile'.ucfirst($command->name);
+            $method = 'compile' . ucfirst($command->name);
 
             if (method_exists($grammar, $method)) {
                 if (!is_null($dsl = $grammar->$method($this, $command))) {
-                    $statements = array_merge($statements, (array) $dsl);
+                    $statements = array_merge($statements, (array)$dsl);
                 }
             }
         }

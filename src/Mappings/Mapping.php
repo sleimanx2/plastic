@@ -40,8 +40,6 @@ abstract class Mapping
         if (!isset($traits[Searchable::class])) {
             throw new InvalidArgumentException(get_class($this->model).' does not use the searchable trait');
         }
-
-        $this->type = $this->model->getDocumentType();
     }
 
     /**
@@ -52,5 +50,15 @@ abstract class Mapping
     public function getModelType()
     {
         return $this->model->getDocumentType();
+    }
+
+    /**
+     * Get the model elastic type.
+     *
+     * @return mixed
+     */
+    public function getModelIndex()
+    {
+        return $this->model->getDocumentIndex();
     }
 }

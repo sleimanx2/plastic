@@ -21,6 +21,6 @@ class DummyClass extends Mapping
     {
         Map::create($this->getModelType(),function(Blueprint $map){
             //
-        });
+        },$this->getModelIndex());
     }
 }
