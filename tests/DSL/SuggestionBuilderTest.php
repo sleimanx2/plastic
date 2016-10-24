@@ -2,6 +2,19 @@
 
 class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @test
+     */
+    public function it_sets_the_index_to_query_from()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->index('custom_index');
+
+        $this->assertEquals($builder->getIndex(), 'custom_index');
+    }
+
     /**
      * @test
      */
@@ -40,7 +53,7 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
         $builder = $this->getBuilder();
         $builder->shouldReceive('toDSL')->once()->andReturn([]);
         $connection = $builder->getConnection();
-        $connection->shouldReceive('suggestStatement')->once()->with(['body' => []]);
+        $connection->shouldReceive('suggestStatement')->once()->with(['index'=>null,'body' => []]);
         $builder->get();
     }
 
