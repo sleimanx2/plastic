@@ -55,7 +55,7 @@ trait Searchable
      */
     public function document()
     {
-        return Plastic::persist($this);
+        return Plastic::persist()->model($this);
     }
 
     /**
@@ -174,7 +174,7 @@ trait Searchable
 
         if ($method == 'suggest') {
             //Start an elastic dsl suggest query builder
-            return Plastic::suggest();
+            return Plastic::suggest()->index($this->getDocumentIndex());
         }
 
         return parent::__call($method, $parameters);
