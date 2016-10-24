@@ -125,7 +125,8 @@ Plastic::persist()->bulkSave(Tag::find(1)->books);
 ### Deleting documents in bulk
 
 ```php
-$authors = Author::where('age','>'',25)->get();
+$authors = Author::where('age','>',25)->get();
+
 Plastic::persist()->bulkSave($authors);
 ```
 
