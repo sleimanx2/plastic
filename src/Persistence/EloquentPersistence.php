@@ -46,6 +46,7 @@ class EloquentPersistence
      * Set the model to persist
      *
      * @param Model $model
+     * @return $this
      * @throws InvalidArgumentException
      */
     public function model(Model $model)
@@ -58,6 +59,8 @@ class EloquentPersistence
         }
 
         $this->model = $model;
+
+        return $this;
     }
 
     /**
