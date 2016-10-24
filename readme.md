@@ -119,25 +119,14 @@ $book = Book::first()->document()->delete();
 ### Saving documents in bulk
 
 ```php
-$tag = Tag::first();
-
-$tag->document()->bulkSave($tag->books);
+Plastic::persist()->bulkSave(Tag::find(1)->books);
 ```
 
 ### Deleting documents in bulk
 
 ```php
-$author = Author::first();
-
-$author->document()->bulkDelete($author->books);
-```
-
-### Reindexing documents in bulk
-
-```php
-$post = new Post();
-
-$post->document()->reindex($post->all());
+$authors = Author::where('age','>'',25)->get();
+Plastic::persist()->bulkSave($authors);
 ```
 
 ## [Searching Model Content]()
