@@ -31,6 +31,30 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_sets_the_index_to_query_from()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->index('custom_index');
+
+        $this->assertEquals($builder->getIndex(), 'custom_index');
+    }
+
+    /**
+     * @test
+     */
+    public function it_sets_the_index_from_a_searchable_model()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->model(new SearchableModelBuilder());
+
+        $this->assertEquals($builder->getIndex(), 'model_index');
+    }
+
+    /**
+     * @test
+     */
     public function it_throws_an_exception_if_provided_with_a_none_searchable_model()
     {
         $builder = $this->getBuilder();
@@ -416,29 +440,25 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_overwrites_the_connections_default_index()
+    public function it_executes_the_query_and_returns_the_raw_result()
     {
         $builder = $this->getBuilder();
         $connection = $builder->getConnection();
-
-        $connection->shouldReceive('setIndex')
-                   ->with('test')
-                   ->set('index', 'test')
-                   ->once();
-
-        $builder->inIndex('test');
-
-        $this->assertEquals('test', $connection->index);
+        $connection->shouldReceive('searchStatement')->with(['index' => null, 'type' => null, 'body' => []])->andReturn('ok');
+        $this->assertEquals('ok', $builder->getRaw());
     }
 
     /**
      * @test
      */
-    public function it_executes_the_query_and_returns_the_raw_result()
+    public function it_executes_the_query_with_custom_index_and_returns_the_raw_result()
     {
         $builder = $this->getBuilder();
+        $builder->index("custom_index");
+        $builder->type("custom_type");
+
         $connection = $builder->getConnection();
-        $connection->shouldReceive('searchStatement')->with(['type' => null, 'body' => []])->andReturn('ok');
+        $connection->shouldReceive('searchStatement')->with(['index' => 'custom_index', 'type' => 'custom_type', 'body' => []])->andReturn('ok');
         $this->assertEquals('ok', $builder->getRaw());
     }
 
@@ -465,8 +485,9 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $filler->shouldReceive('fill')->once();
 
         $connection->shouldReceive('searchStatement')->with([
-            'type' => 'searchable_model_builders',
-            'body' => [],
+            'index' => 'model_index',
+            'type'  => 'searchable_model_builders',
+            'body'  => [],
         ])->andReturn($return);
 
         $this->assertInstanceOf(PlasticResult::class, $builder->get());
@@ -511,6 +532,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
 class SearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
 {
     use \Sleimanx2\Plastic\Searchable;
+
+    public $documentIndex = "model_index";
 }
 
 class NotSearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
