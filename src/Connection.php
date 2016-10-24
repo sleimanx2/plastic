@@ -19,14 +19,14 @@ class Connection
      *
      * @var string
      */
-    public $index;
+    protected $index;
 
     /**
      * Elasticsearch client instance.
      *
      * @var Client
      */
-    public $elastic;
+    protected $elastic;
 
     /**
      * Connection constructor.
@@ -37,7 +37,17 @@ class Connection
     {
         $this->elastic = $this->buildClient($config['connection']);
 
-        $this->index = $config['index'];
+        $this->setDefaultIndex($config['index']);
+    }
+
+    /**
+     * Get the default elastic index.
+     *
+     * @return string
+     */
+    public function getDefaultIndex()
+    {
+        return $this->index;
     }
 
     /**
@@ -91,25 +101,14 @@ class Connection
     }
 
     /**
-     * Get the default elastic index.
+     * Set the default index.
      *
-     * @return string
-     */
-    public function getDefaultIndex()
-    {
-        return $this->index;
-    }
-
-    /**
-     * Set the currently used index.
-     *
+     * @param $index
      * @return Connection
      */
-    public function setIndex($index)
+    public function setDefaultIndex($index)
     {
         $this->index = $index;
-
-        return $this;
     }
 
     /**
@@ -121,7 +120,7 @@ class Connection
      */
     public function mapStatement(array $mappings)
     {
-        return $this->elastic->indices()->putMapping(array_merge(['index' => $this->index], $mappings));
+        return $this->elastic->indices()->putMapping($this->setStatementIndex($mappings));
     }
 
     /**
@@ -133,7 +132,7 @@ class Connection
      */
     public function searchStatement(array $search)
     {
-        return $this->elastic->search(array_merge(['index' => $this->index], $search));
+        return $this->elastic->search($this->setStatementIndex($search));
     }
 
     /**
@@ -145,7 +144,7 @@ class Connection
      */
     public function suggestStatement(array $suggestions)
     {
-        return $this->elastic->suggest(array_merge(['index' => $this->index], $suggestions));
+        return $this->elastic->suggest($this->setStatementIndex($suggestions));
     }
 
     /**
@@ -157,7 +156,7 @@ class Connection
      */
     public function indexStatement(array $params)
     {
-        return $this->elastic->index(array_merge(['index' => $this->index], $params));
+        return $this->elastic->index($this->setStatementIndex($params));
     }
 
     /**
@@ -169,7 +168,7 @@ class Connection
      */
     public function updateStatement(array $params)
     {
-        return $this->elastic->update(array_merge(['index' => $this->index], $params));
+        return $this->elastic->update($this->setStatementIndex($params));
     }
 
     /**
@@ -181,7 +180,7 @@ class Connection
      */
     public function deleteStatement(array $params)
     {
-        return $this->elastic->delete(array_merge(['index' => $this->index], $params));
+        return $this->elastic->delete($this->setStatementIndex($params));
     }
 
     /**
@@ -193,7 +192,7 @@ class Connection
      */
     public function existsStatement(array $params)
     {
-        return $this->elastic->exists(array_merge(['index' => $this->index], $params));
+        return $this->elastic->exists($this->setStatementIndex($params));
     }
 
     /**
@@ -262,5 +261,14 @@ class Connection
         }
 
         return $client->build();
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    private function setStatementIndex(array $params)
+    {
+        return array_merge(['index' => $this->getDefaultIndex()], $params);
     }
 }
