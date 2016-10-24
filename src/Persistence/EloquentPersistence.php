@@ -11,7 +11,6 @@ use Sleimanx2\Plastic\Searchable;
 
 class EloquentPersistence
 {
-
     /**
      * @var Connection
      */
@@ -33,7 +32,7 @@ class EloquentPersistence
     }
 
     /**
-     * Get the model to persist
+     * Get the model to persist.
      *
      * @return Model
      */
@@ -43,11 +42,13 @@ class EloquentPersistence
     }
 
     /**
-     * Set the model to persist
+     * Set the model to persist.
      *
      * @param Model $model
-     * @return $this
+     *
      * @throws InvalidArgumentException
+     *
+     * @return $this
      */
     public function model(Model $model)
     {
@@ -55,7 +56,7 @@ class EloquentPersistence
         $traits = class_uses($model);
 
         if (!isset($traits[Searchable::class])) {
-            throw new InvalidArgumentException(get_class($model) . ' does not use the searchable trait');
+            throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
         }
 
         $this->model = $model;
@@ -155,7 +156,6 @@ class EloquentPersistence
         $defaultIndex = $this->connection->getDefaultIndex();
 
         foreach ($collection as $item) {
-
             $modelIndex = $item->getDocumentIndex();
 
             $params['body'][] = [
@@ -185,7 +185,6 @@ class EloquentPersistence
         $defaultIndex = $this->connection->getDefaultIndex();
 
         foreach ($collection as $item) {
-
             $modelIndex = $item->getDocumentIndex();
 
             $params['body'][] = [
@@ -215,12 +214,12 @@ class EloquentPersistence
     }
 
     /**
-     * Function called when the model value is a required
+     * Function called when the model value is a required.
      */
     private function exitIfModelNotSet()
     {
         if (!$this->model) {
-            throw new MissingArgumentException("you should set the model first");
+            throw new MissingArgumentException('you should set the model first');
         }
     }
 }

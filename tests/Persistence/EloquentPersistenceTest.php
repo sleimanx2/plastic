@@ -20,10 +20,10 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model->exists = true;
 
         $connection->shouldReceive('indexStatement')->once()->with([
-            'id'    => NULL,
+            'id'    => null,
             'type'  => 'foo',
             'index' => 'bar',
-            'body'  => ['foo'=>'bar'],
+            'body'  => ['foo' => 'bar'],
         ]);
         $persistence = new EloquentPersistence($connection);
         $persistence->model($model);
@@ -57,10 +57,10 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model->exists = true;
 
         $connection->shouldReceive('updateStatement')->once()->with([
-            'id'    => NULL,
+            'id'    => null,
             'type'  => 'foo',
             'index' => 'bar',
-            'body'  => ['doc' => ['foo'=>'bar']],
+            'body'  => ['doc' => ['foo' => 'bar']],
         ]);
 
         $persistence = new EloquentPersistence($connection);
@@ -95,14 +95,14 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model->exists = true;
 
         $connection->shouldReceive('existsStatement')->once()->with([
-            'id'   => NULL,
-            'type' => 'foo',
+            'id'    => null,
+            'type'  => 'foo',
             'index' => 'bar',
         ])->andReturn(true);
 
         $connection->shouldReceive('deleteStatement')->once()->with([
-            'id'   => NULL,
-            'type' => 'foo',
+            'id'    => null,
+            'type'  => 'foo',
             'index' => 'bar',
         ]);
         $persistence = new EloquentPersistence($connection);
@@ -121,8 +121,8 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $model->exists = true;
 
         $connection->shouldReceive('existsStatement')->once()->with([
-            'id'   => NULL,
-            'type' => 'foo',
+            'id'    => null,
+            'type'  => 'foo',
             'index' => 'bar',
         ])->andReturn(false);
 
@@ -152,20 +152,20 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
             'body' => [
                 [
                     'index' => [
-                        '_id'    => NULL,
+                        '_id'    => null,
                         '_type'  => 'foo',
                         '_index' => 'bar',
                     ],
                 ],
-                ['foo'=>'bar'],
+                ['foo' => 'bar'],
                 [
                     'index' => [
-                        '_id'    => NULL,
+                        '_id'    => null,
                         '_type'  => 'foo',
                         '_index' => 'bar',
                     ],
                 ],
-                ['foo'=>'bar'],
+                ['foo' => 'bar'],
             ],
         ]);
         $persistence = new EloquentPersistence($connection);
@@ -189,14 +189,14 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
             'body' => [
                 [
                     'delete' => [
-                        '_id'    => NULL,
+                        '_id'    => null,
                         '_type'  => 'foo',
                         '_index' => 'bar',
                     ],
                 ],
                 [
                     'delete' => [
-                        '_id'    => NULL,
+                        '_id'    => null,
                         '_type'  => 'foo',
                         '_index' => 'bar',
                     ],
@@ -228,9 +228,9 @@ class PersistenceModelTest extends Model
 {
     use Searchable;
 
-    public $documentType = "foo";
+    public $documentType = 'foo';
 
-    public $documentIndex = "bar";
+    public $documentIndex = 'bar';
 
     public function buildDocument()
     {

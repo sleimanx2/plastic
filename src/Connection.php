@@ -4,7 +4,6 @@ namespace Sleimanx2\Plastic;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
-use Illuminate\Database\Eloquent\Model;
 use ONGR\ElasticsearchDSL\Search as DSLQuery;
 use Sleimanx2\Plastic\DSL\SearchBuilder;
 use Sleimanx2\Plastic\DSL\SuggestionBuilder;
@@ -104,6 +103,7 @@ class Connection
      * Set the default index.
      *
      * @param $index
+     *
      * @return Connection
      */
     public function setDefaultIndex($index)
@@ -263,6 +263,7 @@ class Connection
 
     /**
      * @param array $params
+     *
      * @return array
      */
     private function setStatementIndex(array $params)
