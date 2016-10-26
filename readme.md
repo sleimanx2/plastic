@@ -34,6 +34,7 @@ This will create a config file at `config/plastic.php` and a mapping directory a
 - [Aggregation](#aggregation)
 - [Suggestions](#suggestions)
 - [Mappings](#mappings)
+- [Access The Client](#access-client)
 
 ## [Defining Searchable Models]()
 
@@ -54,13 +55,13 @@ By default, Plastic will store all visible properties of your model, using `$mod
 
 In addition, Plastic provides you with two ways to manually specify which attributes/relations should be stored in Elasticsearch.
 
-#### 1 -- Providing a searchable property to our model
+#### 1 - Providing a searchable property to our model
 
 ```php
 public $searchable = ['id', 'name', 'body', 'tags', 'images'];
 ```
 
-#### 2 -- Providing a buildDocument method
+#### 2 - Providing a buildDocument method
 
 ```php
 public function buildDocument()
@@ -304,17 +305,30 @@ php artisan mapping:rerun
 
 The mapping for existing fields cannot be updated or deleted, so you'll need to use one of following techniques to update existing fields.
 
-#### 1 -- Create a new index
+#### 1 - Create a new index
 
 You can always create a new Elasticsearch index and re-run the mappings. After running the mappings you can use the `bulkSave` method to sync your SQL data with Elasticsearch.
 
-#### 2 -- Using aliases
+#### 2 - Using aliases
 
 Its recommended to create your Elasticsearch index with an alias to ease the process of updating your model mappings with zero downtime. To learn more check out:
 
 <https://www.elastic.co/blog/changing-mapping-with-zero-downtime>
 
-> You can access the Elasticsearch client to manage your indices and aliases using `$client = Plastic::getClient()`
+## [Access The Client]()
+
+You can access the Elasticsearch client to manage your indices and aliases as follows:
+
+```php
+$client = Plastic::getClient();
+
+//index delete
+$client->indices()->delete(['index'=> Plastic::getDefaultIndex()]);
+//index create
+$client->indices()->create(['index' => Plastic::getDefaultIndex()]);
+```
+
+More about the official elastic client : <https://github.com/elastic/elasticsearch-php>
 
 # Contributing
 
