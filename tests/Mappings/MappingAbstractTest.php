@@ -35,7 +35,6 @@ class MappingWithSearchableModel extends \Sleimanx2\Plastic\Mappings\Mapping
     public $model = 'SearchableModel';
 }
 
-
 class MappingWithNotSearchableModel extends \Sleimanx2\Plastic\Mappings\Mapping
 {
     public $model = 'NotSearchableModel';

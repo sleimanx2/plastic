@@ -142,7 +142,6 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 
         $connection->shouldReceive('getDefaultIndex')->once()->andReturn('plastic');
 
-
         $model1 = new PersistenceModelTest();
         $model2 = new PersistenceModelTest();
 
