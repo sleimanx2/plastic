@@ -528,7 +528,6 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     }
 }
 
-
 class SearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
 {
     use \Sleimanx2\Plastic\Searchable;

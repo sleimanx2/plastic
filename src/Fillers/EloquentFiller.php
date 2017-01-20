@@ -126,7 +126,6 @@ class EloquentFiller implements FillerInterface
 
                             $models = $this->hydrateRecursive($relation->getModel(), $value, $relation);
 
-
                             if (!$multiLevelRelation) {
                                 $models = $models->first();
                             }

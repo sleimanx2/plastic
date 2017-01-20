@@ -200,7 +200,6 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $client->shouldReceive('suggest')->withArgs([['index' => 'custom_index']])->andReturn(true);
         $client->shouldReceive('index')->withArgs([['index' => 'custom_index']])->andReturn(true);
 
-
         $connection->setClient($client);
 
         $this->assertTrue($connection->updateStatement(['index' => 'custom_index']));
@@ -261,7 +260,6 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         return $connection;
     }
 }
-
 
 class TestModel extends \Illuminate\Database\Eloquent\Model
 {

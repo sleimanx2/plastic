@@ -71,7 +71,6 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-
 class SearchableModelTest extends \Illuminate\Database\Eloquent\Model
 {
     use \Sleimanx2\Plastic\Searchable;
