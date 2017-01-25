@@ -36,5 +36,10 @@
     "psr-4": {
       "Sleimanx2\\Plastic\\Tests\\": "tests/"
     }
-  }
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
