@@ -30,18 +30,25 @@ class Blueprint
     protected $commands = [];
 
     /**
+     * @var elastic search index
+     */
+    private $index;
+
+    /**
      * Blueprint constructor.
      *
      * @param $type
      * @param Closure|null $callback
+     * @param null         $index
      */
-    public function __construct($type, Closure $callback = null)
+    public function __construct($type, Closure $callback = null, $index = null)
     {
         $this->type = $type;
 
         if (!is_null($callback)) {
             $callback($this);
         }
+        $this->index = $index;
     }
 
     /**
@@ -55,8 +62,9 @@ class Blueprint
     public function build(Connection $connection, Grammar $grammar)
     {
         $statement = [
-            'type' => $this->type,
-            'body' => [
+            'index' => $this->index,
+            'type'  => $this->type,
+            'body'  => [
                 $this->type => [
                     '_source'    => [
                         'enabled' => true,

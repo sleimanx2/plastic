@@ -55,7 +55,7 @@ trait Searchable
      */
     public function document()
     {
-        return Plastic::persist($this);
+        return Plastic::persist()->model($this);
     }
 
     /**
@@ -71,6 +71,19 @@ trait Searchable
         }
 
         return $this->getTable();
+    }
+
+    /**
+     * Get the model elastic index if available.
+     *
+     * @return mixed
+     */
+    public function getDocumentIndex()
+    {
+        // if a custom index is defined use it else return null
+        if (isset($this->documentIndex) and !empty($this->documentIndex)) {
+            return $this->documentIndex;
+        }
     }
 
     /**
@@ -159,7 +172,7 @@ trait Searchable
 
         if ($method == 'suggest') {
             //Start an elastic dsl suggest query builder
-            return Plastic::suggest();
+            return Plastic::suggest()->index($this->getDocumentIndex());
         }
 
         return parent::__call($method, $parameters);

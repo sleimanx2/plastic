@@ -24,6 +24,25 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_gets_the_elastic_index_from_index_field_if_set()
+    {
+        $model = new SearchableModelTest();
+        $model->documentIndex = 'foo';
+        $this->assertEquals('foo', $model->getDocumentIndex());
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_null_as_elastic_index_if_no_index_field()
+    {
+        $model = new SearchableModelTest();
+        $this->assertEquals(null, $model->getDocumentIndex());
+    }
+
+    /**
+     * @test
+     */
     public function it_gets_the_elastic_document_from_buildDocument_function_if_defined()
     {
         $model = new BuildDocumentSearchableModelTest();
@@ -51,7 +70,6 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['id' => 1, 'name' => 'foo'], $model->getDocumentData());
     }
 }
-
 
 class SearchableModelTest extends \Illuminate\Database\Eloquent\Model
 {

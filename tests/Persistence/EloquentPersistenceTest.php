@@ -15,19 +15,18 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_saves_a_model_document_data()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
+        $model = new PersistenceModelTest();
 
         $model->exists = true;
-        $model->shouldReceive('getDocumentData')->once()->andReturn([]);
-        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
-        $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('indexStatement')->once()->with([
-            'id'   => 1,
-            'type' => 'foo',
-            'body' => [],
+            'id'    => null,
+            'type'  => 'foo',
+            'index' => 'bar',
+            'body'  => ['foo' => 'bar'],
         ]);
-        $persistence = new EloquentPersistence($connection, $model);
+        $persistence = new EloquentPersistence($connection);
+        $persistence->model($model);
         $persistence->save();
     }
 
@@ -37,12 +36,13 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_throw_an_exception_if_trying_to_save_a_model_with_exits_false()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
+        $model = new PersistenceModelTest();
 
         $model->exists = false;
 
         $this->setExpectedException('Exception');
-        $persistence = new EloquentPersistence($connection, $model);
+        $persistence = new EloquentPersistence($connection);
+        $persistence->model($model);
         $persistence->save();
     }
 
@@ -52,19 +52,19 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_updates_a_model_document_data()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
+        $model = new PersistenceModelTest();
 
         $model->exists = true;
-        $model->shouldReceive('getDocumentData')->once()->andReturn([]);
-        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
-        $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('updateStatement')->once()->with([
-            'id'   => 1,
-            'type' => 'foo',
-            'body' => ['doc' => []],
+            'id'    => null,
+            'type'  => 'foo',
+            'index' => 'bar',
+            'body'  => ['doc' => ['foo' => 'bar']],
         ]);
-        $persistence = new EloquentPersistence($connection, $model);
+
+        $persistence = new EloquentPersistence($connection);
+        $persistence->model($model);
         $persistence->update();
     }
 
@@ -74,12 +74,13 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_throw_an_exception_if_trying_to_update_a_model_with_exits_false()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
+        $model = new PersistenceModelTest();
 
         $model->exists = false;
 
         $this->setExpectedException('Exception');
-        $persistence = new EloquentPersistence($connection, $model);
+        $persistence = new EloquentPersistence($connection);
+        $persistence->model($model);
         $persistence->update();
     }
 
@@ -89,22 +90,23 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_deletes_a_model_document_data()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
+        $model = new PersistenceModelTest();
 
         $model->exists = true;
-        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
-        $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('existsStatement')->once()->with([
-            'id'   => 1,
-            'type' => 'foo',
+            'id'    => null,
+            'type'  => 'foo',
+            'index' => 'bar',
         ])->andReturn(true);
 
         $connection->shouldReceive('deleteStatement')->once()->with([
-            'id'   => 1,
-            'type' => 'foo',
+            'id'    => null,
+            'type'  => 'foo',
+            'index' => 'bar',
         ]);
-        $persistence = new EloquentPersistence($connection, $model);
+        $persistence = new EloquentPersistence($connection);
+        $persistence->model($model);
         $persistence->delete();
     }
 
@@ -114,20 +116,20 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_dosent_execute_a_delete_statement_if_model_document_not_indexed()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
+        $model = new PersistenceModelTest();
 
         $model->exists = true;
-        $model->shouldReceive('getDocumentType')->once()->andReturn('foo');
-        $model->shouldReceive('getKey')->once()->andReturn(1);
 
         $connection->shouldReceive('existsStatement')->once()->with([
-            'id'   => 1,
-            'type' => 'foo',
+            'id'    => null,
+            'type'  => 'foo',
+            'index' => 'bar',
         ])->andReturn(false);
 
         $connection->shouldNotReceive('deleteStatement');
 
-        $persistence = new EloquentPersistence($connection, $model);
+        $persistence = new EloquentPersistence($connection);
+        $persistence->model($model);
         $persistence->delete();
     }
 
@@ -140,17 +142,8 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 
         $connection->shouldReceive('getDefaultIndex')->once()->andReturn('plastic');
 
-        $model = \Mockery::mock(PersistenceModelTest::class);
-
-        $model1 = \Mockery::mock(PersistenceModelTest::class);
-        $model1->shouldReceive('getDocumentType')->once()->andReturn('foo');
-        $model1->shouldReceive('getKey')->once()->andReturn(1);
-        $model1->shouldReceive('getDocumentData')->once()->andReturn(['foo' => 'bar']);
-
-        $model2 = \Mockery::mock(PersistenceModelTest::class);
-        $model2->shouldReceive('getDocumentType')->once()->andReturn('bar');
-        $model2->shouldReceive('getKey')->once()->andReturn(2);
-        $model2->shouldReceive('getDocumentData')->once()->andReturn(['foo' => 'bar']);
+        $model1 = new PersistenceModelTest();
+        $model2 = new PersistenceModelTest();
 
         $collection = [$model1, $model2];
 
@@ -158,23 +151,23 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
             'body' => [
                 [
                     'index' => [
-                        '_id'    => 1,
+                        '_id'    => null,
                         '_type'  => 'foo',
-                        '_index' => 'plastic',
+                        '_index' => 'bar',
                     ],
                 ],
                 ['foo' => 'bar'],
                 [
                     'index' => [
-                        '_id'    => 2,
-                        '_type'  => 'bar',
-                        '_index' => 'plastic',
+                        '_id'    => null,
+                        '_type'  => 'foo',
+                        '_index' => 'bar',
                     ],
                 ],
                 ['foo' => 'bar'],
             ],
         ]);
-        $persistence = new EloquentPersistence($connection, $model);
+        $persistence = new EloquentPersistence($connection);
         $persistence->bulkSave($collection);
     }
 
@@ -186,15 +179,8 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('getDefaultIndex')->once()->andReturn('plastic');
 
-        $model = \Mockery::mock(PersistenceModelTest::class);
-
-        $model1 = \Mockery::mock(PersistenceModelTest::class);
-        $model1->shouldReceive('getDocumentType')->once()->andReturn('foo');
-        $model1->shouldReceive('getKey')->once()->andReturn(1);
-
-        $model2 = \Mockery::mock(PersistenceModelTest::class);
-        $model2->shouldReceive('getDocumentType')->once()->andReturn('bar');
-        $model2->shouldReceive('getKey')->once()->andReturn(2);
+        $model1 = new PersistenceModelTest();
+        $model2 = new PersistenceModelTest();
 
         $collection = [$model1, $model2];
 
@@ -202,21 +188,22 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
             'body' => [
                 [
                     'delete' => [
-                        '_id'    => 1,
+                        '_id'    => null,
                         '_type'  => 'foo',
-                        '_index' => 'plastic',
+                        '_index' => 'bar',
                     ],
                 ],
                 [
                     'delete' => [
-                        '_id'    => 2,
-                        '_type'  => 'bar',
-                        '_index' => 'plastic',
+                        '_id'    => null,
+                        '_type'  => 'foo',
+                        '_index' => 'bar',
                     ],
                 ],
             ],
         ]);
-        $persistence = new EloquentPersistence($connection, $model);
+
+        $persistence = new EloquentPersistence($connection);
         $persistence->bulkDelete($collection);
     }
 
@@ -226,9 +213,8 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
     public function it_reindex_an_array_of_models_in_bulk()
     {
         $connection = \Mockery::mock(Connection::class);
-        $model = \Mockery::mock(PersistenceModelTest::class);
 
-        $persistence = \Mockery::mock(EloquentPersistence::class, [$connection, $model])->makePartial();
+        $persistence = \Mockery::mock(EloquentPersistence::class, [$connection])->makePartial();
 
         $persistence->shouldReceive('bulkDelete')->once();
         $persistence->shouldReceive('bulkSave')->once();
@@ -240,4 +226,15 @@ class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 class PersistenceModelTest extends Model
 {
     use Searchable;
+
+    public $documentType = 'foo';
+
+    public $documentIndex = 'bar';
+
+    public function buildDocument()
+    {
+        return [
+            'foo' => 'bar',
+        ];
+    }
 }

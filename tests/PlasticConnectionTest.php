@@ -19,9 +19,9 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $connection->setIndex('custom-index');
+        $connection->setDefaultIndex('custom-index');
 
-        $this->assertEquals('custom-index', $connection->index);
+        $this->assertEquals('custom-index', $connection->getDefaultIndex());
     }
 
     /**
@@ -187,6 +187,33 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_executes_a_statement_with_custom_index()
+    {
+        $connection = $this->getConnectionMock();
+
+        $client = Mockery::mock('Elasticsearch\Client');
+        $client->shouldReceive('update')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('exists')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('delete')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('search')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('indices->putMapping')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('suggest')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('index')->withArgs([['index' => 'custom_index']])->andReturn(true);
+
+        $connection->setClient($client);
+
+        $this->assertTrue($connection->updateStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->existsStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->deleteStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->searchStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->mapStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->suggestStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->indexStatement(['index' => 'custom_index']));
+    }
+
+    /**
+     * @test
+     */
     public function it_starts_a_fluent_search_query_builder()
     {
         $connection = $this->getConnectionMock();
@@ -233,7 +260,6 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         return $connection;
     }
 }
-
 
 class TestModel extends \Illuminate\Database\Eloquent\Model
 {

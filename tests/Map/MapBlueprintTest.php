@@ -8,8 +8,9 @@ class MapBlueprintTest extends PHPUnit_Framework_TestCase
     public function it_execute_a_map_statement_from_blueprint()
     {
         $assertion = [
-            'type' => 'posts',
-            'body' => ['posts' => ['_source' => ['enabled' => true], 'properties' => ['foo' => 'bar']]],
+            'index' => null,
+            'type'  => 'posts',
+            'body'  => ['posts' => ['_source' => ['enabled' => true], 'properties' => ['foo' => 'bar']]],
         ];
 
         $connection = Mockery::mock(Sleimanx2\Plastic\Connection::class);

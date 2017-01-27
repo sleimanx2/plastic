@@ -51,6 +51,13 @@ class SearchBuilder
     public $type;
 
     /**
+     * The elastic index to query against.
+     *
+     * @var string
+     */
+    public $index;
+
+    /**
      * The model to use when querying elastic search.
      *
      * @var Model
@@ -112,6 +119,20 @@ class SearchBuilder
     }
 
     /**
+     * Set the elastic index to query against.
+     *
+     * @param string $index
+     *
+     * @return $this
+     */
+    public function index($index)
+    {
+        $this->index = $index;
+
+        return $this;
+    }
+
+    /**
      * Set the eloquent model to use when querying elastic search.
      *
      * @param Model $model
@@ -129,7 +150,11 @@ class SearchBuilder
             throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
         }
 
-        $this->type = $model->getDocumentType();
+        $this->type($model->getDocumentType());
+
+        if ($index = $model->getDocumentIndex()) {
+            $this->index($index);
+        }
 
         $this->model = $model;
 
@@ -681,23 +706,12 @@ class SearchBuilder
     public function getRaw()
     {
         $params = [
-            'type' => $this->getType(),
-            'body' => $this->toDSL(),
+            'index' => $this->getIndex(),
+            'type'  => $this->getType(),
+            'body'  => $this->toDSL(),
         ];
 
         return $this->connection->searchStatement($params);
-    }
-
-    /**
-     * Overwrite the default index setting for this query.
-     *
-     * @return SearchBuilder
-     */
-    public function inIndex($index)
-    {
-        $this->connection->setIndex($index);
-
-        return $this;
     }
 
     /**
@@ -726,6 +740,16 @@ class SearchBuilder
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Return the current elastic index.
+     *
+     * @return string
+     */
+    public function getIndex()
+    {
+        return $this->index;
     }
 
     /**
