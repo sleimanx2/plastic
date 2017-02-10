@@ -187,6 +187,30 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_adds_a_text_map()
+    {
+        $blueprint = new Blueprint('post');
+        $blueprint->create();
+        $blueprint->text('body', ['analyzer' => 'foo', 'boost' => true]);
+        $statement = $blueprint->toDSL($this->getGrammar());
+        $this->assertEquals(['body' => ['type' => 'text', 'analyzer' => 'foo', 'boost' => true]], $statement);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_keyword_map()
+    {
+        $blueprint = new Blueprint('post');
+        $blueprint->create();
+        $blueprint->keyword('body', ['boost' => true, 'store' => true]);
+        $statement = $blueprint->toDSL($this->getGrammar());
+        $this->assertEquals(['body' => ['type' => 'keyword', 'boost' => true, 'store' => true]], $statement);
+    }
+
+    /**
+     * @test
+     */
     public function it_adds_a_nested_map()
     {
         $blueprint = new Blueprint('post');

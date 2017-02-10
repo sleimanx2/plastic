@@ -101,6 +101,32 @@ class Blueprint
     }
 
     /**
+     * Add a text field to the map. Previously analyzed string.
+     *
+     * @param string $field
+     * @param array  $attributes
+     *
+     * @return Fluent
+     */
+    public function text($field, $attributes = [])
+    {
+        return $this->addField('text', $field, $attributes);
+    }
+
+    /**
+     * Add a keyword field to the map. Previously not-analyzed exact string.
+     *
+     * @param string $field
+     * @param array  $attributes
+     *
+     * @return Fluent
+     */
+    public function keyword($field, $attributes = [])
+    {
+        return $this->addField('keyword', $field, $attributes);
+    }
+
+    /**
      * Add a date field to the map.
      *
      * @param string $field
