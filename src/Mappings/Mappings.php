@@ -142,7 +142,7 @@ class Mappings
             // mappings have actually run for the application. We'll create the
             // table to hold the mapping file's path as well as the batch ID.
             $table->increments('id');
-            
+
             $table->string('mapping');
 
             $table->integer('batch');
