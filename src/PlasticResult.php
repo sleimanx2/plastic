@@ -128,7 +128,7 @@ class PlasticResult
     /**
      * Get Hits.
      *
-     * Get the hits from Elasticsearch 
+     * Get the hits from Elasticsearch
      * results as a Collection.
      *
      * @return Collection
