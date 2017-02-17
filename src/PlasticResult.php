@@ -128,10 +128,10 @@ class PlasticResult
     /**
      * Get Hits.
      *
-     * Get the raw hits array from
-     * Elasticsearch results.
+     * Get the hits from Elasticsearch 
+     * results as a Collection.
      *
-     * @return array
+     * @return Collection
      */
     public function hits()
     {
