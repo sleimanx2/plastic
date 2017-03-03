@@ -314,6 +314,29 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_set_a_geoShape_query()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->geoShape('area','point',[3.3,33.3]);
+
+        $this->assertEquals([
+            'query' => [
+                'geo_shape' => [
+                    'area' => [
+                        'shape' => [
+                            'type'=>'point',
+                            'coordinates'=> [3.3,33.3]
+                        ],
+                    ],
+                ],
+            ],
+        ], $builder->toDSL());
+    }
+
+    /**
+     * @test
+     */
     public function it_set_a_prefix_query()
     {
         $builder = $this->getBuilder();
