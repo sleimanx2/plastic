@@ -27,7 +27,7 @@ return [
         |
         */
         'hosts'   => [
-            env('PLASTIC_HOST', '127.0.0.1:9200')
+            env('PLASTIC_HOST', '127.0.0.1:9200'),
         ],
 
         /*
