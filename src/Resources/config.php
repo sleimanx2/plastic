@@ -10,7 +10,7 @@ return [
     | The default elastic index used with all eloquent model
     |
     */
-    'index' => 'plastic',
+    'index' => env('PLASTIC_INDEX', 'plastic'),
 
     /*
      * Connection settings
@@ -26,7 +26,9 @@ return [
         | If no hosts are specified, the client will attempt to connect to localhost:9200.
         |
         */
-        'hosts'   => ['127.0.0.1:9200'],
+        'hosts'   => [
+            env('PLASTIC_HOST', '127.0.0.1:9200')
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -37,7 +39,7 @@ return [
         | A retry is only performed if the operation results in a "hard" exception.
         |
         */
-        'retries' => 3,
+        'retries' => env('PLASTIC_RETRIES', 3),
 
         /*
         |------------------------------------------------------------------
@@ -51,9 +53,9 @@ return [
         |
         */
         'logging' => [
-            'enabled' => false,
-            'path'    => storage_path('logs/plastic.log'),
-            'level'   => 200,
+            'enabled' => env('PLASTIC_LOG', false),
+            'path'    => storage_path(env('PLASTIC_LOG_PATH', 'logs/plastic.log')),
+            'level'   => env('PLASTIC_LOG_LEVEL', 200),
         ],
     ],
 
@@ -65,6 +67,6 @@ return [
     | The sql table to store the mappings logs
     |
     */
-    'mappings'       => 'mappings',
+    'mappings'       => env('PLASTIC_MAPPINGS', 'mappings'),
 
 ];
