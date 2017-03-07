@@ -2,7 +2,6 @@
 
 namespace Sleimanx2\Plastic;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Sleimanx2\Plastic\Facades\Plastic;
 
@@ -70,6 +69,6 @@ class PlasticServiceProvider extends ServiceProvider
      */
     protected function registerAlias()
     {
-        AliasLoader::getInstance()->alias('Plastic', Plastic::class);
+        $this->app->alias('Plastic', Plastic::class);
     }
 }

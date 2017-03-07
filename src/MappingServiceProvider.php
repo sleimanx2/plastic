@@ -2,7 +2,6 @@
 
 namespace Sleimanx2\Plastic;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Sleimanx2\Plastic\Console\Mapping\Install;
 use Sleimanx2\Plastic\Console\Mapping\Make;
@@ -149,6 +148,6 @@ class MappingServiceProvider extends ServiceProvider
      */
     protected function registerAlias()
     {
-        AliasLoader::getInstance()->alias('Map', Map::class);
+        $this->app->alias('Map', Map::class);
     }
 }
