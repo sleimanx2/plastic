@@ -298,6 +298,7 @@ class Grammar
             'search_quote_analyzer'  => $fluent->search_quote_analyzer,
             'similarity'             => $fluent->similarity,
             'term_vector'            => $fluent->term_vector,
+            'copy_to'                => $fluent->copy_to,
         ];
 
         return $this->formatMap($map);
