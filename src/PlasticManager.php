@@ -2,7 +2,7 @@
 
 namespace Sleimanx2\Plastic;
 
-use Illuminate\Foundation\Application;
+use Packback\Application;
 
 class PlasticManager
 {
