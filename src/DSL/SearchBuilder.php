@@ -9,7 +9,6 @@ use ONGR\ElasticsearchDSL\Query\TermLevel\FuzzyQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoBoundingBoxQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoDistanceQuery;
 use ONGR\ElasticsearchDSL\Query\GeoDistanceRangeQuery;
-use ONGR\ElasticsearchDSL\Query\GeohashCellQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoPolygonQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoShapeQuery;
 use ONGR\ElasticsearchDSL\Query\TermLevel\IdsQuery;
@@ -481,23 +480,6 @@ class SearchBuilder
         return $this;
     }
 
-    /**
-     * Add a geo hash query.
-     *
-     * @param string $field
-     * @param mixed $location
-     * @param array $attributes
-     *
-     * @return $this
-     */
-    public function geoHash($field, $location, array $attributes = [])
-    {
-        $query = new GeohashCellQuery($field, $location, $attributes);
-
-        $this->append($query);
-
-        return $this;
-    }
 
     /**
      * Add a geo polygon query.
