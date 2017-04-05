@@ -20,7 +20,8 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
     public function it_set_a_completion_suggestion()
     {
         $builder = $this->getBuilder();
-        $builder->completion('tags_completion', 'name');
+        $builder->completion('tags_completion', 'name', 'suggest', ['size' => 3]);
+
         $this->assertEquals([
             'tags_completion' => [
                 'text'       => 'name',
@@ -38,8 +39,8 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
         $builder->term('tags_completion', 'name');
         $this->assertEquals([
             'tags_completion' => [
-                'text'       => 'name',
-                'term'       => ['field' => '_all', 'size' => 3],
+                'text' => 'name',
+                'term' => ['field' => '_all'],
             ],
         ], $builder->toDSL());
     }

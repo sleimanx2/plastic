@@ -3,24 +3,24 @@
 namespace Sleimanx2\Plastic\DSL;
 
 use ONGR\ElasticsearchDSL\Aggregation\AbstractAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\AvgAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\CardinalityAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\DateRangeAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\GeoBoundsAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\GeoDistanceAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\GeoHashGridAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\HistogramAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\Ipv4RangeAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\MaxAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\MinAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\MissingAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\PercentileRanksAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\PercentilesAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\RangeAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\StatsAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\SumAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\TermsAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\ValueCountAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\AvgAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\CardinalityAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\DateRangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\GeoBoundsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\GeoDistanceAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\GeoHashGridAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\HistogramAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\Ipv4RangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\MaxAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\MinAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\MissingAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\PercentileRanksAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\PercentilesAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\RangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\StatsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\SumAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\TermsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\ValueCountAggregation;
 use ONGR\ElasticsearchDSL\Search as Query;
 
 class AggregationBuilder
@@ -62,8 +62,8 @@ class AggregationBuilder
      * @param $alias
      * @param string|null $field
      * @param string|null $script
-     * @param int         $precision
-     * @param bool        $rehash
+     * @param int $precision
+     * @param bool $rehash
      */
     public function cardinality($alias, $field = null, $script = null, $precision = null, $rehash = null)
     {
@@ -101,9 +101,9 @@ class AggregationBuilder
     /**
      * Add a geo bounds aggregate.
      *
-     * @param string      $alias
+     * @param string $alias
      * @param null|string $field
-     * @param bool        $wrap_longitude
+     * @param bool $wrap_longitude
      */
     public function geoBounds($alias, $field, $wrap_longitude = true)
     {
@@ -115,10 +115,10 @@ class AggregationBuilder
     /**
      * Add a geo bounds aggregate.
      *
-     * @param string      $alias
+     * @param string $alias
      * @param null|string $field
-     * @param string      $origin
-     * @param array       $ranges
+     * @param string $origin
+     * @param array $ranges
      */
     public function geoDistance($alias, $field, $origin, array $ranges)
     {
@@ -130,11 +130,11 @@ class AggregationBuilder
     /**
      * Add a geo hash grid aggregate.
      *
-     * @param string      $alias
+     * @param string $alias
      * @param null|string $field
-     * @param float       $precision
-     * @param null        $size
-     * @param null        $shardSize
+     * @param float $precision
+     * @param null $size
+     * @param null $shardSize
      */
     public function geoHashGrid($alias, $field, $precision, $size = null, $shardSize = null)
     {
@@ -148,13 +148,13 @@ class AggregationBuilder
      *
      * @param $alias
      * @param string $field
-     * @param int    $interval
-     * @param int    $minDocCount
+     * @param int $interval
+     * @param int $minDocCount
      * @param string $orderMode
      * @param string $orderDirection
-     * @param int    $extendedBoundsMin
-     * @param int    $extendedBoundsMax
-     * @param bool   $keyed
+     * @param int $extendedBoundsMin
+     * @param int $extendedBoundsMax
+     * @param bool $keyed
      */
     public function histogram(
         $alias,
@@ -166,7 +166,8 @@ class AggregationBuilder
         $extendedBoundsMin = null,
         $extendedBoundsMax = null,
         $keyed = null
-    ) {
+    )
+    {
         $aggregation = new HistogramAggregation($alias, $field, $interval, $minDocCount, $orderMode, $orderDirection,
             $extendedBoundsMin, $extendedBoundsMax, $keyed);
 
@@ -177,7 +178,7 @@ class AggregationBuilder
      * Add an ipv4 range aggregate.
      *
      * @param $alias
-     * @param null  $field
+     * @param null $field
      * @param array $ranges
      */
     public function ipv4Range($alias, $field, array $ranges)
@@ -249,9 +250,9 @@ class AggregationBuilder
      *
      * @param $alias
      * @param string $field
-     * @param array  $values
-     * @param null   $script
-     * @param null   $compression
+     * @param array $values
+     * @param null $script
+     * @param null $compression
      */
     public function percentileRanks($alias, $field, array $values, $script = null, $compression = null)
     {
@@ -264,7 +265,7 @@ class AggregationBuilder
      * Add an stats aggregate.
      *
      * @param $alias
-     * @param string      $field
+     * @param string $field
      * @param string|null $script
      */
     public function stats($alias, $field = null, $script = null)
@@ -278,7 +279,7 @@ class AggregationBuilder
      * Add an sum aggregate.
      *
      * @param $alias
-     * @param string      $field
+     * @param string $field
      * @param string|null $script
      */
     public function sum($alias, $field = null, $script = null)
@@ -292,7 +293,7 @@ class AggregationBuilder
      * Add a value count aggregate.
      *
      * @param $alias
-     * @param string      $field
+     * @param string $field
      * @param string|null $script
      */
     public function valueCount($alias, $field = null, $script = null)
@@ -307,8 +308,8 @@ class AggregationBuilder
      *
      * @param string $alias
      * @param string $field
-     * @param array  $ranges
-     * @param bool   $keyed
+     * @param array $ranges
+     * @param bool $keyed
      */
     public function range($alias, $field, array $ranges, $keyed = false)
     {
@@ -320,7 +321,7 @@ class AggregationBuilder
     /**
      * Add a terms aggregate.
      *
-     * @param string      $alias
+     * @param string $alias
      * @param string|null $field
      * @param string|null $script
      */
