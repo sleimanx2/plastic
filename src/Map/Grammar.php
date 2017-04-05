@@ -305,6 +305,68 @@ class Grammar
     }
 
     /**
+     * Compile a text map.
+     *
+     * @param Fluent $fluent
+     *
+     * @return array
+     */
+    public function compileText(Fluent $fluent)
+    {
+        $map = [
+            'type'                       => 'text',
+            'analyzer'                   => $fluent->analyzer,
+            'boost'                      => $fluent->boost,
+            'eager_global_ordinals'      => $fluent->eager_global_ordinals,
+            'fielddata'                  => $fluent->fielddata,
+            'fielddata_frequency_filter' => $fluent->fielddata_frequency_filter,
+            'fields'                     => $fluent->fields,
+            'include_in_all'             => $fluent->include_in_all,
+            'index'                      => $fluent->index,
+            'index_options'              => $fluent->index_options,
+            'norms'                      => $fluent->norms,
+            'position_increment_gap'     => $fluent->position_increment_gap,
+            'search_analyzer'            => $fluent->search_analyzer,
+            'search_quote_analyzer'      => $fluent->search_quote_analyzer,
+            'similarity'                 => $fluent->similarity,
+            'store'                      => $fluent->store,
+            'term_vector'                => $fluent->term_vector,
+        ];
+
+        return $this->formatMap($map);
+    }
+
+    /**
+     * Compile a keyword map.
+     *
+     * @param Fluent $fluent
+     *
+     * @return array
+     */
+    public function compileKeyword(Fluent $fluent)
+    {
+        $map = [
+            'type'                  => 'keyword',
+            'boost'                 => $fluent->boost,
+            'doc_values'            => $fluent->doc_values,
+            'eager_global_ordinals' => $fluent->eager_global_ordinals,
+            'fields'                => $fluent->fields,
+            'ignore_above'          => $fluent->ignore_above,
+            'include_in_all'        => $fluent->include_in_all,
+            'index'                 => $fluent->index,
+            'index_options'         => $fluent->index_options,
+            'normalizer'            => $fluent->normalizer,
+            'norms'                 => $fluent->norms,
+            'null_value'            => $fluent->null_value,
+            'search_analyzer'       => $fluent->search_analyzer,
+            'similarity'            => $fluent->similarity,
+            'store'                 => $fluent->store,
+        ];
+
+        return $this->formatMap($map);
+    }
+
+    /**
      * Compile a numeric map.
      *
      * @param Fluent $fluent
