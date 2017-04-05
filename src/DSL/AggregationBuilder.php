@@ -3,24 +3,24 @@
 namespace Sleimanx2\Plastic\DSL;
 
 use ONGR\ElasticsearchDSL\Aggregation\AbstractAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\AvgAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\CardinalityAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\DateRangeAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\GeoBoundsAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\GeoDistanceAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\GeoHashGridAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\HistogramAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\Ipv4RangeAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\MaxAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\MinAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\MissingAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\PercentileRanksAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\PercentilesAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\RangeAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\StatsAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\SumAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\TermsAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\ValueCountAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\DateRangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\GeoDistanceAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\GeoHashGridAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\HistogramAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\Ipv4RangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\MissingAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\RangeAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\TermsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\AvgAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\CardinalityAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\GeoBoundsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\MaxAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\MinAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\PercentileRanksAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\PercentilesAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\StatsAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\SumAggregation;
+use ONGR\ElasticsearchDSL\Aggregation\Metric\ValueCountAggregation;
 use ONGR\ElasticsearchDSL\Search as Query;
 
 class AggregationBuilder

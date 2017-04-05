@@ -7,6 +7,10 @@ use Illuminate\Support\Collection;
 use Sleimanx2\Plastic\Facades\Plastic;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
+/**
+ * @method static \Sleimanx2\Plastic\DSL\SearchBuilder search()
+ * @method static \Sleimanx2\Plastic\DSL\SuggestionBuilder suggest()
+ */
 trait Searchable
 {
     /**

@@ -3,27 +3,27 @@
 namespace Sleimanx2\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
-use ONGR\ElasticsearchDSL\Query\CommonTermsQuery;
-use ONGR\ElasticsearchDSL\Query\ExistsQuery;
-use ONGR\ElasticsearchDSL\Query\FuzzyQuery;
-use ONGR\ElasticsearchDSL\Query\GeoBoundingBoxQuery;
-use ONGR\ElasticsearchDSL\Query\GeoDistanceQuery;
+use ONGR\ElasticsearchDSL\Query\FullText\CommonTermsQuery;
+use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
+use ONGR\ElasticsearchDSL\Query\FullText\MultiMatchQuery;
+use ONGR\ElasticsearchDSL\Query\FullText\QueryStringQuery;
+use ONGR\ElasticsearchDSL\Query\FullText\SimpleQueryStringQuery;
+use ONGR\ElasticsearchDSL\Query\Geo\GeoBoundingBoxQuery;
+use ONGR\ElasticsearchDSL\Query\Geo\GeoDistanceQuery;
+use ONGR\ElasticsearchDSL\Query\Geo\GeoPolygonQuery;
+use ONGR\ElasticsearchDSL\Query\Geo\GeoShapeQuery;
 use ONGR\ElasticsearchDSL\Query\GeoDistanceRangeQuery;
-use ONGR\ElasticsearchDSL\Query\GeohashCellQuery;
-use ONGR\ElasticsearchDSL\Query\GeoPolygonQuery;
-use ONGR\ElasticsearchDSL\Query\IdsQuery;
+use ONGR\ElasticsearchDSL\Query\Joining\NestedQuery;
 use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
-use ONGR\ElasticsearchDSL\Query\MatchQuery;
-use ONGR\ElasticsearchDSL\Query\MultiMatchQuery;
-use ONGR\ElasticsearchDSL\Query\NestedQuery;
-use ONGR\ElasticsearchDSL\Query\PrefixQuery;
-use ONGR\ElasticsearchDSL\Query\QueryStringQuery;
-use ONGR\ElasticsearchDSL\Query\RangeQuery;
-use ONGR\ElasticsearchDSL\Query\RegexpQuery;
-use ONGR\ElasticsearchDSL\Query\SimpleQueryStringQuery;
-use ONGR\ElasticsearchDSL\Query\TermQuery;
-use ONGR\ElasticsearchDSL\Query\TermsQuery;
-use ONGR\ElasticsearchDSL\Query\WildcardQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\ExistsQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\FuzzyQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\IdsQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\PrefixQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\RangeQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\RegexpQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\TermsQuery;
+use ONGR\ElasticsearchDSL\Query\TermLevel\WildcardQuery;
 use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use Sleimanx2\Plastic\Connection;
@@ -481,24 +481,6 @@ class SearchBuilder
     }
 
     /**
-     * Add a geo hash query.
-     *
-     * @param string $field
-     * @param mixed  $location
-     * @param array  $attributes
-     *
-     * @return $this
-     */
-    public function geoHash($field, $location, array $attributes = [])
-    {
-        $query = new GeohashCellQuery($field, $location, $attributes);
-
-        $this->append($query);
-
-        return $this;
-    }
-
-    /**
      * Add a geo polygon query.
      *
      * @param string $field
@@ -510,6 +492,27 @@ class SearchBuilder
     public function geoPolygon($field, array $points = [], array $attributes = [])
     {
         $query = new GeoPolygonQuery($field, $points, $attributes);
+
+        $this->append($query);
+
+        return $this;
+    }
+
+    /**
+     * Add a geo shape query.
+     *
+     * @param string $field
+     * @param $type
+     * @param array $coordinates
+     * @param array $attributes
+     *
+     * @return $this
+     */
+    public function geoShape($field, $type, array $coordinates = [], array $attributes = [])
+    {
+        $query = new GeoShapeQuery();
+
+        $query->addShape($field, $type, $coordinates, $attributes);
 
         $this->append($query);
 

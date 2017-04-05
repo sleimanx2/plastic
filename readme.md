@@ -128,7 +128,7 @@ Plastic::persist()->bulkSave(Tag::find(1)->books);
 ```php
 $authors = Author::where('age','>',25)->get();
 
-Plastic::persist()->bulkSave($authors);
+Plastic::persist()->bulkDelete($authors);
 ```
 
 ## [Searching Model Content]()

@@ -282,22 +282,6 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_set_a_geoHash_query()
-    {
-        $builder = $this->getBuilder();
-        $builder->geoHash('location', ['lat' => 1, 'long' => 2]);
-        $this->assertEquals([
-            'query' => [
-                'geohash_cell' => [
-                    'location' => ['lat' => 1, 'long' => 2],
-                ],
-            ],
-        ], $builder->toDSL());
-    }
-
-    /**
-     * @test
-     */
     public function it_set_a_geoPolygon_query()
     {
         $builder = $this->getBuilder();
@@ -306,6 +290,29 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             'query' => [
                 'geo_polygon' => [
                     'location' => ['points' => [1, 2, 3, 4]],
+                ],
+            ],
+        ], $builder->toDSL());
+    }
+
+    /**
+     * @test
+     */
+    public function it_set_a_geoShape_query()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->geoShape('area', 'point', [3.3, 33.3]);
+
+        $this->assertEquals([
+            'query' => [
+                'geo_shape' => [
+                    'area' => [
+                        'shape' => [
+                            'type'        => 'point',
+                            'coordinates' => [3.3, 33.3],
+                        ],
+                    ],
                 ],
             ],
         ], $builder->toDSL());

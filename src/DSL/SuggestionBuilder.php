@@ -3,8 +3,7 @@
 namespace Sleimanx2\Plastic\DSL;
 
 use ONGR\ElasticsearchDSL\Search as Query;
-use ONGR\ElasticsearchDSL\Suggest\CompletionSuggest;
-use ONGR\ElasticsearchDSL\Suggest\TermSuggest;
+use ONGR\ElasticsearchDSL\Suggest\Suggest;
 use Sleimanx2\Plastic\Connection;
 
 class SuggestionBuilder
@@ -72,13 +71,16 @@ class SuggestionBuilder
      *
      * @param $name
      * @param $text
+     * @param $field
      * @param array $parameters
      *
      * @return $this
+     *
+     * @internal param $fields
      */
-    public function completion($name, $text, $parameters = [])
+    public function completion($name, $text, $field = 'suggest', $parameters = [])
     {
-        $suggestion = new CompletionSuggest($name, $text, $parameters);
+        $suggestion = new Suggest($name, 'completion', $text, $field, $parameters);
 
         $this->append($suggestion);
 
@@ -90,13 +92,14 @@ class SuggestionBuilder
      *
      * @param string $name
      * @param string $text
-     * @param array  $parameters
+     * @param $field
+     * @param array $parameters
      *
      * @return $this
      */
-    public function term($name, $text, array $parameters = [])
+    public function term($name, $text, $field = '_all', array $parameters = [])
     {
-        $suggestion = new TermSuggest($name, $text, $parameters);
+        $suggestion = new Suggest($name, 'term', $text, $field, $parameters);
 
         $this->append($suggestion);
 
