@@ -33,7 +33,7 @@ class SuggestionBuilder
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query $query
+     * @param Query      $query
      */
     public function __construct(Connection $connection, Query $query = null)
     {
@@ -73,7 +73,9 @@ class SuggestionBuilder
      * @param $text
      * @param $field
      * @param array $parameters
+     *
      * @return $this
+     *
      * @internal param $fields
      */
     public function completion($name, $text, $field = 'suggest', $parameters = [])
@@ -92,6 +94,7 @@ class SuggestionBuilder
      * @param string $text
      * @param $field
      * @param array $parameters
+     *
      * @return $this
      */
     public function term($name, $text, $field = '_all', array $parameters = [])

@@ -278,7 +278,6 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             ],
         ], $builder->toDSL());
     }
-    
 
     /**
      * @test
