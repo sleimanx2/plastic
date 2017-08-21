@@ -38,7 +38,7 @@ use Sleimanx2\Plastic\Searchable;
 class SearchBuilder
 {
     use Macroable;
-    
+
     /**
      * An instance of DSL query.
      *

@@ -525,7 +525,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(\Sleimanx2\Plastic\PlasticPaginator::class, $builder->paginate());
     }
-    
+
     /**
      * @test
      */
@@ -533,7 +533,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     {
         $builder = $this->getBuilder();
 
-        $builder->macro('sortByID',function(){
+        $builder->macro('sortByID', function () {
             $this->sortBy('id', 'desc');
         });
 
