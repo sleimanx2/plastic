@@ -35,7 +35,7 @@ abstract class Mapping
 
         $this->model = new $this->model();
 
-        $traits = class_uses($this->model);
+        $traits = class_uses_recursive(get_class($this->model));
 
         if (!isset($traits[Searchable::class])) {
             throw new InvalidArgumentException(get_class($this->model).' does not use the searchable trait');

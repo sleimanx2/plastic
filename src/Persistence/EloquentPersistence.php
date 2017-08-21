@@ -53,7 +53,7 @@ class EloquentPersistence
     public function model(Model $model)
     {
         // Check if the model is searchable before setting the query builder model
-        $traits = class_uses($model);
+        $traits = class_uses_recursive(get_class($model));
 
         if (!isset($traits[Searchable::class])) {
             throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
