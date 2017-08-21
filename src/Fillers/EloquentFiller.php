@@ -120,9 +120,9 @@ class EloquentFiller implements FillerInterface
                         } else {
 
                           // Check if the relation field is single model or collections
-                          if (!$multiLevelRelation = $this->isMultiLevelArray($value)) {
-                              $value = [$value];
-                          }
+                            if (!$multiLevelRelation = $this->isMultiLevelArray($value)) {
+                                $value = [$value];
+                            }
 
                             $models = $this->hydrateRecursive($relation->getModel(), $value, $relation);
 
