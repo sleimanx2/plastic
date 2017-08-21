@@ -15,7 +15,7 @@ composer require sleimanx2/plastic
 Then we need to add the plastic service provider to `config/app.php` under the providers key:
 
 ```php
-Sleimanx2\Plastic\PlasticServiceProvider
+Sleimanx2\Plastic\PlasticServiceProvider::class
 ```
 
 Finally we need to run:
@@ -279,7 +279,7 @@ class AppTag extends Mapping
             $map->string('name')->store('true')->index('analyzed');
 
             // instead of the fluent syntax we can use the second method argument to fill the attributes
-            $map->completion('suggestion', ['analyzer' => 'simple', 'search_analyzer' => 'simple'];
+            $map->completion('suggestion', ['analyzer' => 'simple', 'search_analyzer' => 'simple']);
         },$this->getModelIndex());
     }
 }
