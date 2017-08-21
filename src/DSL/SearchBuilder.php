@@ -3,6 +3,7 @@
 namespace Sleimanx2\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Traits\Macroable;
 use ONGR\ElasticsearchDSL\Query\FullText\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MultiMatchQuery;
@@ -36,6 +37,8 @@ use Sleimanx2\Plastic\Searchable;
 
 class SearchBuilder
 {
+    use Macroable;
+    
     /**
      * An instance of DSL query.
      *
