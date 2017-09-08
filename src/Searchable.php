@@ -35,7 +35,7 @@ trait Searchable
     public $documentVersion = null;
 
     /**
-     * Highlight search result
+     * Highlight search result.
      *
      * @var null|array
      */
