@@ -138,7 +138,7 @@ class SearchBuilder
     /**
      * Set the eloquent model to use when querying elastic search.
      *
-     * @param Model $model
+     * @param Model|Searchable $model
      *
      * @throws InvalidArgumentException
      *
