@@ -6,6 +6,8 @@
 
 > This package is still under active development and may change.
 
+> For Elasticsearch v2 please refer to version < 0.4.0.
+
 # Installing Plastic
 
 ```bash
