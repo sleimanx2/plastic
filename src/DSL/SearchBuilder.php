@@ -4,6 +4,7 @@ namespace Sleimanx2\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Traits\Macroable;
+use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MultiMatchQuery;
@@ -82,24 +83,17 @@ class SearchBuilder
     protected $connection;
 
     /**
-     * Query filtering state.
-     *
-     * @var bool
-     */
-    protected $filtering = false;
-
-    /**
      * Query bool state.
      *
      * @var string
      */
-    protected $boolState = 'must';
+    protected $boolState = BoolQuery::MUST;
 
     /**
      * Builder constructor.
      *
      * @param Connection $connection
-     * @param Query      $grammar
+     * @param Query $grammar
      */
     public function __construct(Connection $connection, Query $grammar = null)
     {
@@ -149,7 +143,7 @@ class SearchBuilder
         // Check if the model is searchable before setting the query builder model
         $traits = class_uses_recursive(get_class($model));
 
-        if (!isset($traits[Searchable::class])) {
+        if (! isset($traits[Searchable::class])) {
             throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
         }
 
@@ -196,8 +190,8 @@ class SearchBuilder
      * Set the query sort values values.
      *
      * @param string|array $fields
-     * @param null         $order
-     * @param array        $parameters
+     * @param null $order
+     * @param array $parameters
      *
      * @return $this
      */
@@ -233,7 +227,7 @@ class SearchBuilder
      */
     public function should()
     {
-        $this->boolState = 'should';
+        $this->boolState = BoolQuery::SHOULD;
 
         return $this;
     }
@@ -243,7 +237,7 @@ class SearchBuilder
      */
     public function must()
     {
-        $this->boolState = 'must';
+        $this->boolState = BoolQuery::MUST;
 
         return $this;
     }
@@ -253,7 +247,7 @@ class SearchBuilder
      */
     public function mustNot()
     {
-        $this->boolState = 'must_not';
+        $this->boolState = BoolQuery::MUST_NOT;
 
         return $this;
     }
@@ -263,17 +257,7 @@ class SearchBuilder
      */
     public function filter()
     {
-        $this->filtering = true;
-
-        return $this;
-    }
-
-    /**
-     * Switch to a regular query.
-     */
-    public function query()
-    {
-        $this->filtering = false;
+        $this->boolState = BoolQuery::FILTER;
 
         return $this;
     }
@@ -301,7 +285,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $term
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -318,8 +302,8 @@ class SearchBuilder
      * Add an terms query.
      *
      * @param string $field
-     * @param array  $terms
-     * @param array  $attributes
+     * @param array $terms
+     * @param array $attributes
      *
      * @return $this
      */
@@ -357,7 +341,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $value
-     * @param float  $boost
+     * @param float $boost
      *
      * @return $this
      */
@@ -393,7 +377,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $term
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -409,9 +393,9 @@ class SearchBuilder
     /**
      * Add a multi match query.
      *
-     * @param array  $fields
+     * @param array $fields
      * @param string $term
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -428,8 +412,8 @@ class SearchBuilder
      * Add a geo bounding box query.
      *
      * @param string $field
-     * @param array  $values
-     * @param array  $parameters
+     * @param array $values
+     * @param array $parameters
      *
      * @return $this
      */
@@ -447,8 +431,8 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $distance
-     * @param mixed  $location
-     * @param array  $attributes
+     * @param mixed $location
+     * @param array $attributes
      *
      * @return $this
      */
@@ -487,8 +471,8 @@ class SearchBuilder
      * Add a geo polygon query.
      *
      * @param string $field
-     * @param array  $points
-     * @param array  $attributes
+     * @param array $points
+     * @param array $attributes
      *
      * @return $this
      */
@@ -527,7 +511,7 @@ class SearchBuilder
      *
      * @param string $field
      * @param string $term
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -544,7 +528,7 @@ class SearchBuilder
      * Add a query string query.
      *
      * @param string $query
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -561,7 +545,7 @@ class SearchBuilder
      * Add a simple query string query.
      *
      * @param string $query
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -578,7 +562,7 @@ class SearchBuilder
      * Add a range query.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -595,7 +579,7 @@ class SearchBuilder
      * Add a regexp query.
      *
      * @param string $field
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return $this
      */
@@ -649,7 +633,7 @@ class SearchBuilder
      *
      * @param $field
      * @param \Closure $closure
-     * @param string   $score_mode
+     * @param string $score_mode
      *
      * @return $this
      */
@@ -713,8 +697,8 @@ class SearchBuilder
     {
         $params = [
             'index' => $this->getIndex(),
-            'type'  => $this->getType(),
-            'body'  => $this->toDSL(),
+            'type' => $this->getType(),
+            'body' => $this->toDSL(),
         ];
 
         return $this->connection->searchStatement($params);
@@ -779,16 +763,6 @@ class SearchBuilder
     }
 
     /**
-     * Return the filtering state.
-     *
-     * @return string
-     */
-    public function getFilteringState()
-    {
-        return $this->filtering;
-    }
-
-    /**
      * Paginate result hits.
      *
      * @param int $limit
@@ -826,11 +800,7 @@ class SearchBuilder
      */
     public function append($query)
     {
-        if ($this->getFilteringState()) {
-            $this->query->addFilter($query, $this->getBoolState());
-        } else {
-            $this->query->addQuery($query, $this->getBoolState());
-        }
+        $this->query->addQuery($query, $this->getBoolState());
 
         return $this;
     }

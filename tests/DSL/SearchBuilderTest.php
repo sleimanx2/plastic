@@ -131,21 +131,6 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_toggles_the_filter_state()
-    {
-        $builder = $this->getBuilder();
-        $this->assertEquals(false, $builder->getFilteringState());
-
-        $builder->filter();
-        $this->assertEquals(true, $builder->getFilteringState());
-
-        $builder->query();
-        $this->assertEquals(false, $builder->getFilteringState());
-    }
-
-    /**
-     * @test
-     */
     public function it_set_and_ids_query()
     {
         $builder = $this->getBuilder();
@@ -437,7 +422,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'query' => [
                 'bool' => [
-                    'filter' => [['bool' => ['must_not' => [['term' => ['name' => 'foo']]]]]],
+                    'must_not' => [['term' => ['name' => 'foo']]],
                 ],
             ],
 
