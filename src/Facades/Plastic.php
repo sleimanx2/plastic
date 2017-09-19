@@ -9,7 +9,7 @@ class Plastic extends Facade
     /**
      * Get a plastic manager instance for the default connection.
      *
-     * @return \Sleimanx2\Plastic\DSL\Builder
+     * @return \Sleimanx2\Plastic\DSL\SearchBuilder
      */
     protected static function getFacadeAccessor()
     {
