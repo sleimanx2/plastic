@@ -59,6 +59,17 @@ class EloquentFiller implements FillerInterface
         // In addition to setting the attributes
         // from the index, we will set the score as well.
         $instance->documentScore = $hit['_score'];
+        // Setting inner hits on  document
+        if (isset($hit['inner_hits'])) {
+            $inner_hits = [];
+            foreach ($hit['inner_hits'] as $key => $inner_hit) {
+                $inner_hits[$key] = [];
+                foreach ($inner_hit['hits']['hits'] as $k => $v) {
+                    $inner_hits[$key][] = array_merge((array)$v['_source'], ['score' => $v['_score']]);
+                }
+            }
+            $instance->innerHits = $inner_hits;
+        }
         // This is now a model created
         // from an Elasticsearch document.
         $instance->isDocument = true;
