@@ -33,6 +33,12 @@ trait Searchable
      * @var null|int
      */
     public $documentVersion = null;
+    /**
+     * Elasticsearch document inner hits.
+     * 
+     * @var array
+     */
+    public $innerHits = [];
 
     /**
      * Searchable boot model.
