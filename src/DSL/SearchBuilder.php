@@ -4,8 +4,8 @@ namespace Sleimanx2\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Traits\Macroable;
-use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
 use ONGR\ElasticsearchDSL\Highlight\Highlight;
+use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MultiMatchQuery;
@@ -576,8 +576,7 @@ class SearchBuilder
 		$highlight = new Highlight();
 		$highlight->setTags([$preTag], [$postTag]);
 
-		foreach ($fields as $field => $fieldParams)
-		{
+		foreach ($fields as $field => $fieldParams){
 			$highlight->addField($field, $fieldParams);
 		}
 
