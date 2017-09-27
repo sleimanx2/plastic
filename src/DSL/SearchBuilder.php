@@ -5,6 +5,7 @@ namespace Sleimanx2\Plastic\DSL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Traits\Macroable;
 use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
+use ONGR\ElasticsearchDSL\Highlight\Highlight;
 use ONGR\ElasticsearchDSL\Query\FullText\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MultiMatchQuery;
@@ -558,17 +559,49 @@ class SearchBuilder
         return $this;
     }
 
-    /**
-     * Add a range query.
-     *
-     * @param string $field
-     * @param array  $attributes
-     *
-     * @return $this
-     */
-    public function range($field, array $attributes = [])
-    {
-        $query = new RangeQuery($field, $attributes);
+
+	/**
+	 * Add a highlight to result
+	 *
+	 * @param array  $fields
+	 * @param array  $parameters
+	 * @param string $preTag
+	 * @param string $postTag
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html
+	 * @return $this
+	 */
+	public function highlight($fields = ['_all' => []], $parameters = [], $preTag = '<mark>', $postTag = '</mark>')
+	{
+		$highlight = new Highlight();
+		$highlight->setTags([$preTag], [$postTag]);
+
+		foreach ($fields as $field => $fieldParams)
+		{
+			$highlight->addField($field, $fieldParams);
+		}
+
+		if ($parameters)
+		{
+			$highlight->setParameters($parameters);
+		}
+
+		$this->query->addHighlight($highlight);
+
+		return $this;
+	}
+
+	/**
+	 * Add a range query.
+	 *
+	 * @param string $field
+	 * @param array  $attributes
+	 *
+	 * @return $this
+	 */
+	public function range($field, array $attributes = [])
+	{
+		$query = new RangeQuery($field, $attributes);
 
         $this->append($query);
 

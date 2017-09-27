@@ -429,16 +429,31 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         ], $builder->toDSL());
     }
 
-    /**
-     * @test
-     */
-    public function it_executes_the_query_and_returns_the_raw_result()
-    {
-        $builder = $this->getBuilder();
-        $connection = $builder->getConnection();
-        $connection->shouldReceive('searchStatement')->with(['index' => null, 'type' => null, 'body' => []])->andReturn('ok');
-        $this->assertEquals('ok', $builder->getRaw());
-    }
+	/**
+	 * @test
+	 */
+	public function it_set_highlighter()
+	{
+    	$builder = $this->getBuilder();
+		$builder->highlight();
+
+		$this->assertEquals(['highlight' => ['pre_tags' => ['<mark>'], 'post_tags' => ['</mark>'], 'fields' => ['_all' => new stdClass()]]], $builder->toDSL());
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_executes_the_query_and_returns_the_raw_result()
+	{
+		$builder    = $this->getBuilder();
+		$connection = $builder->getConnection();
+		$connection->shouldReceive('searchStatement')->with([
+			'index' => null,
+			'type'  => null,
+			'body'  => []
+		])->andReturn('ok');
+		$this->assertEquals('ok', $builder->getRaw());
+	}
 
     /**
      * @test
