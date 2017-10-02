@@ -160,24 +160,22 @@ trait Searchable
     }
 
     /**
-     * Start an elastic dsl search query builder
+     * Start an elastic dsl search query builder.
      *
      * @return mixed
      */
     public static function search()
     {
-        //Start an elastic dsl search query builder
-        return Plastic::search()->model((new static));
+        return Plastic::search()->model(new static());
     }
 
     /**
-     * Start an elastic dsl suggest query builder
+     * Start an elastic dsl suggest query builder.
      *
      * @return mixed
      */
     public static function suggest()
     {
-        //Start an elastic dsl suggest query builder
-        return Plastic::suggest()->index((new static)->getDocumentIndex());
+        return Plastic::suggest()->index((new static())->getDocumentIndex());
     }
 }
