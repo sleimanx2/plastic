@@ -35,6 +35,13 @@ trait Searchable
     public $documentVersion = null;
 
     /**
+     * Highlight search result.
+     *
+     * @var null|array
+     */
+    public $highlight = null;
+
+    /**
      * Searchable boot model.
      */
     public static function bootSearchable()
