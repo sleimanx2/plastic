@@ -68,6 +68,7 @@ class Populate extends Command
             $this->populateIndex($index);
         } catch (\Exception $e) {
             $this->warn('An error occured while populating the new index !');
+
             throw $e;
         }
     }
