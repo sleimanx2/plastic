@@ -51,14 +51,14 @@ class Populate extends Command
         $index = $this->index();
         if (!$this->existsStatement($index)) {
             $this->error('Index « '.$index.' » does not exists.');
-            return ;
+            return;
         }
 
         // Runs the mappings
         if ($this->option('mappings')) {
             $this->call('mapping:rerun', [
                 '--database' => $this->option('database'),
-                '--force' => true,
+                '--force'    => true,
             ]);
         }
 
@@ -72,7 +72,7 @@ class Populate extends Command
     }
 
     /**
-     * Populates the index
+     * Populates the index.
      *
      * @param string $index The index name
      * @throws \Exception
@@ -110,7 +110,7 @@ class Populate extends Command
     }
 
     /**
-     * Gets the index to populate
+     * Gets the index to populate.
      *
      * @return array|string
      */
@@ -131,7 +131,7 @@ class Populate extends Command
     }
 
     /**
-     * Gets the models to index for the given index
+     * Gets the models to index for the given index.
      *
      * @param $index
      * @return array
@@ -142,7 +142,7 @@ class Populate extends Command
     }
 
     /**
-     * Gets the chunk size
+     * Gets the chunk size.
      * @return int
      */
     protected function chunkSize()
