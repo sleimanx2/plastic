@@ -51,6 +51,7 @@ class Populate extends Command
         $index = $this->index();
         if (!$this->existsStatement($index)) {
             $this->error('Index « '.$index.' » does not exists.');
+
             return;
         }
 
@@ -75,6 +76,7 @@ class Populate extends Command
      * Populates the index.
      *
      * @param string $index The index name
+     *
      * @throws \Exception
      */
     protected function populateIndex($index)
@@ -123,6 +125,7 @@ class Populate extends Command
      * Execute a exists statement for index.
      *
      * @param $index
+     *
      * @return bool
      */
     protected function existsStatement($index)
@@ -134,6 +137,7 @@ class Populate extends Command
      * Gets the models to index for the given index.
      *
      * @param $index
+     *
      * @return array
      */
     protected function models($index)
@@ -143,6 +147,7 @@ class Populate extends Command
 
     /**
      * Gets the chunk size.
+     *
      * @return int
      */
     protected function chunkSize()
