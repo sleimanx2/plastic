@@ -389,6 +389,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                     'path'       => 'tag',
                     'query'      => ['term' => ['tag.name' => 'foo']],
                     'score_mode' => 'avg',
+                    'inner_hits' => [],
                 ],
             ],
 
