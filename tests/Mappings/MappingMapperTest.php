@@ -31,8 +31,10 @@ class MappingMapperTest extends \PHPUnit_Framework_TestCase
         $mapper->getRepository()->shouldReceive('log')->once()->with('3_baz', 1);
 
         $barMock = Mockery::mock('stdClass');
+        $barMock->shouldReceive('setIndex')->once();
         $barMock->shouldReceive('map')->once();
         $bazMock = Mockery::mock('stdClass');
+        $bazMock->shouldReceive('setIndex')->once();
         $bazMock->shouldReceive('map')->once();
 
         $mapper->expects($this->at(0))->method('resolve')->with($this->equalTo('2_bar'))->will($this->returnValue($barMock));
