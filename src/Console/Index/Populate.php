@@ -59,7 +59,7 @@ class Populate extends Command
         // Runs the mappings
         if ($this->option('mappings')) {
             $this->call('mapping:rerun', [
-                '--index' => $index,
+                '--index'    => $index,
                 '--database' => $this->option('database'),
                 '--force'    => true,
             ]);

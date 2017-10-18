@@ -54,7 +54,7 @@ class Run extends BaseCommand
         $path = $this->getMappingPath();
 
         $this->mapper->run($path, [
-            'step' => $this->option('step'),
+            'step'  => $this->option('step'),
             'index' => $this->option('index'),
         ]);
 

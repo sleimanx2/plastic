@@ -46,7 +46,7 @@ class ReRun extends Command
         ]);
 
         $this->call('mapping:run', [
-            '--index' => $this->option('index'),
+            '--index'    => $this->option('index'),
             '--database' => $this->option('database'),
             '--force'    => true,
         ]);
