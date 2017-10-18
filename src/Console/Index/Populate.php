@@ -47,8 +47,9 @@ class Populate extends Command
      */
     public function handle()
     {
-        // Checks if the target index exists
         $index = $this->index();
+
+        // Checks if the target index exists
         if (!$this->existsStatement($index)) {
             $this->error('Index « '.$index.' » does not exists.');
 
@@ -58,6 +59,7 @@ class Populate extends Command
         // Runs the mappings
         if ($this->option('mappings')) {
             $this->call('mapping:rerun', [
+                '--index' => $index,
                 '--database' => $this->option('database'),
                 '--force'    => true,
             ]);
