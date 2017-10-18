@@ -85,7 +85,7 @@ class Mapper
      *
      * @param $file
      * @param $batch
-     * @param null|string $index The index on which to run the mappings instead of the default one
+     * @param string|null $index The index on which to run the mappings instead of the default one.
      */
     public function runMap($file, $batch, $index = null)
     {
@@ -105,7 +105,7 @@ class Mapper
      *
      * @param $file
      *
-     * @return mixed
+     * @return Mapping
      */
     public function resolve($file)
     {

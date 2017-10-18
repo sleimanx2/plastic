@@ -19,7 +19,7 @@ abstract class Mapping
     /**
      * Index name.
      *
-     * @var
+     * @var string|null
      */
     protected $index;
 
@@ -34,7 +34,7 @@ abstract class Mapping
     /**
      * Gets the index name.
      *
-     * @return mixed
+     * @return string|null
      */
     public function index()
     {
@@ -44,7 +44,7 @@ abstract class Mapping
     /**
      * Sets the index name.
      *
-     * @param $index
+     * @param string|null $index
      */
     public function setIndex($index)
     {
