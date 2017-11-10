@@ -3,10 +3,10 @@
 class PlasticResultTest extends \PHPUnit_Framework_TestCase
 {
     protected $elasticResult = [
-        'took'         => 0.2,
-        'timed_out'    => false,
-        '_shards'      => 2,
-        'hits'         => [
+        'took'      => 0.2,
+        'timed_out' => false,
+        '_shards'   => 2,
+        'hits'      => [
             'total'     => 2,
             'max_score' => 3,
             'hits'      => ['foo', 'bar'],

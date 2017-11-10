@@ -66,7 +66,7 @@ class Blueprint
             'type'  => $this->type,
             'body'  => [
                 $this->type => [
-                    '_source'    => [
+                    '_source' => [
                         'enabled' => true,
                     ],
                     'properties' => $this->toDSL($grammar),
