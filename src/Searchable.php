@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 use Sleimanx2\Plastic\Facades\Plastic;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
-/**
- * @method static \Sleimanx2\Plastic\DSL\SearchBuilder search()
- * @method static \Sleimanx2\Plastic\DSL\SuggestionBuilder suggest()
- */
 trait Searchable
 {
     /**
@@ -169,7 +165,7 @@ trait Searchable
     /**
      * Start an elastic dsl search query builder.
      *
-     * @return mixed
+     * @return \Sleimanx2\Plastic\DSL\SearchBuilder
      */
     public static function search()
     {
@@ -179,7 +175,7 @@ trait Searchable
     /**
      * Start an elastic dsl suggest query builder.
      *
-     * @return mixed
+     * @return \Sleimanx2\Plastic\DSL\SuggestionBuilder
      */
     public static function suggest()
     {
