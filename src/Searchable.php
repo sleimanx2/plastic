@@ -35,24 +35,17 @@ trait Searchable
     public $documentVersion = null;
 
     /**
-     * Highlight search result.
-     *
-     * @var null|array
-     */
-    public $highlight = null;
-
-    /**
      * Searchable boot model.
      */
     public static function bootSearchable()
     {
-        static::saved(function (self $model) {
+        static::saved(function ($model) {
             if ($model->shouldSyncDocument()) {
                 $model->document()->save();
             }
         });
 
-        static::deleted(function (self $model) {
+        static::deleted(function ($model) {
             if ($model->shouldSyncDocument()) {
                 $model->document()->delete();
             }
@@ -167,6 +160,26 @@ trait Searchable
     }
 
     /**
+     * Start an elastic dsl search query builder
+     *
+     * @return mixed
+     */
+    public static function search()
+    {
+        return Plastic::search()->model(new static);
+    }
+
+    /**
+     * Start an elastic dsl suggest query builder
+     * 
+     * @return mixed
+     */
+    public static function suggest()
+    {
+        return Plastic::suggest()->index((new static)->getDocumentIndex());
+    }
+
+    /**
      * Handle dynamic method calls into the model.
      *
      * @param string $method
@@ -177,12 +190,12 @@ trait Searchable
     public function __call($method, $parameters)
     {
         if ($method == 'search') {
-            //Start an elastic dsl search query builder
+            // Start an elastic dsl search query builder
             return Plastic::search()->model($this);
         }
 
         if ($method == 'suggest') {
-            //Start an elastic dsl suggest query builder
+            // Start an elastic dsl suggest query builder
             return Plastic::suggest()->index($this->getDocumentIndex());
         }
 
