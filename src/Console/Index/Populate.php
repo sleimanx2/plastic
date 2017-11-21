@@ -27,19 +27,13 @@ class Populate extends Command
     protected $description = 'Populates an index';
 
     /**
-     * @var Client
+     * Gets the client.
+     *
+     * @return Client
      */
-    protected $client;
-
-    /**
-     * Reset constructor.
-     */
-    public function __construct()
+    public function client()
     {
-        parent::__construct();
-
-        // Gets the real index name (if aliased)
-        $this->client = Plastic::getClient();
+        return Plastic::getClient();
     }
 
     /**
@@ -133,7 +127,7 @@ class Populate extends Command
      */
     protected function existsStatement($index)
     {
-        return $this->client->indices()->exists(['index' => $index]);
+        return $this->client()->indices()->exists(['index' => $index]);
     }
 
     /**
