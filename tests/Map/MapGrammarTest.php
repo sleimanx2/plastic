@@ -175,13 +175,13 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_adds_a_string_map()
+    public function it_adds_a_text_map()
     {
         $blueprint = new Blueprint('post');
         $blueprint->create();
-        $blueprint->string('body', ['analyzer' => 'foo', 'boost' => true]);
+        $blueprint->text('body', ['analyzer' => 'foo', 'boost' => true]);
         $statement = $blueprint->toDSL($this->getGrammar());
-        $this->assertEquals(['body' => ['type' => 'string', 'analyzer' => 'foo', 'boost' => true]], $statement);
+        $this->assertEquals(['body' => ['type' => 'text', 'analyzer' => 'foo', 'boost' => true]], $statement);
     }
 
     /**
@@ -192,7 +192,7 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
         $blueprint = new Blueprint('post');
         $blueprint->create();
         $blueprint->nested('tags', function ($blueprint) {
-            $blueprint->string('name');
+            $blueprint->text('name');
         });
         $statement = $blueprint->toDSL($this->getGrammar());
         $this->assertEquals(['tags' => ['type' => 'nested', 'properties' => ['name' => ['type' => 'string']]]],
