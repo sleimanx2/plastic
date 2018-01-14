@@ -207,10 +207,10 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
         $blueprint = new Blueprint('post');
         $blueprint->create();
         $blueprint->object('tags', function ($blueprint) {
-            $blueprint->string('name');
+            $blueprint->text('name');
         });
         $statement = $blueprint->toDSL($this->getGrammar());
-        $this->assertEquals(['tags' => ['properties' => ['name' => ['type' => 'string']]]],
+        $this->assertEquals(['tags' => ['properties' => ['name' => ['type' => 'text']]]],
             $statement);
     }
 
