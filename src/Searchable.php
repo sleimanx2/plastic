@@ -46,13 +46,13 @@ trait Searchable
      */
     public static function bootSearchable()
     {
-        static::saved(function (self $model) {
+        static::saved(function ($model) {
             if ($model->shouldSyncDocument()) {
                 $model->document()->save();
             }
         });
 
-        static::deleted(function (self $model) {
+        static::deleted(function ($model) {
             if ($model->shouldSyncDocument()) {
                 $model->document()->delete();
             }
