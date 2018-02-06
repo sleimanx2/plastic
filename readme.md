@@ -181,7 +181,7 @@ User::search()
     ->must()
         ->term('name','kimchy')
     ->mustNot()
-        ->range('age',['from'=>10,'to'=>20]);
+        ->range('age',['from'=>10,'to'=>20])
     ->should()
         ->match('bio','developer')
         ->match('bio','elastic')
