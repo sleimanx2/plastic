@@ -14,7 +14,7 @@ class ReRun extends Command
      *
      * @var string
      */
-    protected $signature = 'mapping:rerun {--database=} {--force}';
+    protected $signature = 'mapping:rerun {--index=} {--database=} {--force}';
 
     /**
      * The console command description.
@@ -46,6 +46,7 @@ class ReRun extends Command
         ]);
 
         $this->call('mapping:run', [
+            '--index'    => $this->option('index'),
             '--database' => $this->option('database'),
             '--force'    => true,
         ]);

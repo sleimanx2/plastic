@@ -69,4 +69,39 @@ return [
     */
     'mappings'       => env('PLASTIC_MAPPINGS', 'mappings'),
 
+    /*
+    |------------------------------------------------------------------
+    | Populate settings
+    |------------------------------------------------------------------
+    |
+    | The settings for populating an index.
+    |
+    */
+    'populate' => [
+
+        /*
+        |------------------------------------------------------------------
+        | Models
+        |------------------------------------------------------------------
+        |
+        | The list of models, per index, from which to recreate the documents when running the console command to populate an index.
+        |
+        */
+        'models' => [
+
+            // The models for the default index
+            env('PLASTIC_INDEX', 'plastic') => [],
+        ],
+
+        /*
+        |------------------------------------------------------------------
+        | Chunk size
+        |------------------------------------------------------------------
+        |
+        | The size of documents chunks to index per model
+        |
+        */
+        'chunk_size' => 1000,
+    ],
+
 ];

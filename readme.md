@@ -36,6 +36,7 @@ This will create a config file at `config/plastic.php` and a mapping directory a
 - [Aggregation](#aggregation)
 - [Suggestions](#suggestions)
 - [Mappings](#mappings)
+- [Populate An Index](#populate-an-index)
 - [Access The Client](#access-client)
 
 ## [Defining Searchable Models]()
@@ -316,6 +317,35 @@ You can always create a new Elasticsearch index and re-run the mappings. After r
 Its recommended to create your Elasticsearch index with an alias to ease the process of updating your model mappings with zero downtime. To learn more check out:
 
 <https://www.elastic.co/blog/changing-mapping-with-zero-downtime>
+
+## [Populate An Index]()
+
+Populating an index with searchable models can be done by running an Artisan console command :
+
+```bash
+php artisan plastic:populate [--mappings][--index=...][--database=...]
+```
+
+- `--mappings` Create the models mappings before populating the index
+- `--database=...` Database connection to use for mappings instead of the default one
+- `--index=...` Index to populate instead of the default one
+
+The list of models from which to recreate the documents has to be configured **per index** in `config/plastic.php`:
+```
+    'populate' => [
+        'models' => [
+            // Models for the default index
+            env('PLASTIC_INDEX', 'plastic') => [
+                App\Models\Article::class,
+                App\Models\Page::class,
+            ],
+            // Models for the index "another_index"
+            'another_index' => [
+                App\Models\User::class,
+            ],
+        ],
+    ],
+```
 
 ## [Access The Client]()
 

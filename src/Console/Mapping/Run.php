@@ -14,7 +14,7 @@ class Run extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'mapping:run {--database=} {--step} {--force}';
+    protected $signature = 'mapping:run {--index=} {--database=} {--step} {--force}';
 
     /**
      * The console command description.
@@ -54,7 +54,8 @@ class Run extends BaseCommand
         $path = $this->getMappingPath();
 
         $this->mapper->run($path, [
-            'step' => $this->option('step'),
+            'step'  => $this->option('step'),
+            'index' => $this->option('index'),
         ]);
 
         // Once the mapper has run we will grab the note output and send it out to
