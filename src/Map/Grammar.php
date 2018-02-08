@@ -346,10 +346,16 @@ class Grammar
             $callback($blueprint);
         }
 
-        return [
-            'type'       => 'nested',
-            'properties' => $this->compileFields($blueprint->getFields()),
+        $map = [
+            'type'              => 'nested',
+            'dynamic'           => $fluent->dynamic,
+            'include_in_all'    => $fluent->include_in_all,
+            'include_in_root'   => $fluent->include_in_root,
+            'include_in_parent' => $fluent->include_in_parent,
+            'properties'        => $this->compileFields($blueprint->getFields()),
         ];
+
+        return $this->formatMap($map);
     }
 
     /**
