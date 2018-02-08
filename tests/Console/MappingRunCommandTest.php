@@ -18,7 +18,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         $mapper->shouldReceive('setConnection')->once()->with(null);
-        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => false]);
+        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => false, 'index' => null]);
         $mapper->shouldReceive('getNotes')->andReturn([]);
         $mapper->shouldReceive('repositoryExists')->once()->andReturn(true);
         $this->runCommand($command);
@@ -40,7 +40,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         $mapper->shouldReceive('setConnection')->once()->with(null);
-        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => true]);
+        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => true, 'index' => null]);
         $mapper->shouldReceive('getNotes')->andReturn([]);
         $mapper->shouldReceive('repositoryExists')->once()->andReturn(true);
         $this->runCommand($command, ['--step' => true]);
@@ -62,7 +62,7 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         $mapper->shouldReceive('setConnection')->once()->with('foo');
-        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => false]);
+        $mapper->shouldReceive('run')->once()->with(__DIR__.DIRECTORY_SEPARATOR.'mappings', ['step' => false, 'index' => null]);
         $mapper->shouldReceive('getNotes')->andReturn([]);
         $mapper->shouldReceive('repositoryExists')->once()->andReturn(true);
         $this->runCommand($command, ['--database' => 'foo']);

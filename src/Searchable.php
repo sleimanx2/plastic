@@ -40,19 +40,26 @@ trait Searchable
      * @var array
      */
     public $innerHits = [];
+    
+    /**
+     * Highlight search result.
+     *
+     * @var null|array
+     */
+    public $highlight = null;
 
     /**
      * Searchable boot model.
      */
     public static function bootSearchable()
     {
-        static::saved(function (self $model) {
+        static::saved(function ($model) {
             if ($model->shouldSyncDocument()) {
                 $model->document()->save();
             }
         });
 
-        static::deleted(function (self $model) {
+        static::deleted(function ($model) {
             if ($model->shouldSyncDocument()) {
                 $model->document()->delete();
             }

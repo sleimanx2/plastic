@@ -38,7 +38,7 @@ class PlasticServiceProvider extends ServiceProvider
     {
         $this->registerManager();
 
-        $this->registerMappings();
+        $this->registerProviders();
 
         $this->registerAlias();
     }
@@ -58,10 +58,14 @@ class PlasticServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the mappings service provider.
+     * Register the service providers.
      */
-    protected function registerMappings()
+    protected function registerProviders()
     {
+        // Register the index service provider.
+        $this->app->register(IndexServiceProvider::class);
+
+        // Register the mappings service provider.
         $this->app->register(MappingServiceProvider::class);
     }
 

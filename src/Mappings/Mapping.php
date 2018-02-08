@@ -17,11 +17,38 @@ abstract class Mapping
     protected $model;
 
     /**
+     * Index name.
+     *
+     * @var string|null
+     */
+    protected $index;
+
+    /**
      * Mapping constructor.
      */
     public function __construct()
     {
         $this->prepareModel();
+    }
+
+    /**
+     * Gets the index name.
+     *
+     * @return string|null
+     */
+    public function index()
+    {
+        return $this->index;
+    }
+
+    /**
+     * Sets the index name.
+     *
+     * @param string|null $index
+     */
+    public function setIndex($index)
+    {
+        $this->index = $index;
     }
 
     /**
@@ -53,12 +80,12 @@ abstract class Mapping
     }
 
     /**
-     * Get the model elastic type.
+     * Get the model elastic index.
      *
      * @return mixed
      */
     public function getModelIndex()
     {
-        return $this->model->getDocumentIndex();
+        return $this->index() ?: $this->model->getDocumentIndex();
     }
 }

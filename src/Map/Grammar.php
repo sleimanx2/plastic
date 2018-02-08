@@ -272,16 +272,16 @@ class Grammar
     }
 
     /**
-     * Compile a string map.
+     * Compile a text map.
      *
      * @param Fluent $fluent
      *
      * @return array
      */
-    public function compileString(Fluent $fluent)
+    public function compileText(Fluent $fluent)
     {
         $map = [
-            'type'                   => 'string',
+            'type'                   => 'text',
             'analyzer'               => $fluent->analyzer,
             'boost'                  => $fluent->boost,
             'doc_values'             => $fluent->doc_values,

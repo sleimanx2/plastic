@@ -69,9 +69,10 @@ class Mapper
         $batch = $this->repository->getNextBatchNumber();
 
         $step = Arr::get($options, 'step', false);
+        $index = Arr::get($options, 'index');
 
         foreach ($mappings as $file) {
-            $this->runMap($file, $batch);
+            $this->runMap($file, $batch, $index);
 
             if ($step) {
                 $batch++;
@@ -84,10 +85,13 @@ class Mapper
      *
      * @param $file
      * @param $batch
+     * @param string|null $index The index on which to run the mappings instead of the default one.
      */
-    public function runMap($file, $batch)
+    public function runMap($file, $batch, $index = null)
     {
         $mapping = $this->resolve($file);
+
+        $mapping->setIndex($index);
 
         $mapping->map();
 
@@ -101,7 +105,7 @@ class Mapper
      *
      * @param $file
      *
-     * @return mixed
+     * @return Mapping
      */
     public function resolve($file)
     {
