@@ -279,7 +279,7 @@ class AppTag extends Mapping
     public function map()
     {
         Map::create($this->getModelType(), function (Blueprint $map) {
-            $map->text('name')->store('true')->index('analyzed');
+            $map->string('name')->store('true')->index('analyzed');
 
             // instead of the fluent syntax we can use the second method argument to fill the attributes
             $map->completion('suggestion', ['analyzer' => 'simple', 'search_analyzer' => 'simple']);
