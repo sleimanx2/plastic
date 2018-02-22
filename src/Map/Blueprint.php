@@ -90,14 +90,14 @@ class Blueprint
     /**
      * Add a string field to the map.
      *
-     * @param string $field
+     * @param text $field
      * @param array  $attributes
      *
      * @return Fluent
      */
-    public function string($field, $attributes = [])
+    public function text($field, $attributes = [])
     {
-        return $this->addField('string', $field, $attributes);
+        return $this->addField('text', $field, $attributes);
     }
 
     /**
