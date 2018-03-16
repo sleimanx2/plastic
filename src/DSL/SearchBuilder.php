@@ -796,8 +796,7 @@ class SearchBuilder
     /**
      * Paginate result hits.
      *
-     * @param int $limit
-     *
+     * @param int      $limit
      * @param null|int $current
      *
      * @return PlasticPaginator
