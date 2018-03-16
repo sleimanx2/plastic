@@ -526,6 +526,30 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(\Sleimanx2\Plastic\PlasticPaginator::class, $builder->paginate());
     }
 
+    /** @test */
+    public function it_paginates_set_current_page_query_result()
+    {
+        $builder = $this->getBuilder();
+
+        $result = new PlasticResult([
+            'took'      => '200',
+            'timed_out' => false,
+            '_shards'   => 2,
+            'hits'      => [
+                'hits'      => [],
+                'total'     => 0,
+                'max_score' => 0,
+            ],
+        ]);
+        $builder->shouldAllowMockingProtectedMethods();
+        $builder->shouldReceive('getCurrentPage')->once()->with(2)->andReturn(2);
+        $builder->shouldReceive('from')->once()->with(25)->andReturn($builder);
+        $builder->shouldReceive('size')->once()->with(25)->andReturn($builder);
+        $builder->shouldReceive('get')->once()->andReturn($result);
+
+        $this->assertInstanceOf(\Sleimanx2\Plastic\PlasticPaginator::class, $builder->paginate(25, 2));
+    }
+
     /**
      * @test
      */
