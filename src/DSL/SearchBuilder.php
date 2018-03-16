@@ -843,6 +843,6 @@ class SearchBuilder
      */
     protected function getCurrentPage()
     {
-        return \Request::get('page') ? (int) \Request::get('page') : 1;
+        return (int) \Request::get('page', 1);
     }
 }
