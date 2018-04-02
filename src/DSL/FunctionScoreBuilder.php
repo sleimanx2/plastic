@@ -5,9 +5,7 @@ namespace Sleimanx2\Plastic\DSL;
 use ONGR\ElasticsearchDSL\Query\Compound\FunctionScoreQuery;
 
 /**
- * Class FunctionScoreBuilder
- *
- * @package Sleimanx2\Plastic\DSL
+ * Class FunctionScoreBuilder.
  */
 class FunctionScoreBuilder
 {
@@ -20,7 +18,7 @@ class FunctionScoreBuilder
      * FunctionScoreBuilder constructor.
      *
      * @param SearchBuilder $search
-     * @param array $parameters
+     * @param array         $parameters
      */
     public function __construct(SearchBuilder $search, $parameters = [])
     {

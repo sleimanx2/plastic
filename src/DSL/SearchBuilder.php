@@ -704,7 +704,7 @@ class SearchBuilder
      *
      * @param \Closure $search
      * @param \Closure $closure
-     * @param array $parameters
+     * @param array    $parameters
      *
      * @return $this
      */
