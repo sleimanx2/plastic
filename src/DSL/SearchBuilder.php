@@ -700,6 +700,29 @@ class SearchBuilder
     }
 
     /**
+     * Add function score.
+     *
+     * @param \Closure $search
+     * @param \Closure $closure
+     * @param array $parameters
+     *
+     * @return $this
+     */
+    public function functions(\Closure $search, \Closure $closure, $parameters = [])
+    {
+        $builder = new self($this->connection, new $this->query());
+        $search($builder);
+
+        $builder = new FunctionScoreBuilder($builder, $parameters);
+
+        $closure($builder);
+
+        $this->append($builder->getQuery());
+
+        return $this;
+    }
+
+    /**
      * Set the model filler to use after retrieving the results.
      *
      * @param FillerInterface $filler
