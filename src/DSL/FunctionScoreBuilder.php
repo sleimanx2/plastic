@@ -59,7 +59,7 @@ class FunctionScoreBuilder
     /**
      * @param $seed
      */
-    public function random($seed)
+    public function random($seed = null)
     {
         $this->query->addRandomFunction($seed);
     }
