@@ -29,10 +29,11 @@ class FunctionScoreBuilder
      * @param $field
      * @param $factor
      * @param string $modifier
+     * @param null $query
      */
-    public function field($field, $factor, $modifier = 'none')
+    public function field($field, $factor, $modifier = 'none', $query = null)
     {
-        $this->query->addFieldValueFactorFunction($field, $factor, $modifier);
+        $this->query->addFieldValueFactorFunction($field, $factor, $modifier, $query);
     }
 
     /**
@@ -40,36 +41,40 @@ class FunctionScoreBuilder
      * @param $field
      * @param $function
      * @param array $options
+     * @param null $query
      */
-    public function decay($type, $field, $function, $options = [])
+    public function decay($type, $field, $function, $options = [], $query = null)
     {
-        $this->query->addDecayFunction($type, $field, $function, $options);
+        $this->query->addDecayFunction($type, $field, $function, $options, $query);
     }
 
     /**
      * @param $weight
+     * @param null $query
      */
-    public function weight($weight)
+    public function weight($weight, $query = null)
     {
-        $this->query->addWeightFunction($weight);
+        $this->query->addWeightFunction($weight, $query);
     }
 
     /**
      * @param $seed
+     * @param null $query
      */
-    public function random($seed = null)
+    public function random($seed = null, $query = null)
     {
-        $this->query->addRandomFunction($seed);
+        $this->query->addRandomFunction($seed, $query);
     }
 
     /**
      * @param $inline
      * @param array $params
      * @param array $options
+     * @param null $query
      */
-    public function script($inline, $params = [], $options = [])
+    public function script($inline, $params = [], $options = [], $query = null)
     {
-        $this->query->addScriptScoreFunction($inline, $params, $options);
+        $this->query->addScriptScoreFunction($inline, $params, $options, $query);
     }
 
     /**
