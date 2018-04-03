@@ -29,7 +29,7 @@ class FunctionScoreBuilder
      * @param $field
      * @param $factor
      * @param string $modifier
-     * @param null $query
+     * @param null   $query
      */
     public function field($field, $factor, $modifier = 'none', $query = null)
     {
@@ -41,7 +41,7 @@ class FunctionScoreBuilder
      * @param $field
      * @param $function
      * @param array $options
-     * @param null $query
+     * @param null  $query
      */
     public function decay($type, $field, $function, $options = [], $query = null)
     {
@@ -70,7 +70,7 @@ class FunctionScoreBuilder
      * @param $inline
      * @param array $params
      * @param array $options
-     * @param null $query
+     * @param null  $query
      */
     public function script($inline, $params = [], $options = [], $query = null)
     {
