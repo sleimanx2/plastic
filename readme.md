@@ -14,7 +14,7 @@
 composer require sleimanx2/plastic
 ```
 
-Then we need to add the plastic service provider to `config/app.php` under the providers key:
+If you are using **Laravel >=5.5** the service provider will be **automatically discovered** otherwise we need to add the plastic service provider to `config/app.php` under the providers key:
 
 ```php
 Sleimanx2\Plastic\PlasticServiceProvider::class
