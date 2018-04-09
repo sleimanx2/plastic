@@ -451,15 +451,15 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
             $builder->decay('gauss', 'length', [
                 'origin' => 5,
                 'offset' => 1,
-                'scale' => 4,
+                'scale'  => 4,
             ]);
         });
 
         $this->assertEquals([
             'query' => [
                 'function_score' => [
-                    'query' => ['match_all' => ['boost' => 1.0]],
-                    'functions' => [['gauss' => ['length' => ['origin' => 5, 'offset' => 1, 'scale' => 4]]]]
+                    'query'     => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['gauss' => ['length' => ['origin' => 5, 'offset' => 1, 'scale' => 4]]]],
                 ],
             ],
 
@@ -479,8 +479,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'query' => [
                 'function_score' => [
-                    'query' => ['match_all' => ['boost' => 1.0]],
-                    'functions' => [['weight' => 3, 'filter' => ['term' => ['name' => 'abc']]]]
+                    'query'     => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['weight' => 3, 'filter' => ['term' => ['name' => 'abc']]]],
                 ],
             ],
 
@@ -500,8 +500,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'query' => [
                 'function_score' => [
-                    'query' => ['match_all' => ['boost' => 1.0]],
-                    'functions' => [['random_score' => ['seed' => 3], 'filter' => ['term' => ['name' => 'abc']]]]
+                    'query'     => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['random_score' => ['seed' => 3], 'filter' => ['term' => ['name' => 'abc']]]],
                 ],
             ],
 
@@ -521,8 +521,8 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
             'query' => [
                 'function_score' => [
-                    'query' => ['match_all' => ['boost' => 1.0]],
-                    'functions' => [['field_value_factor' => ['field' => 'name', 'factor' => 2, 'modifier' => 'none']]]
+                    'query'     => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['field_value_factor' => ['field' => 'name', 'factor' => 2, 'modifier' => 'none']]],
                 ],
             ],
 
