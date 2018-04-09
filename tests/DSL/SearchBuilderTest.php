@@ -1,5 +1,6 @@
 <?php
 
+use Sleimanx2\Plastic\DSL\SearchBuilder;
 use Sleimanx2\Plastic\PlasticResult;
 
 class SearchBuilderTest extends PHPUnit_Framework_TestCase
@@ -438,6 +439,94 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $builder->highlight();
 
         $this->assertEquals(['highlight' => ['pre_tags' => ['<mark>'], 'post_tags' => ['</mark>'], 'fields' => ['_all' => new stdClass()]]], $builder->toDSL());
+    }
+
+    /** @test */
+    public function it_set_a_decay_function_score()
+    {
+        $builder = $this->getBuilder();
+        $builder->functions(function (SearchBuilder $builder) {
+            $builder->matchAll();
+        }, function ($builder) {
+            $builder->decay('gauss', 'length', [
+                'origin' => 5,
+                'offset' => 1,
+                'scale' => 4,
+            ]);
+        });
+
+        $this->assertEquals([
+            'query' => [
+                'function_score' => [
+                    'query' => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['gauss' => ['length' => ['origin' => 5, 'offset' => 1, 'scale' => 4]]]]
+                ],
+            ],
+
+        ], $builder->toDSL());
+    }
+
+    /** @test */
+    public function it_set_a_weight_function_score()
+    {
+        $builder = $this->getBuilder();
+        $builder->functions(function (SearchBuilder $builder) {
+            $builder->matchAll();
+        }, function ($builder) {
+            $builder->weight(3, new \ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery('name', 'abc'));
+        });
+
+        $this->assertEquals([
+            'query' => [
+                'function_score' => [
+                    'query' => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['weight' => 3, 'filter' => ['term' => ['name' => 'abc']]]]
+                ],
+            ],
+
+        ], $builder->toDSL());
+    }
+
+    /** @test */
+    public function it_set_a_random_function_score()
+    {
+        $builder = $this->getBuilder();
+        $builder->functions(function (SearchBuilder $builder) {
+            $builder->matchAll();
+        }, function ($builder) {
+            $builder->random(3, new \ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery('name', 'abc'));
+        });
+
+        $this->assertEquals([
+            'query' => [
+                'function_score' => [
+                    'query' => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['random_score' => ['seed' => 3], 'filter' => ['term' => ['name' => 'abc']]]]
+                ],
+            ],
+
+        ], $builder->toDSL());
+    }
+
+    /** @test */
+    public function it_set_a_field_function_score()
+    {
+        $builder = $this->getBuilder();
+        $builder->functions(function (SearchBuilder $builder) {
+            $builder->matchAll();
+        }, function ($builder) {
+            $builder->field('name', 2);
+        });
+
+        $this->assertEquals([
+            'query' => [
+                'function_score' => [
+                    'query' => ['match_all' => ['boost' => 1.0]],
+                    'functions' => [['field_value_factor' => ['field' => 'name', 'factor' => 2, 'modifier' => 'none']]]
+                ],
+            ],
+
+        ], $builder->toDSL());
     }
 
     /**
