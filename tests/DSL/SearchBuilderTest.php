@@ -532,6 +532,19 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_set_a_search_after_query()
+    {
+        $builder = $this->getBuilder();
+
+        $time = time();
+        $builder->searchAfter($time);
+
+        $this->assertEquals(['from' => -1, 'search_after' => [$time]], $builder->toDSL());
+    }
+
+    /**
+     * @test
+     */
     public function it_executes_the_query_and_returns_the_raw_result()
     {
         $builder = $this->getBuilder();
