@@ -73,7 +73,7 @@ class EloquentFiller implements FillerInterface
         }
 
         //set sort for search_after query
-        if(isset($hit['sort'])) {
+        if (isset($hit['sort'])) {
             $instance->sort = $hit['sort'];
         }
 

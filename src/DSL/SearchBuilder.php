@@ -687,6 +687,7 @@ class SearchBuilder
      * Set a search_after query.
      *
      * @param $value
+     *
      * @return $this
      */
     public function searchAfter($value)
