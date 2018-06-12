@@ -600,11 +600,11 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $builder->model(new SearchableModelBuilder());
         $return = [
             'count'      => 200,
-            '_shards'   => [
-                'total' => 500,
+            '_shards'    => [
+                'total'      => 500,
                 'successful' => 500,
-                'skipped' => 0,
-                'failed' => 0,
+                'skipped'    => 0,
+                'failed'     => 0,
             ],
         ];
 

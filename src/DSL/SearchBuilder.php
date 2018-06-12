@@ -491,8 +491,8 @@ class SearchBuilder
      *
      * @param string $field
      * @param $type
-     * @param array $coordinates
-     * @param array $attributes
+     * @param array  $coordinates
+     * @param array  $attributes
      * @param string $relation
      *
      * @return $this
