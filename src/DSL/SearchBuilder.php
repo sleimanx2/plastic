@@ -493,14 +493,15 @@ class SearchBuilder
      * @param $type
      * @param array $coordinates
      * @param array $attributes
+     * @param string $relation
      *
      * @return $this
      */
-    public function geoShape($field, $type, array $coordinates = [], array $attributes = [])
+    public function geoShape($field, $type, array $coordinates = [], array $attributes = [], $relation = GeoShapeQuery::INTERSECTS)
     {
         $query = new GeoShapeQuery();
 
-        $query->addShape($field, $type, $coordinates, $attributes);
+        $query->addShape($field, $type, $coordinates, $relation, $attributes);
 
         $this->append($query);
 

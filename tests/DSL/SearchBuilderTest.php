@@ -298,6 +298,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                             'type'        => 'point',
                             'coordinates' => [3.3, 33.3],
                         ],
+                        'relation' => 'intersects',
                     ],
                 ],
             ],
