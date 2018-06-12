@@ -777,6 +777,22 @@ class SearchBuilder
     }
 
     /**
+     * Execute the count query against elastic and return count.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $params = [
+            'index' => $this->getIndex(),
+            'type'  => $this->getType(),
+            'body'  => $this->toDSL(),
+        ];
+
+        return (int) $this->connection->countStatement($params)['count'];
+    }
+
+    /**
      * Return the current elastic type.
      *
      * @return string
