@@ -615,6 +615,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         ])->andReturn($return);
 
         $this->assertEquals(200, $builder->count());
+        $this->assertInternalType('int', $builder->count());
     }
 
     /**
