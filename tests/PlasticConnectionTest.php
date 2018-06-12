@@ -187,6 +187,21 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_executes_a_count_statement_on_client()
+    {
+        $connection = $this->getConnectionMock();
+
+        $client = Mockery::mock('Elasticsearch\Client');
+        $client->shouldReceive('count')->withArgs([['index' => 'plastic']])->andReturn('ok');
+
+        $connection->setClient($client);
+
+        $this->assertEquals('ok', $connection->countStatement([]));
+    }
+
+    /**
+     * @test
+     */
     public function it_executes_a_statement_with_custom_index()
     {
         $connection = $this->getConnectionMock();
@@ -199,6 +214,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $client->shouldReceive('indices->putMapping')->withArgs([['index' => 'custom_index']])->andReturn(true);
         $client->shouldReceive('suggest')->withArgs([['index' => 'custom_index']])->andReturn(true);
         $client->shouldReceive('index')->withArgs([['index' => 'custom_index']])->andReturn(true);
+        $client->shouldReceive('count')->withArgs([['index' => 'custom_index']])->andReturn(true);
 
         $connection->setClient($client);
 
@@ -209,6 +225,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($connection->mapStatement(['index' => 'custom_index']));
         $this->assertTrue($connection->suggestStatement(['index' => 'custom_index']));
         $this->assertTrue($connection->indexStatement(['index' => 'custom_index']));
+        $this->assertTrue($connection->countStatement(['index' => 'custom_index']));
     }
 
     /**
