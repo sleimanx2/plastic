@@ -819,13 +819,14 @@ class SearchBuilder
     /**
      * Paginate result hits.
      *
-     * @param int $limit
+     * @param int      $limit
+     * @param null|int $current
      *
      * @return PlasticPaginator
      */
-    public function paginate($limit = 25)
+    public function paginate($limit = 25, $current = null)
     {
-        $page = $this->getCurrentPage();
+        $page = $this->getCurrentPage($current);
 
         $from = $limit * ($page - 1);
         $size = $limit;
@@ -862,10 +863,12 @@ class SearchBuilder
     /**
      * return the current query string value.
      *
+     * @param null|int $current
+     *
      * @return int
      */
-    protected function getCurrentPage()
+    protected function getCurrentPage($current)
     {
-        return \Request::get('page') ? (int) \Request::get('page') : 1;
+        return $current ?: (int) \Request::get('page', 1);
     }
 }
