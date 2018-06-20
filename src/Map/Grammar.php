@@ -272,16 +272,16 @@ class Grammar
     }
 
     /**
-     * Compile a string map.
+     * Compile a text map.
      *
      * @param Fluent $fluent
      *
      * @return array
      */
-    public function compileString(Fluent $fluent)
+    public function compileText(Fluent $fluent)
     {
         $map = [
-            'type'                   => 'string',
+            'type'                   => 'text',
             'analyzer'               => $fluent->analyzer,
             'boost'                  => $fluent->boost,
             'doc_values'             => $fluent->doc_values,
@@ -299,6 +299,36 @@ class Grammar
             'similarity'             => $fluent->similarity,
             'term_vector'            => $fluent->term_vector,
             'copy_to'                => $fluent->copy_to,
+        ];
+
+        return $this->formatMap($map);
+    }
+
+    /**
+     * Compile a keyword map.
+     *
+     * https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html
+     *
+     * @param Fluent $fluent
+     *
+     * @return array
+     */
+    public function compileKeyword(Fluent $fluent)
+    {
+        $map = [
+            'type'                   => 'keyword',
+            'boost'                  => $fluent->boost,
+            'doc_values'             => $fluent->doc_values,
+            'eager_global_ordinals'  => $fluent->eager_global_ordinals,
+            'fields'                 => $fluent->fields,
+            'ignore_above'           => $fluent->ignore_above,
+            'index'                  => $fluent->index,
+            'index_options'          => $fluent->index_options,
+            'norms'                  => $fluent->norms,
+            'null_value'             => $fluent->null_value,
+            'store'                  => $fluent->store,
+            'similarity'             => $fluent->similarity,
+            'normalizer'             => $fluent->normalizer,
         ];
 
         return $this->formatMap($map);
