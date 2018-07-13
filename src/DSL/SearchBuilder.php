@@ -730,6 +730,8 @@ class SearchBuilder
     public function setModelFiller(FillerInterface $filler)
     {
         $this->modelFiller = $filler;
+        
+        return $this;
     }
 
     /**
