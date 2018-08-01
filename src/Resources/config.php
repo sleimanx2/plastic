@@ -33,7 +33,7 @@ return [
         
         /*
         |--------------------------------------------------------------------------
-        | Connection
+        | Connection parameters
         |--------------------------------------------------------------------------
         |
         | Set connection parameters, like header information etc
@@ -41,7 +41,7 @@ return [
         |
         */
         
-        'connection' => [
+        'params' => [
                  'client' => [
                               'headers' => [
                                    'Authentication' => [ 'Bearer <your_token>' ]
