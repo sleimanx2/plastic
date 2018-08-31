@@ -96,7 +96,7 @@ trait Searchable
             return $this->documentIndex;
         }
 
-        return app('config')->get('plastic.index');
+        return function_exists('config') ? config('plastic.index') : 'plastic';
     }
 
     /**
