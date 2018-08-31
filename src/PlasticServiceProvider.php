@@ -82,7 +82,7 @@ class PlasticServiceProvider extends ServiceProvider
     {
         if (class_exists('Illuminate\Foundation\AliasLoader')) {
             AliasLoader::getInstance()->alias('Plastic', Plastic::class);
-        } else {
+        } elseif(!class_exists('Plastic')) {
             class_alias(Plastic::class, 'Plastic');
         }
     }
