@@ -18,7 +18,6 @@ class PlasticServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         if (function_exists('config_path')) {
             $publishPath = config_path('plastic.php');
         } else {
