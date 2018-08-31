@@ -95,6 +95,8 @@ trait Searchable
         if (isset($this->documentIndex) and !empty($this->documentIndex)) {
             return $this->documentIndex;
         }
+
+        return config('plastic.index');
     }
 
     /**

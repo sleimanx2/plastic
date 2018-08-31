@@ -12,7 +12,7 @@ abstract class Mapping
     /**
      * Eloquent instance.
      *
-     * @var Model
+     * @var Model|Searchable
      */
     protected $model;
 
