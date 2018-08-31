@@ -2,12 +2,10 @@
 
 namespace Sleimanx2\Plastic;
 
-use Illuminate\Foundation\Application;
-
 class PlasticManager
 {
     /**
-     * @var Application
+     * @var \Illuminate\Foundation\Application|\Laravel\Lumen\Application
      */
     private $app;
 
@@ -19,9 +17,9 @@ class PlasticManager
     /**
      * PlasticManager constructor.
      *
-     * @param Application $app
+     * @param \Illuminate\Foundation\Application|\Laravel\Lumen\Application $app
      */
-    public function __construct(Application $app)
+    public function __construct($app)
     {
         $this->app = $app;
     }
