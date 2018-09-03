@@ -151,7 +151,7 @@ class MappingServiceProvider extends ServiceProvider
     {
         if (class_exists('Illuminate\Foundation\AliasLoader')) {
             AliasLoader::getInstance()->alias('Map', Map::class);
-        } elseif(!class_exists('Map')) {
+        } elseif (!class_exists('Map')) {
             class_alias(Map::class, 'Map');
         }
     }
