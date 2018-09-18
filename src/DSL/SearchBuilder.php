@@ -500,7 +500,7 @@ class SearchBuilder
     {
         $query = new GeoShapeQuery();
 
-        $query->addShape($field, $type, $coordinates, $attributes);
+        $query->addShape($field, $type, $coordinates, GeoShapeQuery::INTERSECTS, $attributes);
 
         $this->append($query);
 
@@ -869,6 +869,6 @@ class SearchBuilder
      */
     protected function getCurrentPage($current)
     {
-        return $current ?: (int) \Request::get('page', 1);
+        return $current ?: (int) app('request')->get('page', 1);
     }
 }

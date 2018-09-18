@@ -149,6 +149,10 @@ class MappingServiceProvider extends ServiceProvider
      */
     protected function registerAlias()
     {
-        AliasLoader::getInstance()->alias('Map', Map::class);
+        if (class_exists('Illuminate\Foundation\AliasLoader')) {
+            AliasLoader::getInstance()->alias('Map', Map::class);
+        } elseif (!class_exists('Map')) {
+            class_alias(Map::class, 'Map');
+        }
     }
 }

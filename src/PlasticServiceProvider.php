@@ -18,9 +18,15 @@ class PlasticServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (function_exists('config_path')) {
+            $publishPath = config_path('plastic.php');
+        } else {
+            $publishPath = base_path('config/plastic.php');
+        }
+
         // Publish the configuration path
         $this->publishes([
-            __DIR__.'/Resources/config.php' => config_path('plastic.php'),
+            __DIR__.'/Resources/config.php' => $publishPath,
         ]);
 
         // Create the mapping folder
@@ -74,6 +80,10 @@ class PlasticServiceProvider extends ServiceProvider
      */
     protected function registerAlias()
     {
-        AliasLoader::getInstance()->alias('Plastic', Plastic::class);
+        if (class_exists('Illuminate\Foundation\AliasLoader')) {
+            AliasLoader::getInstance()->alias('Plastic', Plastic::class);
+        } elseif (!class_exists('Plastic')) {
+            class_alias(Plastic::class, 'Plastic');
+        }
     }
 }

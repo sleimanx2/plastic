@@ -34,10 +34,10 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_returns_null_as_elastic_index_if_no_index_field()
+    public function it_return_default_index_if_no_index_field()
     {
         $model = new SearchableModelTest();
-        $this->assertEquals(null, $model->getDocumentIndex());
+        $this->assertEquals('plastic', $model->getDocumentIndex());
     }
 
     /**
