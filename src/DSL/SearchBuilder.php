@@ -500,7 +500,7 @@ class SearchBuilder
     {
         $query = new GeoShapeQuery();
 
-        $query->addShape($field, $type, $coordinates, $attributes);
+        $query->addShape($field, $type, $coordinates, GeoShapeQuery::INTERSECTS, $attributes);
 
         $this->append($query);
 
