@@ -38,6 +38,8 @@ class Populate extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws \Exception
      */
     public function handle()
     {
@@ -94,7 +96,7 @@ class Populate extends Command
         foreach ($models as $model) {
             $this->line('Indexing documents of model « '.$model.' » ...');
             $model::chunk($chunkSize, function ($items) {
-                $this->line('Indexing chunk of '.$items->count().' documents ...');
+                $this->line('Indexing chunk of '.count($items).' documents ...');
                 Plastic::persist()->bulkSave($items);
             });
         }

@@ -38,6 +38,8 @@ class Creator
      * @param $model
      * @param $path
      *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
      * @return string
      */
     public function create($model, $path)

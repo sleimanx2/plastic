@@ -3,6 +3,7 @@
 namespace Sleimanx2\Plastic\Mappings;
 
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
+use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Mapping log repository.
@@ -136,7 +137,7 @@ class Mappings
      */
     public function createRepository()
     {
-        $this->schema()->create($this->table, function ($table) {
+        $this->schema()->create($this->table, function (Blueprint $table) {
 
             // The mappings table is responsible for keeping track of which of the
             // mappings have actually run for the application. We'll create the
@@ -182,7 +183,7 @@ class Mappings
     /**
      * Resolve the database connection instance.
      *
-     * @return \Illuminate\Database\ConnectionInterface
+     * @return \Illuminate\Database\ConnectionInterface|\Illuminate\Database\Connection
      */
     public function getConnection()
     {

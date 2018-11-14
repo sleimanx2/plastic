@@ -47,6 +47,8 @@ class Make extends BaseCommand
 
     /**
      * Execute the console command.
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function handle()
     {
@@ -61,6 +63,8 @@ class Make extends BaseCommand
      * Create the mapping file.
      *
      * @param $model
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     private function writeMapping($model)
     {

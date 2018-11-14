@@ -62,7 +62,7 @@ class Connection
     /**
      * Get map grammar instance for this connection.
      *
-     * @return MapBuilder
+     * @return MapGrammar
      */
     public function getMapGrammar()
     {
@@ -70,9 +70,9 @@ class Connection
     }
 
     /**
-     * Get DSL grammar instance for this connection.
+     * Get DSL query instance for this connection.
      *
-     * @return DSLGrammar
+     * @return DSLQuery
      */
     public function getDSLQuery()
     {
@@ -80,7 +80,7 @@ class Connection
     }
 
     /**
-     * Get the elastic search client instance.
+     * Get the Elasticsearch client instance.
      *
      * @return Client
      */
@@ -102,9 +102,7 @@ class Connection
     /**
      * Set the default index.
      *
-     * @param $index
-     *
-     * @return Connection
+     * @param string $index
      */
     public function setDefaultIndex($index)
     {
@@ -112,7 +110,7 @@ class Connection
     }
 
     /**
-     * Execute a map statement on index;.
+     * Execute a map statement on index.
      *
      * @param array $mappings
      *
@@ -124,7 +122,7 @@ class Connection
     }
 
     /**
-     * Execute a map statement on index;.
+     * Execute a search statement on index.
      *
      * @param array $search
      *
@@ -136,7 +134,7 @@ class Connection
     }
 
     /**
-     * Execute a map statement on index;.
+     * Execute a suggest statement on index.
      *
      * @param array $suggestions
      *
@@ -148,7 +146,7 @@ class Connection
     }
 
     /**
-     * Execute a insert statement on index;.
+     * Execute an insert statement on index.
      *
      * @param $params
      *
@@ -160,7 +158,7 @@ class Connection
     }
 
     /**
-     * Execute a update statement on index;.
+     * Execute an update statement on index.
      *
      * @param $params
      *
@@ -172,7 +170,7 @@ class Connection
     }
 
     /**
-     * Execute a update statement on index;.
+     * Execute a delete statement on index.
      *
      * @param $params
      *
@@ -184,7 +182,7 @@ class Connection
     }
 
     /**
-     * Execute a exists statement on index.
+     * Execute an exists statement on index.
      *
      * @param array $params
      *
@@ -196,7 +194,7 @@ class Connection
     }
 
     /**
-     * Execute a bulk statement on index;.
+     * Execute a bulk statement on index.
      *
      * @param $params
      *
@@ -238,7 +236,7 @@ class Connection
     }
 
     /**
-     * Create an elastic search instance.
+     * Create an Elasticsearch instance.
      *
      * @param array $config
      *

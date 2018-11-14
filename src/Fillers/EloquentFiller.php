@@ -35,6 +35,8 @@ class EloquentFiller implements FillerInterface
      * @param $model
      * @param array $hit
      *
+     * @throws \ReflectionException
+     *
      * @return static
      */
     public function fillModel(Model $model, $hit = [])
@@ -82,6 +84,8 @@ class EloquentFiller implements FillerInterface
      * @param array    $attributes
      * @param Relation $parentRelation
      *
+     * @throws \ReflectionException
+     *
      * @return mixed
      */
     public function newFromBuilderRecursive(Model $model, array $attributes = [], Relation $parentRelation = null)
@@ -105,6 +109,8 @@ class EloquentFiller implements FillerInterface
      * Get the relations attributes from a model.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
+     *
+     * @throws \ReflectionException
      */
     protected function loadRelationsAttributesRecursive(Model $model)
     {

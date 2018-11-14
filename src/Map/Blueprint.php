@@ -18,7 +18,7 @@ class Blueprint
     /**
      * The fields that should be mapped.
      *
-     * @var array
+     * @var Fluent[]
      */
     protected $fields = [];
 
@@ -30,7 +30,7 @@ class Blueprint
     protected $commands = [];
 
     /**
-     * @var elastic search index
+     * @var string Elasticsearch index
      */
     private $index;
 
@@ -285,7 +285,7 @@ class Blueprint
     /**
      * Add a nested map.
      *
-     * @param $field
+     * @param string  $field
      * @param Closure $callback
      *
      * @return Fluent
@@ -298,7 +298,7 @@ class Blueprint
     /**
      * Add a object map.
      *
-     * @param         $field
+     * @param string  $field
      * @param Closure $callback
      *
      * @return Fluent
@@ -329,7 +329,7 @@ class Blueprint
     /**
      * Get the registered fields.
      *
-     * @return array
+     * @return Fluent[]
      */
     public function getFields()
     {
@@ -339,7 +339,7 @@ class Blueprint
     /**
      * Get the command fields.
      *
-     * @return array
+     * @return Fluent[]
      */
     public function getCommands()
     {

@@ -390,7 +390,7 @@ class Grammar
     /**
      * Compile an array of fluent fields.
      *
-     * @param $fields
+     * @param Fluent[] $fields
      *
      * @return array
      */
