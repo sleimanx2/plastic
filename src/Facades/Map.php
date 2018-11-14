@@ -17,7 +17,7 @@ class Map extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        /** @noinspection PhpUndefinedMethodInspection */
+        /* @noinspection PhpUndefinedMethodInspection */
         return static::$app['plastic']->connection()->getMapBuilder();
     }
 }

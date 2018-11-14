@@ -38,8 +38,9 @@ class Creator
      * @param $model
      * @param $path
      *
-     * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
+     * @return string
      */
     public function create($model, $path)
     {
@@ -67,8 +68,9 @@ class Creator
     /**
      * Get the mapping stub template.
      *
-     * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
+     * @return string
      */
     protected function getStub()
     {
