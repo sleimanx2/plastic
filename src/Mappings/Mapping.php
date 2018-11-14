@@ -2,7 +2,6 @@
 
 namespace Sleimanx2\Plastic\Mappings;
 
-use Illuminate\Database\Eloquent\Model;
 use Sleimanx2\Plastic\Exception\InvalidArgumentException;
 use Sleimanx2\Plastic\Exception\MissingArgumentException;
 use Sleimanx2\Plastic\Searchable;
@@ -12,7 +11,7 @@ abstract class Mapping
     /**
      * Eloquent instance.
      *
-     * @var Model
+     * @var \Sleimanx2\Plastic\Searchable
      */
     protected $model;
 

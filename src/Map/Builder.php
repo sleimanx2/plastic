@@ -41,11 +41,11 @@ class Builder
     }
 
     /**
-     * Create a map on your elasticsearch index.
+     * Create a map on your Elasticsearch index.
      *
      * @param string  $type
-     * @param string  $index
      * @param Closure $callback
+     * @param string  $index
      */
     public function create($type, Closure $callback, $index = null)
     {
@@ -98,8 +98,6 @@ class Builder
      * Set the Schema Blueprint resolver callback.
      *
      * @param \Closure $resolver
-     *
-     * @return void
      */
     public function blueprintResolver(Closure $resolver)
     {

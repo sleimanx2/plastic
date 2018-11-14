@@ -286,6 +286,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
      */
     public function it_set_a_geoShape_query()
     {
+        /** @var \Sleimanx2\Plastic\DSL\SearchBuilder $builder */
         $builder = $this->getBuilder();
 
         $builder->geoShape('area', 'point', [3.3, 33.3]);
@@ -298,6 +299,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                             'type'        => 'point',
                             'coordinates' => [3.3, 33.3],
                         ],
+                        'relation' => 'intersects',
                     ],
                 ],
             ],

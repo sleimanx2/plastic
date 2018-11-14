@@ -14,7 +14,7 @@ use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 trait Searchable
 {
     /**
-     * Is indexed in elastic search.
+     * Is indexed in Elasticsearch.
      *
      * @var bool
      */

@@ -63,7 +63,7 @@ class SearchBuilder
     public $index;
 
     /**
-     * The model to use when querying elastic search.
+     * The model to use when querying Elasticsearch.
      *
      * @var Model
      */
@@ -99,7 +99,7 @@ class SearchBuilder
     public function __construct(Connection $connection, Query $grammar = null)
     {
         $this->connection = $connection;
-        $this->query = $grammar ?: $connection->getDSLGrammar();
+        $this->query = $grammar ?: $connection->getDSLQuery();
     }
 
     /**
@@ -131,7 +131,7 @@ class SearchBuilder
     }
 
     /**
-     * Set the eloquent model to use when querying elastic search.
+     * Set the eloquent model to use when querying Elasticsearch.
      *
      * @param Model|Searchable $model
      *
@@ -212,7 +212,7 @@ class SearchBuilder
     /**
      * Set the query min score value.
      *
-     * @param $score
+     * @param int $score
      *
      * @return $this
      */
@@ -500,7 +500,7 @@ class SearchBuilder
     {
         $query = new GeoShapeQuery();
 
-        $query->addShape($field, $type, $coordinates, $attributes);
+        $query->addShape($field, $type, $coordinates, GeoShapeQuery::INTERSECTS, $attributes);
 
         $this->append($query);
 
@@ -610,6 +610,7 @@ class SearchBuilder
      * Add a regexp query.
      *
      * @param string $field
+     * @param string $regex
      * @param array  $attributes
      *
      * @return $this

@@ -27,7 +27,7 @@ class PlasticManager
     }
 
     /**
-     * Get an elastic search connection instance.
+     * Get an Elasticsearch connection instance.
      */
     public function connection()
     {

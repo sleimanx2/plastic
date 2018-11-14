@@ -184,7 +184,7 @@ class Mapper
     /**
      * Return a filesystem instance.
      *
-     * @return Filesystem
+     * @return Mappings
      */
     public function getRepository()
     {

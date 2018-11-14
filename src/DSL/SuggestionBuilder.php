@@ -69,10 +69,10 @@ class SuggestionBuilder
     /**
      * Add a completion suggestion.
      *
-     * @param $name
-     * @param $text
-     * @param $field
-     * @param array $parameters
+     * @param string $name
+     * @param string $text
+     * @param string $field
+     * @param array  $parameters
      *
      * @return $this
      *
@@ -92,8 +92,8 @@ class SuggestionBuilder
      *
      * @param string $name
      * @param string $text
-     * @param $field
-     * @param array $parameters
+     * @param string $field
+     * @param array  $parameters
      *
      * @return $this
      */
@@ -144,7 +144,7 @@ class SuggestionBuilder
     /**
      * Append a suggestion to query.
      *
-     * @param $suggestion
+     * @param \ONGR\ElasticsearchDSL\BuilderInterface $suggestion
      */
     public function append($suggestion)
     {
