@@ -1,15 +1,15 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace LoRDFM\Plastic;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use ONGR\ElasticsearchDSL\Search as DSLQuery;
-use Sleimanx2\Plastic\DSL\SearchBuilder;
-use Sleimanx2\Plastic\DSL\SuggestionBuilder;
-use Sleimanx2\Plastic\Map\Builder as MapBuilder;
-use Sleimanx2\Plastic\Map\Grammar as MapGrammar;
-use Sleimanx2\Plastic\Persistence\EloquentPersistence;
+use LoRDFM\Plastic\DSL\SearchBuilder;
+use LoRDFM\Plastic\DSL\SuggestionBuilder;
+use LoRDFM\Plastic\Map\Builder as MapBuilder;
+use LoRDFM\Plastic\Map\Grammar as MapGrammar;
+use LoRDFM\Plastic\Persistence\EloquentPersistence;
 
 class Connection
 {

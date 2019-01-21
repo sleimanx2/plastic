@@ -1,9 +1,9 @@
 <?php
 
-namespace Sleimanx2\Plastic\Console\Mapping;
+namespace LoRDFM\Plastic\Console\Mapping;
 
 use Illuminate\Console\ConfirmableTrait;
-use Sleimanx2\Plastic\Mappings\Mapper;
+use LoRDFM\Plastic\Mappings\Mapper;
 
 class Run extends BaseCommand
 {

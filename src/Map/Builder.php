@@ -1,10 +1,10 @@
 <?php
 
-namespace Sleimanx2\Plastic\Map;
+namespace LoRDFM\Plastic\Map;
 
 use Closure;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
+use LoRDFM\Plastic\Connection;
+use LoRDFM\Plastic\Exception\InvalidArgumentException;
 
 class Builder
 {
