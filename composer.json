@@ -1,27 +1,26 @@
 {
-  "name": "sleimanx2/plastic",
+  "name": "lordfm/plastic",
   "license": "MIT",
   "description": "Plastic is an Elasticsearch ODM and mapper for Laravel. It renders the developer experience more enjoyable while using Elasticsearch by providing a fluent syntax for mapping , querying and storing eloquent models.",
   "keywords": ["elasticsearch","elastic","laravel","eloquent","model","ODM","mapper"],
-  "homepage": "https://github.com/sleimanx2/plastic",
+  "homepage": "https://github.com/lorduriel/plastic",
   "authors": [
     {
-      "name": "Sleiman Sleiman",
-      "email": "sleiman@outlook.com",
-      "homepage": "http://bowtie.land",
+      "name": "LoRDFM",
+      "email": "urieluvd@gmail.com",
       "role": "Developer"
     }
   ],
   "require": {
     "php": ">=5.5.9",
     "elasticsearch/elasticsearch": "~5.1",
-    "ongr/elasticsearch-dsl": "dev-master",
-    "illuminate/container": "5.2.*|5.3.*",
-    "illuminate/contracts": "5.2.*|5.3.*",
-    "illuminate/console": "5.2.*|5.3.*",
-    "illuminate/pagination": "5.2.*|5.3.*",
-    "illuminate/support": "5.2.*|5.3.*",
-    "illuminate/database": "5.2.*|5.3.*"
+    "ongr/elasticsearch-dsl": "~2.0",
+    "illuminate/container": "5.2.*|5.3.*|5.4.*",
+    "illuminate/contracts": "5.2.*|5.3.*|5.4.*",
+    "illuminate/console": "5.2.*|5.3.*|5.4.*",
+    "illuminate/pagination": "5.2.*|5.3.*|5.4.*",
+    "illuminate/support": "5.2.*|5.3.*|5.4.*",
+    "illuminate/database": "5.2.*|5.3.*|5.4.*"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
@@ -30,12 +29,15 @@
   },
   "autoload": {
     "psr-4": {
-      "Sleimanx2\\Plastic\\": "src/"
+      "LoRDFM\\Plastic\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Sleimanx2\\Plastic\\Tests\\": "tests/"
+      "LoRDFM\\Plastic\\Tests\\": "tests/"
     }
+  },
+  "config": {
+    "preferred-install": "dist"
   }
 }
