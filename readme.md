@@ -1,5 +1,13 @@
 ![Plastic Logo](http://i.imgur.com/PyolY7g.png)
 
+
+
+> Forked from sleimanx2/plastic
+
+> This is just a fork to address a PlasticPaginator bug in v0.3.1 solved in latest versions but only for PHP >= 7.0.0.
+
+> Intended to be used in PHP 5.6.* and keep adding functionality of latest versions for older versions PHP and ElasticSearch.
+
 > Plastic is an Elasticsearch ODM and mapper for Laravel. It renders the developer experience more enjoyable while using Elasticsearch, by providing a fluent syntax for mapping, querying, and storing eloquent models.
 
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/LoRDFM/plastic) [![Build Status](https://travis-ci.org/LoRDFM/plastic.svg?branch=master&&refresh=2)](https://travis-ci.org/LoRDFM/plastic) [![StyleCI](https://styleci.io/repos/58264395/shield)](https://styleci.io/repos/58264395)
