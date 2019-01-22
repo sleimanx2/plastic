@@ -9,7 +9,7 @@
 # Installing Plastic
 
 ```bash
-composer require LoRDFM/plastic
+composer require lordfm/plastic=v0.3.1
 ```
 
 Then we need to add the plastic service provider to `config/app.php` under the providers key:
