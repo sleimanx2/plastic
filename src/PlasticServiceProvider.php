@@ -1,10 +1,10 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace LoRDFM\Plastic;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Sleimanx2\Plastic\Facades\Plastic;
+use LoRDFM\Plastic\Facades\Plastic;
 
 /**
  * @codeCoverageIgnore

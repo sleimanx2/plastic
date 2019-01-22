@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\Mappings;
+namespace LoRDFM\Plastic\Mappings;
 
 use Closure;
 use Illuminate\Filesystem\Filesystem;

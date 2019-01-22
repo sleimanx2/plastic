@@ -1,6 +1,6 @@
 <?php
 
-use Sleimanx2\Plastic\PlasticResult;
+use LoRDFM\Plastic\PlasticResult;
 
 class SearchBuilderTest extends PHPUnit_Framework_TestCase
 {
@@ -58,7 +58,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     public function it_throws_an_exception_if_provided_with_a_none_searchable_model()
     {
         $builder = $this->getBuilder();
-        $this->setExpectedException('Sleimanx2\Plastic\Exception\InvalidArgumentException');
+        $this->setExpectedException('LoRDFM\Plastic\Exception\InvalidArgumentException');
         $builder->model(new NotSearchableModelBuilder());
     }
 
@@ -477,7 +477,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $builder = $this->getBuilder();
         $connection = $builder->getConnection();
         $builder->model(new SearchableModelBuilder());
-        $filler = Mockery::mock('Sleimanx2\Plastic\Fillers\EloquentFiller');
+        $filler = Mockery::mock('LoRDFM\Plastic\Fillers\EloquentFiller');
         $builder->setModelFiller($filler);
         $return = [
             'took'      => '200',
@@ -523,21 +523,21 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         $builder->shouldReceive('size')->once()->with(25)->andReturn($builder);
         $builder->shouldReceive('get')->once()->andReturn($result);
 
-        $this->assertInstanceOf(\Sleimanx2\Plastic\PlasticPaginator::class, $builder->paginate());
+        $this->assertInstanceOf(\LoRDFM\Plastic\PlasticPaginator::class, $builder->paginate());
     }
 
     private function getBuilder()
     {
-        $connection = Mockery::mock('Sleimanx2\Plastic\Connection');
+        $connection = Mockery::mock('LoRDFM\Plastic\Connection');
         $query = new \ONGR\ElasticsearchDSL\Search();
 
-        return Mockery::mock('Sleimanx2\Plastic\DSL\SearchBuilder', [$connection, $query])->makePartial();
+        return Mockery::mock('LoRDFM\Plastic\DSL\SearchBuilder', [$connection, $query])->makePartial();
     }
 }
 
 class SearchableModelBuilder extends \Illuminate\Database\Eloquent\Model
 {
-    use \Sleimanx2\Plastic\Searchable;
+    use \LoRDFM\Plastic\Searchable;
 
     public $documentIndex = 'model_index';
 }

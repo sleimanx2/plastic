@@ -1,13 +1,13 @@
 <?php
 
-namespace Sleimanx2\Plastic\Persistence;
+namespace LoRDFM\Plastic\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
-use Sleimanx2\Plastic\Exception\MissingArgumentException;
-use Sleimanx2\Plastic\Searchable;
+use LoRDFM\Plastic\Connection;
+use LoRDFM\Plastic\Exception\InvalidArgumentException;
+use LoRDFM\Plastic\Exception\MissingArgumentException;
+use LoRDFM\Plastic\Searchable;
 
 class EloquentPersistence
 {

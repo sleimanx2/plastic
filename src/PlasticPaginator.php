@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace LoRDFM\Plastic;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 

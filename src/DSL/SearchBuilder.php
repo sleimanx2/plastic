@@ -1,8 +1,9 @@
 <?php
 
-namespace Sleimanx2\Plastic\DSL;
+namespace LoRDFM\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Traits\Macroable;
 use ONGR\ElasticsearchDSL\Query\FullText\CommonTermsQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\MultiMatchQuery;
@@ -10,9 +11,9 @@ use ONGR\ElasticsearchDSL\Query\FullText\QueryStringQuery;
 use ONGR\ElasticsearchDSL\Query\FullText\SimpleQueryStringQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoBoundingBoxQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoDistanceQuery;
-use ONGR\ElasticsearchDSL\Query\Geo\GeoDistanceRangeQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoPolygonQuery;
 use ONGR\ElasticsearchDSL\Query\Geo\GeoShapeQuery;
+use ONGR\ElasticsearchDSL\Query\Geo\GeoDistanceRangeQuery;
 use ONGR\ElasticsearchDSL\Query\Joining\NestedQuery;
 use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchDSL\Query\TermLevel\ExistsQuery;
@@ -26,16 +27,18 @@ use ONGR\ElasticsearchDSL\Query\TermLevel\TermsQuery;
 use ONGR\ElasticsearchDSL\Query\TermLevel\WildcardQuery;
 use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
-use Sleimanx2\Plastic\Fillers\EloquentFiller;
-use Sleimanx2\Plastic\Fillers\FillerInterface;
-use Sleimanx2\Plastic\PlasticPaginator;
-use Sleimanx2\Plastic\PlasticResult;
-use Sleimanx2\Plastic\Searchable;
+use LoRDFM\Plastic\Connection;
+use LoRDFM\Plastic\Exception\InvalidArgumentException;
+use LoRDFM\Plastic\Fillers\EloquentFiller;
+use LoRDFM\Plastic\Fillers\FillerInterface;
+use LoRDFM\Plastic\PlasticPaginator;
+use LoRDFM\Plastic\PlasticResult;
+use LoRDFM\Plastic\Searchable;
 
 class SearchBuilder
 {
+    use Macroable;
+
     /**
      * An instance of DSL query.
      *
@@ -144,7 +147,7 @@ class SearchBuilder
     public function model(Model $model)
     {
         // Check if the model is searchable before setting the query builder model
-        $traits = class_uses($model);
+        $traits = class_uses_recursive(get_class($model));
 
         if (!isset($traits[Searchable::class])) {
             throw new InvalidArgumentException(get_class($model).' does not use the searchable trait');
@@ -792,9 +795,9 @@ class SearchBuilder
      *
      * @return PlasticPaginator
      */
-    public function paginate($limit = 25)
+    public function paginate($limit = 25, $current = null)
     {
-        $page = $this->getCurrentPage();
+        $page = $this->getCurrentPage($current);
 
         $from = $limit * ($page - 1);
         $size = $limit;
@@ -837,8 +840,8 @@ class SearchBuilder
      *
      * @return int
      */
-    protected function getCurrentPage()
+    protected function getCurrentPage($current)
     {
-        return \Request::get('page') ? (int) \Request::get('page') : 1;
+        return $current ?: (int) \Request::get('page', 1);
     }
 }

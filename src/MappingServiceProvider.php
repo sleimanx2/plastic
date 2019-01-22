@@ -1,18 +1,18 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace LoRDFM\Plastic;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Sleimanx2\Plastic\Console\Mapping\Install;
-use Sleimanx2\Plastic\Console\Mapping\Make;
-use Sleimanx2\Plastic\Console\Mapping\ReRun;
-use Sleimanx2\Plastic\Console\Mapping\Reset;
-use Sleimanx2\Plastic\Console\Mapping\Run;
-use Sleimanx2\Plastic\Facades\Map;
-use Sleimanx2\Plastic\Mappings\Creator;
-use Sleimanx2\Plastic\Mappings\Mapper;
-use Sleimanx2\Plastic\Mappings\Mappings;
+use LoRDFM\Plastic\Console\Mapping\Install;
+use LoRDFM\Plastic\Console\Mapping\Make;
+use LoRDFM\Plastic\Console\Mapping\ReRun;
+use LoRDFM\Plastic\Console\Mapping\Reset;
+use LoRDFM\Plastic\Console\Mapping\Run;
+use LoRDFM\Plastic\Facades\Map;
+use LoRDFM\Plastic\Mappings\Creator;
+use LoRDFM\Plastic\Mappings\Mapper;
+use LoRDFM\Plastic\Mappings\Mappings;
 
 /**
  * @codeCoverageIgnore

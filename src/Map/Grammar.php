@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\Map;
+namespace LoRDFM\Plastic\Map;
 
 use Illuminate\Support\Fluent;
 
