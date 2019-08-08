@@ -1,10 +1,10 @@
 <?php
 
-namespace Sleimanx2\Plastic\DSL;
+namespace Nuwber\Plastic\DSL;
 
 use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Suggest\Suggest;
-use Sleimanx2\Plastic\Connection;
+use Nuwber\Plastic\Connection;
 
 class SuggestionBuilder
 {

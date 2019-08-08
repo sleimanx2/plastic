@@ -1,10 +1,10 @@
 <?php
 
-namespace Sleimanx2\Plastic\Map;
+namespace Nuwber\Plastic\Map;
 
 use Closure;
 use Illuminate\Support\Fluent;
-use Sleimanx2\Plastic\Connection;
+use Nuwber\Plastic\Connection;
 
 class Blueprint
 {

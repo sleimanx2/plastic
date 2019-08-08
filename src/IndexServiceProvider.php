@@ -1,9 +1,9 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace Nuwber\Plastic;
 
 use Illuminate\Support\ServiceProvider;
-use Sleimanx2\Plastic\Console\Index\Populate;
+use Nuwber\Plastic\Console\Index\Populate;
 
 /**
  * @codeCoverageIgnore

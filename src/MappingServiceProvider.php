@@ -1,18 +1,18 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace Nuwber\Plastic;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Sleimanx2\Plastic\Console\Mapping\Install;
-use Sleimanx2\Plastic\Console\Mapping\Make;
-use Sleimanx2\Plastic\Console\Mapping\ReRun;
-use Sleimanx2\Plastic\Console\Mapping\Reset;
-use Sleimanx2\Plastic\Console\Mapping\Run;
-use Sleimanx2\Plastic\Facades\Map;
-use Sleimanx2\Plastic\Mappings\Creator;
-use Sleimanx2\Plastic\Mappings\Mapper;
-use Sleimanx2\Plastic\Mappings\Mappings;
+use Nuwber\Plastic\Console\Mapping\Install;
+use Nuwber\Plastic\Console\Mapping\Make;
+use Nuwber\Plastic\Console\Mapping\ReRun;
+use Nuwber\Plastic\Console\Mapping\Reset;
+use Nuwber\Plastic\Console\Mapping\Run;
+use Nuwber\Plastic\Facades\Map;
+use Nuwber\Plastic\Mappings\Creator;
+use Nuwber\Plastic\Mappings\Mapper;
+use Nuwber\Plastic\Mappings\Mappings;
 
 /**
  * @codeCoverageIgnore

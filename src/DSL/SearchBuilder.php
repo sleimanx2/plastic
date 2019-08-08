@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\DSL;
+namespace Nuwber\Plastic\DSL;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Traits\Macroable;
@@ -29,13 +29,13 @@ use ONGR\ElasticsearchDSL\Query\TermLevel\TermsQuery;
 use ONGR\ElasticsearchDSL\Query\TermLevel\WildcardQuery;
 use ONGR\ElasticsearchDSL\Search as Query;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
-use Sleimanx2\Plastic\Fillers\EloquentFiller;
-use Sleimanx2\Plastic\Fillers\FillerInterface;
-use Sleimanx2\Plastic\PlasticPaginator;
-use Sleimanx2\Plastic\PlasticResult;
-use Sleimanx2\Plastic\Searchable;
+use Nuwber\Plastic\Connection;
+use Nuwber\Plastic\Exception\InvalidArgumentException;
+use Nuwber\Plastic\Fillers\EloquentFiller;
+use Nuwber\Plastic\Fillers\FillerInterface;
+use Nuwber\Plastic\PlasticPaginator;
+use Nuwber\Plastic\PlasticResult;
+use Nuwber\Plastic\Searchable;
 
 class SearchBuilder
 {

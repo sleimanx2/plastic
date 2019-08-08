@@ -1,12 +1,12 @@
 <?php
 
-namespace Sleimanx2\Plastic\Fillers;
+namespace Nuwber\Plastic\Fillers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use ReflectionMethod;
-use Sleimanx2\Plastic\PlasticResult as Result;
+use Nuwber\Plastic\PlasticResult as Result;
 
 class EloquentFiller implements FillerInterface
 {

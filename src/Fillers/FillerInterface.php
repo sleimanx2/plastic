@@ -1,9 +1,9 @@
 <?php
 
-namespace Sleimanx2\Plastic\Fillers;
+namespace Nuwber\Plastic\Fillers;
 
 use Illuminate\Database\Eloquent\Model;
-use Sleimanx2\Plastic\PlasticResult as  Result;
+use Nuwber\Plastic\PlasticResult as  Result;
 
 interface FillerInterface
 {

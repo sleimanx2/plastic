@@ -1,10 +1,10 @@
 <?php
 
-namespace Sleimanx2\Plastic\Console\Mapping;
+namespace Nuwber\Plastic\Console\Mapping;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
-use Sleimanx2\Plastic\Mappings\Mappings;
+use Nuwber\Plastic\Mappings\Mappings;
 
 class Reset extends Command
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace Nuwber\Plastic;
 
 use Illuminate\Foundation\Application;
 
