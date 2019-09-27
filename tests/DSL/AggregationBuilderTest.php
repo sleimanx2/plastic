@@ -262,6 +262,6 @@ class AggregationBuilderTest extends PHPUnit_Framework_TestCase
     {
         $query = new \ONGR\ElasticsearchDSL\Search();
 
-        return new Sleimanx2\Plastic\DSL\AggregationBuilder($query);
+        return new Nuwber\Plastic\DSL\AggregationBuilder($query);
     }
 }

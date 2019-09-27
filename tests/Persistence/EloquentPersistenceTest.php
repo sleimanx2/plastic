@@ -3,9 +3,9 @@
 namespace plastic\tests\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Persistence\EloquentPersistence;
-use Sleimanx2\Plastic\Searchable;
+use Nuwber\Plastic\Connection;
+use Nuwber\Plastic\Persistence\EloquentPersistence;
+use Nuwber\Plastic\Searchable;
 
 class EloquentPersistenceTest extends \PHPUnit_Framework_TestCase
 {

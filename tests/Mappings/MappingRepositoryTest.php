@@ -23,7 +23,7 @@ class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_last_bach_of_ran_mappings()
     {
-        $repo = $this->getMock('Sleimanx2\Plastic\Mappings\Mappings', ['getLastBatchNumber'], [
+        $repo = $this->getMock('Nuwber\Plastic\Mappings\Mappings', ['getLastBatchNumber'], [
             $resolver = Mockery::mock('Illuminate\Database\ConnectionResolverInterface'), 'mappings',
         ]);
         $repo->expects($this->once())->method('getLastBatchNumber')->will($this->returnValue(1));
@@ -72,7 +72,7 @@ class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_current_batch_number_plus_one()
     {
-        $repo = $this->getMock('Sleimanx2\Plastic\Mappings\Mappings', ['getLastBatchNumber'], [
+        $repo = $this->getMock('Nuwber\Plastic\Mappings\Mappings', ['getLastBatchNumber'], [
             Mockery::mock('Illuminate\Database\ConnectionResolverInterface'), 'mappings',
         ]);
         $repo->expects($this->once())->method('getLastBatchNumber')->will($this->returnValue(1));
@@ -109,6 +109,6 @@ class MappingRepositoryTest extends \PHPUnit_Framework_TestCase
 
     protected function getRepository()
     {
-        return new \Sleimanx2\Plastic\Mappings\Mappings(Mockery::mock('Illuminate\Database\ConnectionResolverInterface'), 'mappings');
+        return new \Nuwber\Plastic\Mappings\Mappings(Mockery::mock('Illuminate\Database\ConnectionResolverInterface'), 'mappings');
     }
 }

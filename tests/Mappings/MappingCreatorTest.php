@@ -19,6 +19,6 @@ class MappingCreatorTest extends \PHPUnit_Framework_TestCase
     {
         $files = Mockery::mock('Illuminate\Filesystem\Filesystem');
 
-        return new \Sleimanx2\Plastic\Mappings\Creator($files);
+        return new \Nuwber\Plastic\Mappings\Creator($files);
     }
 }

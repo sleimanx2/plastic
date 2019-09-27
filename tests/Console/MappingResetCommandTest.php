@@ -7,9 +7,9 @@ class MappingResetCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function it_truncates_the_mappings_table()
     {
-        $repo = Mockery::mock('Sleimanx2\Plastic\Mappings\Mappings');
+        $repo = Mockery::mock('Nuwber\Plastic\Mappings\Mappings');
         $vendorDir = __DIR__.'/vendor';
-        $command = new \Sleimanx2\Plastic\Console\Mapping\Reset($repo, $vendorDir);
+        $command = new \Nuwber\Plastic\Console\Mapping\Reset($repo, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
         $app->shouldReceive('environment')->andReturn('local');
@@ -25,9 +25,9 @@ class MappingResetCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function it_truncates_the_mappings_table_with_a_given_database()
     {
-        $repo = Mockery::mock('Sleimanx2\Plastic\Mappings\Mappings');
+        $repo = Mockery::mock('Nuwber\Plastic\Mappings\Mappings');
         $vendorDir = __DIR__.'/vendor';
-        $command = new \Sleimanx2\Plastic\Console\Mapping\Reset($repo, $vendorDir);
+        $command = new \Nuwber\Plastic\Console\Mapping\Reset($repo, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
         $app->shouldReceive('environment')->andReturn('local');

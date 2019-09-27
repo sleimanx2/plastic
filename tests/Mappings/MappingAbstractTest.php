@@ -7,7 +7,7 @@ class MappingAbstractTest extends PHPUnit_Framework_TestCase
      */
     public function it_throws_a_missing_argument_exception_if_missing_model()
     {
-        $this->setExpectedException('Sleimanx2\Plastic\Exception\MissingArgumentException');
+        $this->setExpectedException('Nuwber\Plastic\Exception\MissingArgumentException');
         new MappingWithoutModel();
     }
 
@@ -16,7 +16,7 @@ class MappingAbstractTest extends PHPUnit_Framework_TestCase
      */
     public function it_throws_an_invalid_exception_if_the_model_is_not_searchable()
     {
-        $this->setExpectedException('Sleimanx2\Plastic\Exception\InvalidArgumentException');
+        $this->setExpectedException('Nuwber\Plastic\Exception\InvalidArgumentException');
         new MappingWithNotSearchableModel();
     }
 
@@ -30,23 +30,23 @@ class MappingAbstractTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class MappingWithSearchableModel extends \Sleimanx2\Plastic\Mappings\Mapping
+class MappingWithSearchableModel extends \Nuwber\Plastic\Mappings\Mapping
 {
     public $model = 'SearchableModel';
 }
 
-class MappingWithNotSearchableModel extends \Sleimanx2\Plastic\Mappings\Mapping
+class MappingWithNotSearchableModel extends \Nuwber\Plastic\Mappings\Mapping
 {
     public $model = 'NotSearchableModel';
 }
 
-class MappingWithoutModel extends \Sleimanx2\Plastic\Mappings\Mapping
+class MappingWithoutModel extends \Nuwber\Plastic\Mappings\Mapping
 {
 }
 
 class SearchableModel extends \Illuminate\Database\Eloquent\Model
 {
-    use \Sleimanx2\Plastic\Searchable;
+    use \Nuwber\Plastic\Searchable;
 }
 
 class NotSearchableModel extends \Illuminate\Database\Eloquent\Model

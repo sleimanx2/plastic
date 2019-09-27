@@ -254,8 +254,7 @@ class Connection
         }
 
         if (isset($config['logging']) and $config['logging']['enabled'] == true) {
-            $logger = ClientBuilder::defaultLogger($config['logging']['path'], $config['logging']['level']);
-            $client->setLogger($logger);
+            $client->setLogger(app('logger'));
         }
 
         return $client->build();

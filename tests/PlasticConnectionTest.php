@@ -9,7 +9,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf(Sleimanx2\Plastic\Map\Builder::class, $connection->getMapBuilder());
+        $this->assertInstanceOf(Nuwber\Plastic\Map\Builder::class, $connection->getMapBuilder());
     }
 
     /**
@@ -31,7 +31,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf(Sleimanx2\Plastic\Map\Grammar::class, $connection->getMapGrammar());
+        $this->assertInstanceOf(Nuwber\Plastic\Map\Grammar::class, $connection->getMapGrammar());
     }
 
     /**
@@ -218,7 +218,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf('Sleimanx2\Plastic\DSL\SearchBuilder', $connection->search());
+        $this->assertInstanceOf('Nuwber\Plastic\DSL\SearchBuilder', $connection->search());
     }
 
     /**
@@ -228,7 +228,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf('Sleimanx2\Plastic\DSL\SuggestionBuilder', $connection->suggest());
+        $this->assertInstanceOf('Nuwber\Plastic\DSL\SuggestionBuilder', $connection->suggest());
     }
 
     /**
@@ -238,7 +238,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getConnectionMock();
 
-        $this->assertInstanceOf(Sleimanx2\Plastic\Persistence\EloquentPersistence::class, $connection->persist(new TestModel()));
+        $this->assertInstanceOf(Nuwber\Plastic\Persistence\EloquentPersistence::class, $connection->persist(new TestModel()));
     }
 
     /**
@@ -255,7 +255,7 @@ class PlasticConnectionTest extends \PHPUnit_Framework_TestCase
 
         $methods = $methods ? $methods : null;
 
-        $connection = $this->getMock('Sleimanx2\Plastic\Connection', $methods, [$config]);
+        $connection = $this->getMock('Nuwber\Plastic\Connection', $methods, [$config]);
 
         return $connection;
     }

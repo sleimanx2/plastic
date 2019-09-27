@@ -13,14 +13,14 @@
   ],
   "require": {
     "php": ">=7.0",
-    "elasticsearch/elasticsearch": "^7.1",
+    "elasticsearch/elasticsearch": "^7.2",
     "ongr/elasticsearch-dsl": "^6.0",
-    "illuminate/container": "5.8.*",
-    "illuminate/contracts": "5.8.*",
-    "illuminate/console": "5.8.*",
-    "illuminate/pagination": "5.8.*",
-    "illuminate/support": "5.8.*",
-    "illuminate/database": "5.8.*"
+    "illuminate/container": "^6.0",
+    "illuminate/contracts": "^6.0",
+    "illuminate/console": "^6.0",
+    "illuminate/pagination": "^6.0",
+    "illuminate/support": "^6.0",
+    "illuminate/database": "^6.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
@@ -34,7 +34,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Sleimanx2\\Plastic\\Tests\\": "tests/"
+      "Nuwber\\Plastic\\Tests\\": "tests/"
     }
   },
   "config": {

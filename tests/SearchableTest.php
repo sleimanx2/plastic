@@ -73,12 +73,12 @@ class SearchableTest extends \PHPUnit_Framework_TestCase
 
 class SearchableModelTest extends \Illuminate\Database\Eloquent\Model
 {
-    use \Sleimanx2\Plastic\Searchable;
+    use \Nuwber\Plastic\Searchable;
 }
 
 class BuildDocumentSearchableModelTest extends \Illuminate\Database\Eloquent\Model
 {
-    use \Sleimanx2\Plastic\Searchable;
+    use \Nuwber\Plastic\Searchable;
 
     public function buildDocument()
     {

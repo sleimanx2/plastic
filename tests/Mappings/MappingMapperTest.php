@@ -7,11 +7,11 @@ class MappingMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function it_runs_remaining_mappings()
     {
-        $repository = Mockery::mock(Sleimanx2\Plastic\Mappings\Mappings::class);
+        $repository = Mockery::mock(Nuwber\Plastic\Mappings\Mappings::class);
 
         $fileSystem = Mockery::mock(Illuminate\Filesystem\Filesystem::class);
 
-        $mapper = $this->getMock(Sleimanx2\Plastic\Mappings\Mapper::class, ['resolve'], [$repository, $fileSystem]);
+        $mapper = $this->getMock(Nuwber\Plastic\Mappings\Mapper::class, ['resolve'], [$repository, $fileSystem]);
 
         $mapper->getFilesystem()->shouldReceive('glob')->once()->with(__DIR__.'/*_*.php')->andReturn([
             __DIR__.'/2_bar.php',
