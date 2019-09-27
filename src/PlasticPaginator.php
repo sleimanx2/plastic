@@ -21,7 +21,7 @@ class PlasticPaginator extends LengthAwarePaginator
     public function __construct(PlasticResult $result, $limit, $page)
     {
         $this->result = $result;
-
+dd($result->hits(), $result->totalHits(), $limit, $page);
         parent::__construct($result->hits(), $result->totalHits(), $limit, $page,
             ['path' => LengthAwarePaginator::resolveCurrentPath()]);
 

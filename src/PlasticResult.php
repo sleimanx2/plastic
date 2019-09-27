@@ -68,7 +68,7 @@ class PlasticResult
 
         $this->hits = new Collection($results['hits']['hits']);
 
-        $this->totalHits = $results['hits']['total'];
+        $this->totalHits = $results['hits']['total']['value'];
 
         $this->maxScore = $results['hits']['max_score'];
 
