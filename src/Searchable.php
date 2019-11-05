@@ -1,15 +1,15 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace Nuwber\Plastic;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Sleimanx2\Plastic\Facades\Plastic;
-use Sleimanx2\Plastic\Persistence\EloquentPersistence;
+use Nuwber\Plastic\Facades\Plastic;
+use Nuwber\Plastic\Persistence\EloquentPersistence;
 
 /**
- * @method static \Sleimanx2\Plastic\DSL\SearchBuilder search()
- * @method static \Sleimanx2\Plastic\DSL\SuggestionBuilder suggest()
+ * @method static \Nuwber\Plastic\DSL\SearchBuilder search()
+ * @method static \Nuwber\Plastic\DSL\SuggestionBuilder suggest()
  */
 trait Searchable
 {

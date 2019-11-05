@@ -1,7 +1,7 @@
 <?php
 
-use Sleimanx2\Plastic\Map\Blueprint;
-use Sleimanx2\Plastic\Mappings\Mapping;
+use Nuwber\Plastic\Map\Blueprint;
+use Nuwber\Plastic\Mappings\Mapping;
 
 class DummyClass extends Mapping
 {

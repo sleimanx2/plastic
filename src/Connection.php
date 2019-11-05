@@ -1,15 +1,15 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace Nuwber\Plastic;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use ONGR\ElasticsearchDSL\Search as DSLQuery;
-use Sleimanx2\Plastic\DSL\SearchBuilder;
-use Sleimanx2\Plastic\DSL\SuggestionBuilder;
-use Sleimanx2\Plastic\Map\Builder as MapBuilder;
-use Sleimanx2\Plastic\Map\Grammar as MapGrammar;
-use Sleimanx2\Plastic\Persistence\EloquentPersistence;
+use Nuwber\Plastic\DSL\SearchBuilder;
+use Nuwber\Plastic\DSL\SuggestionBuilder;
+use Nuwber\Plastic\Map\Builder as MapBuilder;
+use Nuwber\Plastic\Map\Grammar as MapGrammar;
+use Nuwber\Plastic\Persistence\EloquentPersistence;
 
 class Connection
 {
@@ -254,8 +254,7 @@ class Connection
         }
 
         if (isset($config['logging']) and $config['logging']['enabled'] == true) {
-            $logger = ClientBuilder::defaultLogger($config['logging']['path'], $config['logging']['level']);
-            $client->setLogger($logger);
+            $client->setLogger(app('logger'));
         }
 
         return $client->build();

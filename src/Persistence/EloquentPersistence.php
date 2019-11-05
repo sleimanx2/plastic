@@ -1,13 +1,13 @@
 <?php
 
-namespace Sleimanx2\Plastic\Persistence;
+namespace Nuwber\Plastic\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
-use Sleimanx2\Plastic\Exception\MissingArgumentException;
-use Sleimanx2\Plastic\Searchable;
+use Nuwber\Plastic\Connection;
+use Nuwber\Plastic\Exception\InvalidArgumentException;
+use Nuwber\Plastic\Exception\MissingArgumentException;
+use Nuwber\Plastic\Searchable;
 
 class EloquentPersistence
 {

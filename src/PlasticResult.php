@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic;
+namespace Nuwber\Plastic;
 
 use Illuminate\Support\Collection;
 
@@ -68,7 +68,7 @@ class PlasticResult
 
         $this->hits = new Collection($results['hits']['hits']);
 
-        $this->totalHits = $results['hits']['total'];
+        $this->totalHits = $results['hits']['total']['value'];
 
         $this->maxScore = $results['hits']['max_score'];
 

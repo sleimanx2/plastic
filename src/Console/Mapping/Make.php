@@ -1,9 +1,9 @@
 <?php
 
-namespace Sleimanx2\Plastic\Console\Mapping;
+namespace Nuwber\Plastic\Console\Mapping;
 
 use Illuminate\Support\Composer;
-use Sleimanx2\Plastic\Mappings\Creator;
+use Nuwber\Plastic\Mappings\Creator;
 
 class Make extends BaseCommand
 {

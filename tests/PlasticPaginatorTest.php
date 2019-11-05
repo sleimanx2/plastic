@@ -20,8 +20,8 @@ class PlasticPaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function it_has_access_to_the_given_result()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
-        $paginator = new \Sleimanx2\Plastic\PlasticPaginator($result, 1, 1);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
+        $paginator = new \Nuwber\Plastic\PlasticPaginator($result, 1, 1);
         $this->assertEquals($result, $paginator->result());
     }
 }

@@ -13,12 +13,12 @@ class MapBlueprintTest extends PHPUnit_Framework_TestCase
             'body'  => ['posts' => ['_source' => ['enabled' => true], 'properties' => ['foo' => 'bar']]],
         ];
 
-        $connection = Mockery::mock(Sleimanx2\Plastic\Connection::class);
+        $connection = Mockery::mock(Nuwber\Plastic\Connection::class);
         $connection->shouldReceive('mapStatement')->withArgs([$assertion])->once()->andReturn('ok');
-        $grammar = Mockery::mock(Sleimanx2\Plastic\Map\Grammar::class);
+        $grammar = Mockery::mock(Nuwber\Plastic\Map\Grammar::class);
         $grammar->shouldReceive('compileCreate')->once()->andReturn(['foo' => 'bar']);
 
-        $blueprint = new \Sleimanx2\Plastic\Map\Blueprint('posts');
+        $blueprint = new \Nuwber\Plastic\Map\Blueprint('posts');
         $blueprint->create();
         $blueprint->build($connection, $grammar);
     }
@@ -28,7 +28,7 @@ class MapBlueprintTest extends PHPUnit_Framework_TestCase
      */
     public function it_adds_fields_with_attribute_to_the_fields_property()
     {
-        $blueprint = new \Sleimanx2\Plastic\Map\Blueprint('posts');
+        $blueprint = new \Nuwber\Plastic\Map\Blueprint('posts');
 
         $blueprint->addField('foo', 'bar', ['baz' => 'qux']);
         $blueprint->point('coordinate', ['foo' => 'bar']);

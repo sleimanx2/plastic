@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\Exception;
+namespace Nuwber\Plastic\Exception;
 
 class MissingArgumentException extends \InvalidArgumentException
 {

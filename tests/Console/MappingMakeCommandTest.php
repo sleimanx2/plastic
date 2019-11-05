@@ -7,10 +7,10 @@ class MappingMakeCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function it_makes_a_mapping_file_and_dumps_autoload()
     {
-        $creator = Mockery::mock('Sleimanx2\Plastic\Mappings\Creator');
+        $creator = Mockery::mock('Nuwber\Plastic\Mappings\Creator');
         $composer = Mockery::mock('Illuminate\Support\Composer');
         $vendorDir = __DIR__.'/vendor';
-        $command = new \Sleimanx2\Plastic\Console\Mapping\Make($creator, $composer, $vendorDir);
+        $command = new \Nuwber\Plastic\Console\Mapping\Make($creator, $composer, $vendorDir);
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
         $app->shouldReceive('databasePath')->andReturn(__DIR__);
         $command->setLaravel($app);

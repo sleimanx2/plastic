@@ -1,11 +1,11 @@
 <?php
 
-namespace Sleimanx2\Plastic\Mappings;
+namespace Nuwber\Plastic\Mappings;
 
 use Illuminate\Database\Eloquent\Model;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
-use Sleimanx2\Plastic\Exception\MissingArgumentException;
-use Sleimanx2\Plastic\Searchable;
+use Nuwber\Plastic\Exception\InvalidArgumentException;
+use Nuwber\Plastic\Exception\MissingArgumentException;
+use Nuwber\Plastic\Searchable;
 
 abstract class Mapping
 {

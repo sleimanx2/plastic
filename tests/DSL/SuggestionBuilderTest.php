@@ -59,9 +59,9 @@ class SuggestionBuilderTest extends PHPUnit_Framework_TestCase
 
     private function getBuilder()
     {
-        $connection = Mockery::mock('Sleimanx2\Plastic\Connection');
+        $connection = Mockery::mock('Nuwber\Plastic\Connection');
         $query = new \ONGR\ElasticsearchDSL\Search();
 
-        return Mockery::mock('Sleimanx2\Plastic\DSL\SuggestionBuilder', [$connection, $query])->makePartial();
+        return Mockery::mock('Nuwber\Plastic\DSL\SuggestionBuilder', [$connection, $query])->makePartial();
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Sleimanx2\Plastic\Console\Index;
+namespace Nuwber\Plastic\Console\Index;
 
 use Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Sleimanx2\Plastic\Facades\Plastic;
+use Nuwber\Plastic\Facades\Plastic;
 
 class Populate extends Command
 {

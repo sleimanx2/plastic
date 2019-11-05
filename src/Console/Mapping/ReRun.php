@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\Console\Mapping;
+namespace Nuwber\Plastic\Console\Mapping;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;

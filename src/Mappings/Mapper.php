@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\Mappings;
+namespace Nuwber\Plastic\Mappings;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;

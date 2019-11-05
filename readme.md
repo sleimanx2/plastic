@@ -17,7 +17,7 @@ composer require sleimanx2/plastic
 If you are using **Laravel >=5.5** the service provider will be **automatically discovered** otherwise we need to add the plastic service provider to `config/app.php` under the providers key:
 
 ```php
-Sleimanx2\Plastic\PlasticServiceProvider::class
+Nuwber\Plastic\PlasticServiceProvider::class
 ```
 
 Finally we need to run:
@@ -41,10 +41,10 @@ This will create a config file at `config/plastic.php` and a mapping directory a
 
 ## [Defining Searchable Models]()
 
-To get started, enable searching capabilities in your model by adding the `Sleimanx2\Plastic\Searchable` trait:
+To get started, enable searching capabilities in your model by adding the `Nuwber\Plastic\Searchable` trait:
 
 ```php
-use Sleimanx2\Plastic\Searchable;
+use Nuwber\Plastic\Searchable;
 
 class Book extends Model
 {
@@ -259,8 +259,8 @@ A mapping class contains a single method `map`. The map method is used to map th
 Within the `map` method you may use the Plastic Map builder to expressively create field maps. For example, let's look at a sample mapping that creates a Tag model map:
 
 ```php
-use Sleimanx2\Plastic\Map\Blueprint;
-use Sleimanx2\Plastic\Mappings\Mapping;
+use Nuwber\Plastic\Map\Blueprint;
+use Nuwber\Plastic\Mappings\Mapping;
 
 class AppTag extends Mapping
 {

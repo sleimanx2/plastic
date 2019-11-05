@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\DSL;
+namespace Nuwber\Plastic\DSL;
 
 use ONGR\ElasticsearchDSL\Query\Compound\FunctionScoreQuery;
 

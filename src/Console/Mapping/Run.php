@@ -1,9 +1,9 @@
 <?php
 
-namespace Sleimanx2\Plastic\Console\Mapping;
+namespace Nuwber\Plastic\Console\Mapping;
 
 use Illuminate\Console\ConfirmableTrait;
-use Sleimanx2\Plastic\Mappings\Mapper;
+use Nuwber\Plastic\Mappings\Mapper;
 
 class Run extends BaseCommand
 {

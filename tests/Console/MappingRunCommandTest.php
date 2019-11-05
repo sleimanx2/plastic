@@ -7,9 +7,9 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function it_runs_mappings()
     {
-        $mapper = Mockery::mock('Sleimanx2\Plastic\Mappings\Mapper');
+        $mapper = Mockery::mock('Nuwber\Plastic\Mappings\Mapper');
         $vendorDir = __DIR__.'/vendor';
-        $command = new \Sleimanx2\Plastic\Console\Mapping\Run($mapper, $vendorDir);
+        $command = new \Nuwber\Plastic\Console\Mapping\Run($mapper, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
         $app->shouldReceive('databasePath')->andReturn(__DIR__);
@@ -29,9 +29,9 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function it_runs_mappings_in_steps()
     {
-        $mapper = Mockery::mock('Sleimanx2\Plastic\Mappings\Mapper');
+        $mapper = Mockery::mock('Nuwber\Plastic\Mappings\Mapper');
         $vendorDir = __DIR__.'/vendor';
-        $command = new \Sleimanx2\Plastic\Console\Mapping\Run($mapper, $vendorDir);
+        $command = new \Nuwber\Plastic\Console\Mapping\Run($mapper, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
         $app->shouldReceive('databasePath')->andReturn(__DIR__);
@@ -51,9 +51,9 @@ class MappingRunCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function it_runs_mappings_with_a_given_database()
     {
-        $mapper = Mockery::mock('Sleimanx2\Plastic\Mappings\Mapper');
+        $mapper = Mockery::mock('Nuwber\Plastic\Mappings\Mapper');
         $vendorDir = __DIR__.'/vendor';
-        $command = new \Sleimanx2\Plastic\Console\Mapping\Run($mapper, $vendorDir);
+        $command = new \Nuwber\Plastic\Console\Mapping\Run($mapper, $vendorDir);
 
         $app = Mockery::mock(new Illuminate\Container\Container())->makePartial();
         $app->shouldReceive('databasePath')->andReturn(__DIR__);

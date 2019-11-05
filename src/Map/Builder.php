@@ -1,10 +1,10 @@
 <?php
 
-namespace Sleimanx2\Plastic\Map;
+namespace Nuwber\Plastic\Map;
 
 use Closure;
-use Sleimanx2\Plastic\Connection;
-use Sleimanx2\Plastic\Exception\InvalidArgumentException;
+use Nuwber\Plastic\Connection;
+use Nuwber\Plastic\Exception\InvalidArgumentException;
 
 class Builder
 {

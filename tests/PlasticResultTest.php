@@ -20,7 +20,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_number_of_total_hits()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(2, $result->totalHits());
     }
 
@@ -29,7 +29,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_maxScore()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(3, $result->maxScore());
     }
 
@@ -38,7 +38,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_hits()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(['foo', 'bar'], $result->hits()->all());
     }
 
@@ -47,7 +47,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_query_time_to_execute()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(0.2, $result->took());
     }
 
@@ -56,7 +56,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_if_the_query_timed_out()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(false, $result->timedOut());
     }
 
@@ -65,7 +65,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_query_aggregations()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(['aggregations'], $result->aggregations());
     }
 
@@ -74,7 +74,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_query_shards()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $this->assertEquals(2, $result->shards());
     }
 
@@ -83,7 +83,7 @@ class PlasticResultTest extends \PHPUnit_Framework_TestCase
      */
     public function it_sets_if_the_query_hits()
     {
-        $result = new \Sleimanx2\Plastic\PlasticResult($this->elasticResult);
+        $result = new \Nuwber\Plastic\PlasticResult($this->elasticResult);
         $result->setHits(['baz']);
         $this->assertEquals(['baz'], $result->hits());
     }

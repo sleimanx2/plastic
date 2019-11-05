@@ -1,6 +1,6 @@
 <?php
 
-namespace Sleimanx2\Plastic\Mappings;
+namespace Nuwber\Plastic\Mappings;
 
 use Closure;
 use Illuminate\Filesystem\Filesystem;
