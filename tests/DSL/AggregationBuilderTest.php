@@ -1,6 +1,5 @@
 <?php
 
-
 class AggregationBuilderTest extends PHPUnit_Framework_TestCase
 {
     /**
