@@ -668,7 +668,7 @@ class SearchBuilder
      *
      * @return $this
      */
-    public function nested($field, \Closure $closure, $score_mode = 'avg')
+    public function nested($field, \Closure $closure, $score_mode = 'avg', $inner_hits = [])
     {
         $builder = new self($this->connection, new $this->query());
 
@@ -676,7 +676,7 @@ class SearchBuilder
 
         $nestedQuery = $builder->query->getQueries();
 
-        $query = new NestedQuery($field, $nestedQuery, ['score_mode' => $score_mode]);
+        $query = new NestedQuery($field, $nestedQuery, ['score_mode' => $score_mode, 'inner_hits' => $inner_hits]);
 
         $this->append($query);
 
