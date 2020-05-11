@@ -684,6 +684,22 @@ class SearchBuilder
     }
 
     /**
+     * Set a search_after query.
+     *
+     * @param $value
+     *
+     * @return $this
+     */
+    public function searchAfter($value)
+    {
+        $values = is_array($value) ? $value : func_get_args();
+        $this->query->setFrom(-1);
+        $this->query->setSearchAfter($values);
+
+        return $this;
+    }
+
+    /**
      * Add aggregation.
      *
      * @param \Closure $closure
