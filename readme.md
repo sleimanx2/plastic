@@ -35,6 +35,7 @@ This will create a config file at `config/plastic.php` and a mapping directory a
 - [Searching](#searching)
 - [Aggregation](#aggregation)
 - [Suggestions](#suggestions)
+- [Highlighting](#highlighting)
 - [Mappings](#mappings)
 - [Populate An Index](#populate-an-index)
 - [Access The Client](#access-client)
@@ -238,6 +239,23 @@ The suggestions query builder can also be accessed directly from the model as we
 ```php
 //this be handy if you have a custom index for your model
 Tag::suggest()->term('tag_term','admin')->get();
+```
+
+## [Highlighting]()
+
+```php
+$highlight = new Highlight();
+$highlight->setTags(['<mark>'], ['</mark>']);
+$highlight->addField('title', ['matched_fields' => ['title']]);
+$highlight->addField('content', ['matched_fields' => ['content']]);
+
+$highlight->setParameters([
+    'require_field_match' => false,
+    'force_source' => true,
+]);
+
+
+$search->query->addHighlight($highlight);
 ```
 
 ## [Model Mapping]()
