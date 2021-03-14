@@ -195,8 +195,10 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
             $blueprint->string('name');
         });
         $statement = $blueprint->toDSL($this->getGrammar());
-        $this->assertEquals(['tags' => ['type' => 'nested', 'properties' => ['name' => ['type' => 'string']]]],
-            $statement);
+        $this->assertEquals(
+            ['tags' => ['type' => 'nested', 'properties' => ['name' => ['type' => 'string']]]],
+            $statement
+        );
     }
 
     /**
@@ -210,8 +212,10 @@ class MapGrammarTest extends \PHPUnit_Framework_TestCase
             $blueprint->string('name');
         });
         $statement = $blueprint->toDSL($this->getGrammar());
-        $this->assertEquals(['tags' => ['properties' => ['name' => ['type' => 'string']]]],
-            $statement);
+        $this->assertEquals(
+            ['tags' => ['properties' => ['name' => ['type' => 'string']]]],
+            $statement
+        );
     }
 
     protected function getGrammar()

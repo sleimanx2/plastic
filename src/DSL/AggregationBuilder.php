@@ -167,8 +167,17 @@ class AggregationBuilder
         $extendedBoundsMax = null,
         $keyed = null
     ) {
-        $aggregation = new HistogramAggregation($alias, $field, $interval, $minDocCount, $orderMode, $orderDirection,
-            $extendedBoundsMin, $extendedBoundsMax, $keyed);
+        $aggregation = new HistogramAggregation(
+            $alias,
+            $field,
+            $interval,
+            $minDocCount,
+            $orderMode,
+            $orderDirection,
+            $extendedBoundsMin,
+            $extendedBoundsMax,
+            $keyed
+        );
 
         $this->append($aggregation);
     }

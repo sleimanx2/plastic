@@ -166,8 +166,10 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     {
         $builder = $this->getBuilder();
         $builder->wildcard('name', 'foo');
-        $this->assertEquals(['query' => ['wildcard' => ['name' => ['value' => 'foo', 'boost' => '1.0']]]],
-            $builder->toDSL());
+        $this->assertEquals(
+            ['query' => ['wildcard' => ['name' => ['value' => 'foo', 'boost' => '1.0']]]],
+            $builder->toDSL()
+        );
     }
 
     /**
@@ -197,8 +199,10 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
     {
         $builder = $this->getBuilder();
         $builder->multiMatch(['name', 'bio'], 'foo');
-        $this->assertEquals(['query' => ['multi_match' => ['fields' => ['name', 'bio'], 'query' => 'foo']]],
-            $builder->toDSL());
+        $this->assertEquals(
+            ['query' => ['multi_match' => ['fields' => ['name', 'bio'], 'query' => 'foo']]],
+            $builder->toDSL()
+        );
     }
 
     /**
