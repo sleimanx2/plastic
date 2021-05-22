@@ -15,7 +15,7 @@ return [
     /*
      * Connection settings
      */
-    'connection'     => [
+    'connection' => [
 
         /*
         |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
         | If no hosts are specified, the client will attempt to connect to localhost:9200.
         |
         */
-        'hosts'   => [
+        'hosts' => [
             env('PLASTIC_HOST', '127.0.0.1:9200'),
         ],
 
@@ -67,7 +67,7 @@ return [
     | The sql table to store the mappings logs
     |
     */
-    'mappings'       => env('PLASTIC_MAPPINGS', 'mappings'),
+    'mappings' => env('PLASTIC_MAPPINGS', 'mappings'),
 
     /*
     |------------------------------------------------------------------

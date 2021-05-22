@@ -7,10 +7,6 @@ use Illuminate\Support\Collection;
 use Sleimanx2\Plastic\Facades\Plastic;
 use Sleimanx2\Plastic\Persistence\EloquentPersistence;
 
-/**
- * @method static \Sleimanx2\Plastic\DSL\SearchBuilder search()
- * @method static \Sleimanx2\Plastic\DSL\SuggestionBuilder suggest()
- */
 trait Searchable
 {
     /**
@@ -167,6 +163,26 @@ trait Searchable
     }
 
     /**
+     * Start an elastic dsl search query builder.
+     *
+     * @return \Sleimanx2\Plastic\DSL\SearchBuilder
+     */
+    public static function search()
+    {
+        return Plastic::search()->model(new static());
+    }
+
+    /**
+     * Start an elastic dsl suggest query builder.
+     *
+     * @return \Sleimanx2\Plastic\DSL\SuggestionBuilder
+     */
+    public static function suggest()
+    {
+        return Plastic::suggest()->index((new static())->getDocumentIndex());
+    }
+
+    /**
      * Handle dynamic method calls into the model.
      *
      * @param string $method
@@ -177,12 +193,12 @@ trait Searchable
     public function __call($method, $parameters)
     {
         if ($method == 'search') {
-            //Start an elastic dsl search query builder
+            // Start an elastic dsl search query builder
             return Plastic::search()->model($this);
         }
 
         if ($method == 'suggest') {
-            //Start an elastic dsl suggest query builder
+            // Start an elastic dsl suggest query builder
             return Plastic::suggest()->index($this->getDocumentIndex());
         }
 
