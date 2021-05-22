@@ -167,25 +167,22 @@ trait Searchable
     }
 
     /**
-     * Handle dynamic method calls into the model.
-     *
-     * @param string $method
-     * @param array  $parameters
+     * Start an elastic dsl search query builder.
      *
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public static function search()
     {
-        if ($method == 'search') {
-            //Start an elastic dsl search query builder
-            return Plastic::search()->model($this);
-        }
+        return Plastic::search()->model(new static());
+    }
 
-        if ($method == 'suggest') {
-            //Start an elastic dsl suggest query builder
-            return Plastic::suggest()->index($this->getDocumentIndex());
-        }
-
-        return parent::__call($method, $parameters);
+    /**
+     * Start an elastic dsl suggest query builder.
+     *
+     * @return mixed
+     */
+    public static function suggest()
+    {
+        return Plastic::suggest()->index((new static())->getDocumentIndex());
     }
 }
