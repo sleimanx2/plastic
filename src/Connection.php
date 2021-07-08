@@ -252,6 +252,10 @@ class Connection
         if (isset($config['retries'])) {
             $client->setRetries($config['retries']);
         }
+        
+        if (isset($config['params'])) {
+            $client->setConnectionParams($config['params']);
+        }
 
         if (isset($config['logging']) and $config['logging']['enabled'] == true) {
             $logger = ClientBuilder::defaultLogger($config['logging']['path'], $config['logging']['level']);
