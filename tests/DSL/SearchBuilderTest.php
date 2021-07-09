@@ -302,6 +302,7 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
                             'type'        => 'point',
                             'coordinates' => [3.3, 33.3],
                         ],
+                        'relation' => 'intersects',
                     ],
                 ],
             ],
@@ -591,6 +592,34 @@ class SearchBuilderTest extends PHPUnit_Framework_TestCase
         ])->andReturn($return);
 
         $this->assertInstanceOf(PlasticResult::class, $builder->get());
+    }
+
+    /**
+     * @test
+     */
+    public function it_executes_the_count_and_returns_count_as_int()
+    {
+        $builder = $this->getBuilder();
+        $connection = $builder->getConnection();
+        $builder->model(new SearchableModelBuilder());
+        $return = [
+            'count'      => 200,
+            '_shards'    => [
+                'total'      => 500,
+                'successful' => 500,
+                'skipped'    => 0,
+                'failed'     => 0,
+            ],
+        ];
+
+        $connection->shouldReceive('countStatement')->with([
+            'index' => 'model_index',
+            'type'  => 'searchable_model_builders',
+            'body'  => [],
+        ])->andReturn($return);
+
+        $this->assertEquals(200, $builder->count());
+        $this->assertInternalType('int', $builder->count());
     }
 
     /**

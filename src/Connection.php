@@ -172,6 +172,18 @@ class Connection
     }
 
     /**
+     * Execute a count statement on index;.
+     *
+     * @param array $search
+     *
+     * @return array
+     */
+    public function countStatement(array $search)
+    {
+        return $this->elastic->count($this->setStatementIndex($search));
+    }
+
+    /**
      * Execute a update statement on index;.
      *
      * @param $params

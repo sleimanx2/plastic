@@ -491,16 +491,17 @@ class SearchBuilder
      *
      * @param string $field
      * @param $type
-     * @param array $coordinates
-     * @param array $attributes
+     * @param array  $coordinates
+     * @param array  $attributes
+     * @param string $relation
      *
      * @return $this
      */
-    public function geoShape($field, $type, array $coordinates = [], array $attributes = [])
+    public function geoShape($field, $type, array $coordinates = [], array $attributes = [], $relation = GeoShapeQuery::INTERSECTS)
     {
         $query = new GeoShapeQuery();
 
-        $query->addShape($field, $type, $coordinates, $attributes);
+        $query->addShape($field, $type, $coordinates, $relation, $attributes);
 
         $this->append($query);
 
@@ -774,6 +775,22 @@ class SearchBuilder
         }
 
         return $result;
+    }
+
+    /**
+     * Execute the count query against elastic and return count.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $params = [
+            'index' => $this->getIndex(),
+            'type'  => $this->getType(),
+            'body'  => $this->toDSL(),
+        ];
+
+        return (int) $this->connection->countStatement($params)['count'];
     }
 
     /**
